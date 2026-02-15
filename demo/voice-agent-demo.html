@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IDDU Voice Agent Demo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0F2027 0%, #203A43 50%, #2C5364 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .phone-frame {
+      width: 340px;
+      height: 720px;
+      background: #0a0a0f;
+      border-radius: 44px;
+      border: 3px solid rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(78, 133, 247, 0.1);
+    }
+
+    .notch {
+      width: 126px;
+      height: 30px;
+      background: #000;
+      border-radius: 0 0 22px 22px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+
+    .status-bar {
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding: 0 28px 4px;
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .screen {
+      height: calc(100% - 50px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .phase {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+
+    .phase.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ========================================= */
+    /* PHASE 0: Appointments List                */
+    /* ========================================= */
+    .appt-list-header {
+      padding: 4px 20px 0;
+      color: white;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      padding: 14px 20px 8px;
+    }
+
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .filter-chip.active {
+      background: rgba(78, 133, 247, 0.2);
+      border-color: rgba(78, 133, 247, 0.4);
+      color: #4E85F7;
+    }
+
+    .filter-chip .icon {
+      margin-right: 4px;
+    }
+
+    .appt-list {
+      flex: 1;
+      padding: 0 14px;
+      overflow: hidden;
+    }
+
+    .appt-card-list {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 14px;
+      position: relative;
+    }
+
+    .appt-date-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 42px;
+    }
+
+    .appt-date-month {
+      font-size: 11px;
+      font-weight: 700;
+      color: #ef4444;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .appt-date-day {
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+    }
+
+    .appt-date-time {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 2px;
+    }
+
+    .appt-info {
+      flex: 1;
+    }
+
+    .appt-info-title {
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 2px;
+      line-height: 1.3;
+    }
+
+    .appt-info-location {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 12px;
+    }
+
+    .ai-agent-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      background: rgba(138, 92, 246, 0.2);
+      border: 1px solid rgba(138, 92, 246, 0.35);
+      color: #a78bfa;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ai-agent-badge.highlight {
+      animation: pulse-badge 1s ease-in-out;
+      background: rgba(138, 92, 246, 0.4);
+      border-color: rgba(138, 92, 246, 0.7);
+    }
+
+    .card-icons {
+      position: absolute;
+      bottom: 14px;
+      left: 16px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .card-icon-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .card-icon-btn.health {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .card-icon-btn.nav {
+      background: rgba(78, 133, 247, 0.2);
+    }
+
+    .tab-bar {
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(10, 10, 15, 0.95);
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.35);
+      font-weight: 600;
+    }
+
+    .tab-item.active {
+      color: white;
+    }
+
+    .tab-item .tab-icon {
+      font-size: 18px;
+    }
+
+    .tap-ring {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid rgba(138, 92, 246, 0.6);
+      background: rgba(138, 92, 246, 0.15);
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+
+    .tap-ring.animating {
+      animation: tapEffect 0.6s ease-out forwards;
+    }
+
+    @keyframes tapEffect {
+      0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulse-badge {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    /* ========================================= */
+    /* PHASE 1: Bottom Sheet                     */
+    /* ========================================= */
+    .bottom-sheet-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .bottom-sheet {
+      background: #1a1a24;
+      border-radius: 24px 24px 0 0;
+      padding: 28px 20px 36px;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .bottom-sheet.visible {
+      transform: translateY(0);
+    }
+
+    .sheet-title {
+      color: white;
+      font-size: 19px;
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .sheet-subtitle {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+      text-align: center;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    .sheet-btn {
+      width: 100%;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .btn-call {
+      background: rgba(255, 255, 255, 0.08);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-ai {
+      background: linear-gradient(135deg, #7c3aed, #a855f7, #7c3aed);
+      color: white;
+      box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .btn-ai.tapped {
+      transform: scale(0.97);
+    }
+
+    /* ========================================= */
+    /* PHASE 2: AI Assistant Voice               */
+    /* ========================================= */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .ai-modal {
+      background: #1a1a24;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 30px 24px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.9);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .ai-modal.visible {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 18px;
+    }
+
+    .ai-label {
+      color: #a855f7;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .modal-question {
+      color: white;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 30px;
+    }
+
+    .mic-btn {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 24px;
+      font-size: 32px;
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s;
+    }
+
+    .mic-btn.recording {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      box-shadow: 0 0 40px rgba(239, 68, 68, 0.4);
+      animation: pulse-mic 1.5s ease-in-out infinite;
+    }
+
+    .mic-btn.recording .mic-inner {
+      display: none;
+    }
+
+    .mic-btn.recording .stop-inner {
+      display: flex;
+    }
+
+    .stop-inner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border-radius: 4px;
+    }
+
+    @keyframes pulse-mic {
+
+      0%,
+      100% {
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(239, 68, 68, 0.5);
+      }
+    }
+
+    .modal-hint {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .modal-timer {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .modal-timer.visible {
+      display: block;
+    }
+
+    .user-voice-text {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 12px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .user-voice-text.visible {
+      opacity: 1;
+    }
+
+    /* ========================================= */
+    /* PHASE 3: Call Initiating                  */
+    /* ========================================= */
+    .call-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      padding: 0 20px;
+    }
+
+    .call-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4E85F7, #61D19E);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 36px;
+      position: relative;
+    }
+
+    .call-avatar::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(78, 133, 247, 0.4);
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+
+    .call-name {
+      color: white;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .call-status {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .call-status.preparing {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .call-status.ringing {
+      color: #F2BF26;
+    }
+
+    .call-status.connected {
+      color: #61D19E;
+    }
+
+    .appt-card-mini {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .appt-mini-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .appt-mini-title {
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .badge-sm {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-health {
+      background: rgba(97, 209, 158, 0.15);
+      color: #61D19E;
+    }
+
+    .badge-rescheduled {
+      background: rgba(78, 133, 247, 0.15);
+      color: #4E85F7;
+    }
+
+    .appt-mini-detail {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .appt-mini-detail span {
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    /* ========================================= */
+    /* PHASE 4: Active Call + Transcript         */
+    /* ========================================= */
+    .call-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+    }
+
+    .call-header-title {
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .call-timer {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 13px;
+      font-family: 'SF Mono', 'Courier New', monospace;
+    }
+
+    .waveform {
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      height: 40px;
+      padding: 0 20px;
+      margin: 4px 0;
+    }
+
+    .wave-bar {
+      width: 4px;
+      border-radius: 2px;
+      background: #4E85F7;
+      animation: waveAnim 0.8s ease-in-out infinite;
+    }
+
+    @keyframes waveAnim {
+
+      0%,
+      100% {
+        height: 8px;
+        opacity: 0.35;
+      }
+
+      50% {
+        height: var(--max-h, 28px);
+        opacity: 1;
+      }
+    }
+
+    .transcript-section {
+      flex: 1;
+      overflow: hidden;
+      padding: 0 20px;
+      margin-top: 10px;
+    }
+
+    .transcript-label {
+      color: rgba(255, 255, 255, 0.25);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .transcript-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .msg {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.4s ease;
+    }
+
+    .msg.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .msg-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .msg-icon.agent {
+      background: rgba(78, 133, 247, 0.2);
+    }
+
+    .msg-icon.receptionist {
+      background: rgba(97, 209, 158, 0.2);
+    }
+
+    .msg-text {
+      font-size: 13px;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .msg-text .speaker {
+      font-weight: 700;
+      font-size: 11px;
+      margin-bottom: 1px;
+      display: block;
+    }
+
+    .speaker.agent-name {
+      color: #4E85F7;
+    }
+
+    .speaker.recep-name {
+      color: #61D19E;
+    }
+
+    .end-call-bar {
+      display: flex;
+      justify-content: center;
+      padding: 12px 0 20px;
+    }
+
+    .end-call-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #ef4444;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+    }
+
+    /* ========================================= */
+    /* PHASE 5: Success                          */
+    /* ========================================= */
+    .success-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+    }
+
+    .success-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: rgba(97, 209, 158, 0.12);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 38px;
+      animation: scaleIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .success-title {
+      color: #61D19E;
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    .success-detail {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .new-time-card {
+      background: rgba(78, 133, 247, 0.08);
+      border: 1px solid rgba(78, 133, 247, 0.15);
+      border-radius: 14px;
+      padding: 16px 28px;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    .new-time-label {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 4px;
+    }
+
+    .new-time-value {
+      color: white;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .brand-label {
+      text-align: center;
+      padding: 16px 0 22px;
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+    }
+
+    .brand-label em {
+      color: #4E85F7;
+      font-style: normal;
+    }
+
+    /* ========================================= */
+    /* PHASE 6: Call History / Transcript         */
+    /* ========================================= */
+    .history-container {
+      flex: 1;
+      padding: 0 16px;
+      overflow: hidden;
+    }
+
+    .history-header {
+      text-align: center;
+      padding: 8px 0 4px;
+    }
+
+    .history-handle {
+      width: 40px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      margin: 0 auto 12px;
+    }
+
+    .history-title {
+      color: white;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+
+    .history-subtitle {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .history-disclaimer {
+      color: rgba(97, 209, 158, 0.6);
+      font-size: 10px;
+      font-style: italic;
+    }
+
+    /* Attempt card */
+    .attempt-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin: 12px 0;
+    }
+
+    .attempt-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .attempt-num {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .attempt-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(78, 133, 247, 0.15);
+      border: 1.5px solid rgba(78, 133, 247, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #4E85F7;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .attempt-info {}
+
+    .attempt-label {
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .attempt-date {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 11px;
+    }
+
+    .attempt-status {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #61D19E;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .attempt-result-label {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .attempt-result {
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* Transcript items in history */
+    .hist-transcript-label {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hist-msg {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.35s ease;
+    }
+
+    .hist-msg.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hist-msg-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .hist-msg-icon.recep {
+      background: rgba(97, 209, 158, 0.12);
+      border: 1px solid rgba(97, 209, 158, 0.2);
+    }
+
+    .hist-msg-icon.asst {
+      background: rgba(78, 133, 247, 0.12);
+      border: 1px solid rgba(78, 133, 247, 0.2);
+    }
+
+    .hist-msg-speaker {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .hist-msg-speaker.recep {
+      color: #61D19E;
+    }
+
+    .hist-msg-speaker.asst {
+      color: #4E85F7;
+    }
+
+    .hist-msg-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12.5px;
+      line-height: 1.5;
+    }
+
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1.6);
+        opacity: 0;
+      }
+    }
+
+    @keyframes scaleIn {
+      from {
+        transform: scale(0);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="phone-frame">
+    <div class="notch"></div>
+    <div class="status-bar">
+      <span>9:41</span>
+      <span>📶 🔋</span>
+    </div>
+
+    <div class="screen" id="screen">
+      <!-- ====== PHASE 0: Appointments List ====== -->
+      <div class="phase active" id="phase0">
+        <div class="appt-list-header">Appointments</div>
+        <div class="filter-row">
+          <div class="filter-chip active"><span class="icon">📅</span>All</div>
+          <div class="filter-chip"><span class="icon">⭐</span>Favorite</div>
+          <div class="filter-chip"><span class="icon">❤️</span>Health</div>
+          <div class="filter-chip"><span class="icon">🏢</span>Work</div>
+        </div>
+        <div class="appt-list">
+          <div class="appt-card-list">
+            <div class="appt-date-block">
+              <div class="appt-date-month">FEB</div>
+              <div class="appt-date-day">18</div>
+              <div class="appt-date-time">3:30 PM</div>
+            </div>
+            <div class="appt-info">
+              <div class="appt-info-title">Dr. Patel – Annual Physical</div>
+              <div class="appt-info-location">◉ Patel Family Medicine</div>
+            </div>
+            <div class="card-icons">
+              <div class="card-icon-btn health">🏥</div>
+              <div class="card-icon-btn nav">📍</div>
+            </div>
+            <div class="ai-agent-badge" id="agent-badge-1">🤖 AI Agent</div>
+          </div>
+          <div class="appt-card-list">
+            <div class="appt-date-block">
+              <div class="appt-date-month">FEB</div>
+              <div class="appt-date-day">25</div>
+              <div class="appt-date-time">9:00 AM</div>
+            </div>
+            <div class="appt-info">
+              <div class="appt-info-title">Dental Cleaning</div>
+              <div class="appt-info-location">◉ Johns Creek Dentistry</div>
+            </div>
+            <div class="card-icons">
+              <div class="card-icon-btn health">🏥</div>
+              <div class="card-icon-btn nav">📍</div>
+            </div>
+            <div class="ai-agent-badge">🤖 AI Agent</div>
+          </div>
+          <div class="appt-card-list">
+            <div class="appt-date-block">
+              <div class="appt-date-month">MAR</div>
+              <div class="appt-date-day">3</div>
+              <div class="appt-date-time">10:00 AM</div>
+            </div>
+            <div class="appt-info">
+              <div class="appt-info-title">Eye Exam</div>
+              <div class="appt-info-location">◉ Southeast Vision Center</div>
+            </div>
+            <div class="card-icons">
+              <div class="card-icon-btn health">🏥</div>
+              <div class="card-icon-btn nav">📍</div>
+            </div>
+            <div class="ai-agent-badge">🤖 AI Agent</div>
+          </div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><span class="tab-icon">📅</span>Today</div>
+          <div class="tab-item active"><span class="tab-icon">📋</span>Appointments</div>
+          <div class="tab-item"><span class="tab-icon">🤖</span>AI</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>Account</div>
+        </div>
+        <div class="tap-ring" id="tap-ring"></div>
+      </div>
+
+      <!-- ====== PHASE 1: Bottom Sheet ====== -->
+      <div class="phase" id="phase1">
+        <div class="appt-list-header" style="opacity:0.3">Appointments</div>
+        <div class="filter-row" style="opacity:0.2">
+          <div class="filter-chip active"><span class="icon">📅</span>All</div>
+        </div>
+        <div class="bottom-sheet-overlay">
+          <div class="bottom-sheet" id="bottom-sheet">
+            <div class="sheet-title">How would you like to handle this?</div>
+            <div class="sheet-subtitle">You can speak to the office yourself, or let our<br>AI Agent communicate on your
+              behalf.</div>
+            <div class="sheet-btn btn-call">📞 Call myself</div>
+            <div class="sheet-btn btn-ai" id="btn-ai">🤖 Let AI handle it</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====== PHASE 2: AI Assistant Voice ====== -->
+      <div class="phase" id="phase2">
+        <div style="opacity:0.15; padding: 4px 20px 0;">
+          <div class="appt-list-header">Appointments</div>
+        </div>
+        <div class="modal-overlay">
+          <div class="ai-modal" id="ai-modal">
+            <div class="modal-close">✕</div>
+            <div class="ai-label">✨ AI ASSISTANT</div>
+            <div class="modal-question" id="modal-question">What should I change?</div>
+            <div style="position:relative; display:inline-block;">
+              <div class="mic-btn" id="mic-btn">
+                <span class="mic-inner">🎤</span>
+                <div class="stop-inner"></div>
+              </div>
+            </div>
+            <div class="modal-timer" id="modal-timer">0:01</div>
+            <div class="modal-hint" id="modal-hint">"Move it to next Tuesday" or "Cancel it"</div>
+            <div class="user-voice-text" id="user-voice-text">"Move it to next Tuesday afternoon"</div>
+          </div>
+        </div>
+        <div class="tab-bar" style="opacity:0.3">
+          <div class="tab-item"><span class="tab-icon">📅</span>Today</div>
+          <div class="tab-item active"><span class="tab-icon">📋</span>Appointments</div>
+          <div class="tab-item"><span class="tab-icon">🤖</span>AI</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>Account</div>
+        </div>
+      </div>
+
+      <!-- ====== PHASE 3: Call Initiating ====== -->
+      <div class="phase" id="phase3">
+        <div style="padding: 0 20px; margin-top: 8px;">
+          <div class="appt-card-mini">
+            <div class="appt-mini-header">
+              <span class="appt-mini-title">Dr. Patel – Annual Physical</span>
+              <span class="badge-sm badge-health">Health</span>
+            </div>
+            <div class="appt-mini-detail">
+              📅 <span>Tue, Feb 18 · 3:30 PM</span><br>
+              📍 <span>Patel Family Medicine</span>
+            </div>
+          </div>
+        </div>
+        <div class="call-section">
+          <div class="call-avatar">🤖</div>
+          <div class="call-name">IDDU Agent</div>
+          <div class="call-status preparing" id="call-status">Preparing to call...</div>
+        </div>
+        <div class="brand-label">powered by <em>iddu</em></div>
+      </div>
+
+      <!-- ====== PHASE 4: Active Call + Transcript ====== -->
+      <div class="phase" id="phase4">
+        <div class="call-header-bar">
+          <div>
+            <div class="call-header-title">📞 Patel Family Medicine</div>
+            <div class="call-status connected">Connected</div>
+          </div>
+          <div class="call-timer" id="call-timer-live">0:00</div>
+        </div>
+        <div class="waveform" id="waveform"></div>
+        <div class="transcript-section">
+          <div class="transcript-label">Live Transcript</div>
+          <div class="transcript-messages" id="transcript"></div>
+        </div>
+        <div class="end-call-bar">
+          <div class="end-call-btn">📞</div>
+        </div>
+      </div>
+
+      <!-- ====== PHASE 5: Success ====== -->
+      <div class="phase" id="phase5">
+        <div style="padding: 0 20px; margin-top: 8px;">
+          <div class="appt-card-mini">
+            <div class="appt-mini-header">
+              <span class="appt-mini-title">Dr. Patel – Annual Physical</span>
+              <span class="badge-sm badge-rescheduled">Rescheduled</span>
+            </div>
+            <div class="appt-mini-detail">
+              📅 <span>Thu, Feb 20 · 2:00 PM</span><br>
+              📍 <span>Patel Family Medicine</span><br>
+              ✅ <span style="color:#61D19E">Rescheduled by IDDU</span>
+            </div>
+          </div>
+        </div>
+        <div class="success-section">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Rescheduled!</div>
+          <div class="success-detail">Your appointment has been moved<br>without you picking up the phone.</div>
+          <div class="new-time-card">
+            <div class="new-time-label">New Appointment</div>
+            <div class="new-time-value">Thu, Feb 20 · 2:00 PM</div>
+          </div>
+        </div>
+        <div class="brand-label">powered by <em>iddu</em></div>
+      </div>
+
+      <!-- ====== PHASE 6: AI Call History / Transcript ====== -->
+      <div class="phase" id="phase6">
+        <div class="history-container">
+          <div class="history-header">
+            <div class="history-handle"></div>
+            <div class="history-title">AI Call History</div>
+            <div class="history-subtitle">Tap an attempt to view details & transcript</div>
+            <div class="history-disclaimer">This AI-generated transcript may contain errors</div>
+          </div>
+
+          <div class="attempt-card">
+            <div class="attempt-header">
+              <div class="attempt-num">
+                <div class="attempt-circle">1</div>
+                <div class="attempt-info">
+                  <div class="attempt-label">Attempt 1</div>
+                  <div class="attempt-date">2/20/2026 2:46 PM</div>
+                </div>
+              </div>
+              <div class="attempt-status">✅ Success ▾</div>
+            </div>
+            <div class="attempt-result-label">RESULT</div>
+            <div class="attempt-result">Successfully Rescheduled</div>
+
+            <div class="hist-transcript-label">💬 TRANSCRIPT</div>
+            <div id="hist-transcript">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-bar">
+          <div class="tab-item"><span class="tab-icon">📅</span>Today</div>
+          <div class="tab-item active"><span class="tab-icon">📋</span>Appointments</div>
+          <div class="tab-item"><span class="tab-icon">🤖</span>AI</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>Account</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === WAVEFORM ===
+    const waveformEl = document.getElementById('waveform');
+    for (let i = 0; i < 28; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'wave-bar';
+      bar.style.setProperty('--max-h', `${8 + Math.random() * 24}px`);
+      bar.style.animationDelay = `${Math.random() * 0.8}s`;
+      waveformEl.appendChild(bar);
+    }
+
+    // === CONVERSATION ===
+    const conversation = [
+      { speaker: 'receptionist', name: 'Receptionist', text: "Dr. Patel's office, how can I help you?" },
+      { speaker: 'agent', name: 'IDDU Agent', text: "Hi! I'm calling on behalf of Smith Anderson to reschedule their annual physical on February 18th." },
+      { speaker: 'receptionist', name: 'Receptionist', text: "Sure! We have Thursday Feb 20th at 2 PM — would that work?" },
+      { speaker: 'agent', name: 'IDDU Agent', text: "That's perfect. Please go ahead and reschedule. Thank you!" },
+      { speaker: 'receptionist', name: 'Receptionist', text: "All set! Confirmed for Feb 20th at 2:00 PM. Have a great day!" },
+    ];
+
+    // History transcript (longer, matching the screenshot style)
+    const historyTranscript = [
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "Hello?" },
+      { speaker: 'asst', label: 'ASSISTANT', text: "Hello, I'm Alex, an AI assistant calling on behalf of Smith Anderson to reschedule an appointment. May I please speak with someone who can assist me with that?" },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "Yeah. This is Smith Anderson. I can take care of that. What day and time he's looking for?" },
+      { speaker: 'asst', label: 'ASSISTANT', text: "Hi, thank you for helping out. I'm trying to reschedule Smith's appointment for next Tuesday. Specifically, he'd like to schedule it for 2 PM. Is that a possible time slot?" },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "Yeah. I can do at two PM." },
+    ];
+
+    // === UTILS ===
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    function showPhase(num) {
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+      document.getElementById(`phase${num}`).classList.add('active');
+    }
+
+    function showTap(x, y) {
+      const ring = document.getElementById('tap-ring');
+      ring.style.left = x + 'px';
+      ring.style.top = y + 'px';
+      ring.classList.remove('animating');
+      void ring.offsetWidth;
+      ring.classList.add('animating');
+    }
+
+    function addMessage(msg) {
+      const transcript = document.getElementById('transcript');
+      const div = document.createElement('div');
+      div.className = 'msg';
+      div.innerHTML = `
+      <div class="msg-icon ${msg.speaker}">
+        ${msg.speaker === 'agent' ? '🤖' : '👤'}
+      </div>
+      <div class="msg-text">
+        <span class="speaker ${msg.speaker === 'agent' ? 'agent-name' : 'recep-name'}">${msg.name}</span>
+        ${msg.text}
+      </div>
+    `;
+      transcript.appendChild(div);
+      requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('visible')));
+    }
+
+    function addHistMessage(msg) {
+      const container = document.getElementById('hist-transcript');
+      const div = document.createElement('div');
+      div.className = 'hist-msg';
+      div.innerHTML = `
+      <div class="hist-msg-icon ${msg.speaker}">
+        ${msg.speaker === 'asst' ? '🤖' : '👤'}
+      </div>
+      <div>
+        <div class="hist-msg-speaker ${msg.speaker}">${msg.label}</div>
+        <div class="hist-msg-text">${msg.text}</div>
+      </div>
+    `;
+      container.appendChild(div);
+      requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('visible')));
+    }
+
+    let timerSec = 0;
+    let timerInterval = null;
+
+    function startTimer() {
+      timerSec = 0;
+      timerInterval = setInterval(() => {
+        timerSec++;
+        const m = Math.floor(timerSec / 60);
+        const s = timerSec % 60;
+        document.getElementById('call-timer-live').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    // === MAIN DEMO ===
+    async function runDemo() {
+      // Reset all state
+      document.getElementById('transcript').innerHTML = '';
+      document.getElementById('hist-transcript').innerHTML = '';
+      document.getElementById('bottom-sheet').classList.remove('visible');
+      document.getElementById('ai-modal').classList.remove('visible');
+      document.getElementById('mic-btn').classList.remove('recording');
+      document.getElementById('modal-question').textContent = 'What should I change?';
+      document.getElementById('modal-hint').style.display = '';
+      document.getElementById('modal-timer').classList.remove('visible');
+      document.getElementById('user-voice-text').classList.remove('visible');
+      document.getElementById('btn-ai').classList.remove('tapped');
+      document.getElementById('agent-badge-1').classList.remove('highlight');
+
+      // === PHASE 0: Appointments List ===
+      showPhase(0);
+      await sleep(2000);
+      document.getElementById('agent-badge-1').classList.add('highlight');
+      await sleep(800);
+      const badge = document.getElementById('agent-badge-1');
+      const screenRect = document.getElementById('screen').getBoundingClientRect();
+      const badgeRect = badge.getBoundingClientRect();
+      showTap(badgeRect.left - screenRect.left + badgeRect.width / 2, badgeRect.top - screenRect.top + badgeRect.height / 2);
+      await sleep(600);
+
+      // === PHASE 1: Bottom Sheet ===
+      showPhase(1);
+      await sleep(200);
+      document.getElementById('bottom-sheet').classList.add('visible');
+      await sleep(2000);
+      document.getElementById('btn-ai').classList.add('tapped');
+      await sleep(400);
+
+      // === PHASE 2: AI Voice ===
+      showPhase(2);
+      await sleep(200);
+      document.getElementById('ai-modal').classList.add('visible');
+      await sleep(1800);
+      document.getElementById('mic-btn').classList.add('recording');
+      document.getElementById('modal-question').textContent = "I'm listening...";
+      document.getElementById('modal-hint').style.display = 'none';
+      document.getElementById('modal-timer').classList.add('visible');
+      document.getElementById('modal-timer').textContent = '0:01';
+      await sleep(1000);
+      document.getElementById('modal-timer').textContent = '0:02';
+      document.getElementById('user-voice-text').classList.add('visible');
+      await sleep(1500);
+
+      // === PHASE 3: Call Initiating ===
+      showPhase(3);
+      const statusEl = document.getElementById('call-status');
+      statusEl.textContent = 'Preparing to call...';
+      statusEl.className = 'call-status preparing';
+      await sleep(1200);
+      statusEl.textContent = 'Dialing...';
+      statusEl.className = 'call-status ringing';
+      await sleep(1500);
+      statusEl.textContent = 'Ringing...';
+      await sleep(1500);
+      statusEl.textContent = 'Connected!';
+      statusEl.className = 'call-status connected';
+      await sleep(700);
+
+      // === PHASE 4: Active Call ===
+      showPhase(4);
+      startTimer();
+      for (const msg of conversation) {
+        await sleep(1500);
+        addMessage(msg);
+      }
+      await sleep(1800);
+      clearInterval(timerInterval);
+
+      // === PHASE 5: Success ===
+      showPhase(5);
+      await sleep(3500);
+
+      // === PHASE 6: Call History with Transcript ===
+      showPhase(6);
+      await sleep(600);
+      for (const msg of historyTranscript) {
+        await sleep(800);
+        addHistMessage(msg);
+      }
+      await sleep(4500);
+
+      // Loop
+      runDemo();
+    }
+
+    runDemo();
+  </script>
+
+</body>
+
+</html>

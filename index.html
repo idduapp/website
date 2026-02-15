@@ -2,51 +2,51 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Primary Meta Tags -->
-    <title>Iddu — Your AI That Gets Things Done</title>
-    <meta name="title" content="Iddu — Your AI That Gets Things Done" />
-    <meta name="description"
-        content="Iddu is your real-world AI agent that manages appointments, scans email, understands voice and camera input, and even calls offices to reschedule on your behalf." />
+  <!-- Primary Meta Tags -->
+  <title>Iddu — Your AI That Gets Things Done</title>
+  <meta name="title" content="Iddu — Your AI That Gets Things Done" />
+  <meta name="description"
+    content="Iddu is your real-world AI agent that manages appointments, scans email, understands voice and camera input, and even calls offices to reschedule on your behalf." />
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://iddu.app/" />
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://iddu.app/" />
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta property="og:image" content="https://iddu.app/og-image.png" />
-    <meta name="twitter:image" content="https://iddu.app/og-image.png" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta property="og:image" content="https://iddu.app/og-image.png" />
+  <meta name="twitter:image" content="https://iddu.app/og-image.png" />
 
 
-    <!-- OpenGraph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://iddu.app/" />
-    <meta property="og:title" content="Iddu — Your AI That Gets Things Done" />
-    <meta property="og:description"
-        content="Iddu scans your email, understands natural speech and camera input, and calls offices to reschedule appointments automatically." />
-    <meta property="og:image" content="https://iddu.app/og-image.png" />
+  <!-- OpenGraph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://iddu.app/" />
+  <meta property="og:title" content="Iddu — Your AI That Gets Things Done" />
+  <meta property="og:description"
+    content="Iddu scans your email, understands natural speech and camera input, and calls offices to reschedule appointments automatically." />
+  <meta property="og:image" content="https://iddu.app/og-image.png" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://iddu.app/" />
-    <meta name="twitter:title" content="Iddu — Your AI That Gets Things Done" />
-    <meta name="twitter:description" content="Iddu is your real-world AI agent that manages your life’s logistics." />
-    <meta name="twitter:image" content="https://iddu.app/og-image.png" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://iddu.app/" />
+  <meta name="twitter:title" content="Iddu — Your AI That Gets Things Done" />
+  <meta name="twitter:description" content="Iddu is your real-world AI agent that manages your life’s logistics." />
+  <meta name="twitter:image" content="https://iddu.app/og-image.png" />
 
-    <!-- Theme color (browser UI) -->
-    <meta name="theme-color" content="#0f172a" />
+  <!-- Theme color (browser UI) -->
+  <meta name="theme-color" content="#0f172a" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-    <!-- Web Manifest -->
-    <link rel="manifest" href="/site.webmanifest" />
+  <!-- Web Manifest -->
+  <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -68,13 +68,80 @@
     }
   </script>
 
-    <!-- Vite injects scripts automatically -->
+  <!-- Vite injects scripts automatically -->
   <script type="module" crossorigin src="/assets/index-B8uJuSUD.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-D8ekzTa4.css">
 </head>
 
 <body>
-    <div id="root"></div>
+  <div id="root"></div>
+
+  <!-- Voice Agent Demo: Replace hero phone mockup with animated demo -->
+  <script>
+    (function () {
+      function replaceHeroMockup() {
+        const root = document.getElementById('root');
+        if (!root || !root.children.length) return false;
+
+        // Find the hero phone mockup: it's a div.glass with "My Appointments" text
+        const glassDivs = root.querySelectorAll('.glass');
+        let mockup = null;
+
+        for (const glass of glassDivs) {
+          const text = glass.textContent || '';
+          if (text.includes('My Appointments')) {
+            // Verify it's the phone-sized one (width ~260px), not the outer hero glass
+            const rect = glass.getBoundingClientRect();
+            if (rect.width < 400 && rect.height < 600) {
+              mockup = glass;
+              break;
+            }
+          }
+        }
+
+        if (!mockup) return false;
+
+        // Get the container that holds the mockup (the flex centering wrapper)
+        const mockupContainer = mockup.parentElement;
+
+        // Create the iframe to replace the static mockup
+        const iframe = document.createElement('iframe');
+        iframe.src = '/demo/voice-agent-demo.html';
+        iframe.title = 'IDDU Voice Agent Demo';
+        iframe.loading = 'lazy';
+        iframe.style.cssText = `
+          width: 260px;
+          height: 460px;
+          border: none;
+          border-radius: 32px;
+          overflow: hidden;
+          background: rgba(15, 23, 42, 0.9);
+        `;
+
+        // Replace the static mockup with the animated iframe
+        mockupContainer.replaceChild(iframe, mockup);
+
+        return true;
+      }
+
+      // Wait for React to render
+      const observer = new MutationObserver(function (mutations, obs) {
+        if (replaceHeroMockup()) {
+          obs.disconnect();
+        }
+      });
+
+      observer.observe(document.getElementById('root'), {
+        childList: true,
+        subtree: true
+      });
+
+      // Fallback: try after DOM load
+      window.addEventListener('load', function () {
+        setTimeout(replaceHeroMockup, 500);
+      });
+    })();
+  </script>
 </body>
 
 </html>
