@@ -76,6 +76,96 @@
 <body>
   <div id="root"></div>
 
+  <!-- Hero Highlight Cards: Fill empty space in left column below chips -->
+  <script>
+    (function () {
+      function injectHeroHighlights() {
+        var root = document.getElementById('root');
+        if (!root || !root.children.length) return false;
+
+        // Find chips container
+        var chips = root.querySelectorAll('.chip');
+        if (!chips.length) return false;
+        var chipsContainer = chips[0].parentElement;
+        if (!chipsContainer) return false;
+
+        // Don't inject twice
+        if (chipsContainer.parentElement.querySelector('.hero-highlights')) return true;
+
+        var leftCol = chipsContainer.parentElement;
+
+        // Create highlights container
+        var container = document.createElement('div');
+        container.className = 'hero-highlights';
+        container.style.cssText = 'display:flex;flex-direction:column;gap:0.55rem;margin-top:1.5rem;';
+
+        var highlights = [
+          {
+            icon: '📧',
+            title: 'Smart Email Parsing',
+            desc: 'Forward appointment emails to your personal inbox — iddu extracts dates, times & provider details automatically'
+          },
+          {
+            icon: '🤖',
+            title: 'AI Phone Agent',
+            desc: 'iddu calls the office, speaks to staff, and reschedules your appointments — completely hands-free'
+          },
+          {
+            icon: '📸',
+            title: 'Camera & Voice Input',
+            desc: 'Snap a paper slip or just speak naturally — iddu understands and creates beautiful appointment cards'
+          }
+        ];
+
+        highlights.forEach(function (h, i) {
+          var card = document.createElement('div');
+          card.style.cssText =
+            'display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 1rem;' +
+            'background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);' +
+            'border-radius:12px;opacity:0;animation:heroCardIn 0.5s ease forwards;' +
+            'animation-delay:' + (i * 0.15) + 's;';
+
+          var iconEl = document.createElement('span');
+          iconEl.style.cssText = 'font-size:1.35rem;line-height:1;flex-shrink:0;margin-top:2px;';
+          iconEl.textContent = h.icon;
+
+          var textWrap = document.createElement('div');
+
+          var titleEl = document.createElement('div');
+          titleEl.style.cssText = 'font-weight:600;font-size:0.82rem;color:rgba(255,255,255,0.92);margin-bottom:2px;';
+          titleEl.textContent = h.title;
+
+          var descEl = document.createElement('div');
+          descEl.style.cssText = 'font-size:0.74rem;color:rgba(255,255,255,0.48);line-height:1.35;';
+          descEl.textContent = h.desc;
+
+          textWrap.appendChild(titleEl);
+          textWrap.appendChild(descEl);
+          card.appendChild(iconEl);
+          card.appendChild(textWrap);
+          container.appendChild(card);
+        });
+
+        // Inject keyframes
+        if (!document.getElementById('hero-card-anim')) {
+          var style = document.createElement('style');
+          style.id = 'hero-card-anim';
+          style.textContent = '@keyframes heroCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}';
+          document.head.appendChild(style);
+        }
+
+        leftCol.appendChild(container);
+        return true;
+      }
+
+      var obs = new MutationObserver(function (m, o) {
+        if (injectHeroHighlights()) o.disconnect();
+      });
+      obs.observe(document.getElementById('root'), { childList: true, subtree: true });
+      window.addEventListener('load', function () { setTimeout(injectHeroHighlights, 600); });
+    })();
+  </script>
+
   <!-- Voice Agent Demo: Replace hero phone mockup with animated demo -->
   <script>
     (function () {
