@@ -76,6 +76,234 @@
 <body>
   <div id="root"></div>
 
+  <!-- Branded Header Override: Replace dull React header with stunning branded section -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    .iddu-branded-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      padding: 0;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+      background: linear-gradient(135deg, rgba(2, 6, 23, 0.97), rgba(15, 23, 42, 0.95));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      overflow: hidden;
+    }
+
+    .iddu-branded-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse 600px 200px at 10% 50%, rgba(56, 189, 248, 0.08), transparent),
+        radial-gradient(ellipse 600px 200px at 90% 50%, rgba(168, 85, 247, 0.08), transparent);
+      pointer-events: none;
+    }
+
+    .iddu-branded-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(56, 189, 248, 0.4) 20%,
+          rgba(168, 85, 247, 0.6) 50%,
+          rgba(56, 189, 248, 0.4) 80%,
+          transparent);
+      animation: headerShimmer 4s ease-in-out infinite;
+    }
+
+    @keyframes headerShimmer {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    .iddu-header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.2rem;
+      position: relative;
+      z-index: 1;
+      gap: 1.5rem;
+    }
+
+    .iddu-brand-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .iddu-logo-wrap {
+      position: relative;
+    }
+
+    .iddu-logo-wrap img {
+      height: 42px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
+    }
+
+    .iddu-pronunciation {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .iddu-phonetic {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #38bdf8, #a855f7, #ec4899);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .iddu-meaning {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.55);
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    .iddu-meaning em {
+      font-style: italic;
+      color: rgba(168, 133, 247, 0.85);
+    }
+
+    .iddu-value-prop {
+      flex: 1;
+      max-width: 520px;
+      text-align: right;
+    }
+
+    .iddu-tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.5;
+      letter-spacing: -0.01em;
+    }
+
+    .iddu-tagline .highlight {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(168, 85, 247, 0.15));
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      padding: 1px 8px;
+      border-radius: 6px;
+      color: #c4b5fd;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 640px) {
+      .iddu-header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+        padding: 0.8rem 1rem;
+      }
+
+      .iddu-value-prop {
+        text-align: left;
+        max-width: 100%;
+      }
+
+      .iddu-tagline {
+        font-size: 0.78rem;
+      }
+
+      .iddu-phonetic {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+
+  <script>
+    (function () {
+      function replaceHeader() {
+        var root = document.getElementById('root');
+        if (!root || !root.children.length) return false;
+
+        // Find the React header element
+        var header = root.querySelector('header');
+        if (!header) return false;
+
+        // Don't inject twice
+        if (document.querySelector('.iddu-branded-header')) return true;
+
+        // Create the new branded header
+        var newHeader = document.createElement('div');
+        newHeader.className = 'iddu-branded-header';
+        newHeader.innerHTML = `
+          <div class="iddu-header-inner">
+            <div class="iddu-brand-left">
+              <div class="iddu-logo-wrap">
+                <img src="/images/iddu-logo.png" alt="iddu logo" />
+              </div>
+              <div class="iddu-pronunciation">
+                <span class="iddu-phonetic">/aɪ duː/ — "I do"</span>
+                <span class="iddu-meaning"><em>I do it for you.</em></span>
+              </div>
+            </div>
+            <div class="iddu-value-prop">
+              <div class="iddu-tagline">
+                Your AI-powered life manager that <span class="highlight">calls offices</span>,
+                <span class="highlight">reschedules appointments</span>, and handles the busywork — so you don't have to.
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Replace the React header
+        header.style.display = 'none';
+        header.parentElement.insertBefore(newHeader, header);
+
+        return true;
+      }
+
+      var obs = new MutationObserver(function (m, o) {
+        if (replaceHeader()) o.disconnect();
+      });
+      obs.observe(document.getElementById('root'), { childList: true, subtree: true });
+      window.addEventListener('load', function () { setTimeout(replaceHeader, 400); });
+    })();
+  </script>
+
   <!-- Hero Highlight Cards: Fill empty space in left column below chips -->
   <script>
     (function () {
