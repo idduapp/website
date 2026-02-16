@@ -510,61 +510,193 @@
     }
 
     /* ========================================= */
-    /* PHASE 3: Call Initiating                  */
+    /* PHASE 3: Request Queued                   */
     /* ========================================= */
-    .call-section {
+    .queued-section {
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       gap: 14px;
-      padding: 0 20px;
+      padding: 16px 20px;
+      overflow: hidden;
     }
 
-    .call-avatar {
-      width: 90px;
-      height: 90px;
+    .queued-icon-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2px;
+    }
+
+    .queued-icon {
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #4E85F7, #61D19E);
+      background: rgba(97, 209, 158, 0.12);
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 36px;
-      position: relative;
+      font-size: 22px;
     }
 
-    .call-avatar::after {
-      content: '';
-      position: absolute;
-      width: 100%;
+    .queued-title {
+      color: #61D19E;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .queued-subtitle {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .cancel-window {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .cancel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .cancel-label {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .cancel-timer {
+      color: #F2BF26;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'SF Mono', 'Courier New', monospace;
+    }
+
+    .cancel-bar-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .cancel-bar-fill {
       height: 100%;
-      border-radius: 50%;
-      border: 2px solid rgba(78, 133, 247, 0.4);
-      animation: pulse-ring 1.5s ease-out infinite;
+      background: linear-gradient(90deg, #F2BF26, #f59e0b);
+      border-radius: 2px;
+      width: 100%;
+      transition: width 0.3s ease;
     }
 
-    .call-name {
+    .cancel-btn {
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #ef4444;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hours-check {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.4s ease;
+    }
+
+    .hours-check.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hours-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+    }
+
+    .hours-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .hours-text {
+      flex: 1;
+    }
+
+    .hours-label {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .hours-value {
       color: white;
-      font-size: 20px;
+      font-size: 13px;
       font-weight: 700;
     }
 
-    .call-status {
-      font-size: 14px;
-      font-weight: 500;
+    .hours-status {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
     }
 
-    .call-status.preparing {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .call-status.ringing {
-      color: #F2BF26;
-    }
-
-    .call-status.connected {
+    .hours-status.open {
+      background: rgba(97, 209, 158, 0.15);
       color: #61D19E;
+    }
+
+    .schedule-confirm {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: rgba(78, 133, 247, 0.08);
+      border: 1px solid rgba(78, 133, 247, 0.15);
+      border-radius: 12px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.4s ease;
+    }
+
+    .schedule-confirm.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .schedule-confirm-icon {
+      font-size: 18px;
+    }
+
+    .schedule-confirm-text {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .schedule-confirm-text strong {
+      color: white;
     }
 
     .appt-card-mini {
@@ -608,6 +740,24 @@
       color: #4E85F7;
     }
 
+    .badge-processing {
+      background: rgba(138, 92, 246, 0.2);
+      color: #a78bfa;
+      animation: pulse-processing 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse-processing {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+    }
+
     .appt-mini-detail {
       color: rgba(255, 255, 255, 0.4);
       font-size: 12px;
@@ -619,154 +769,434 @@
     }
 
     /* ========================================= */
-    /* PHASE 4: Active Call + Transcript         */
+    /* PHASE 4: Background Processing + Notif    */
     /* ========================================= */
-    .call-header-bar {
+    .bg-processing-status {
+      padding: 14px 20px 8px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 12px 20px;
-    }
-
-    .call-header-title {
-      color: white;
-      font-weight: 700;
-      font-size: 15px;
-    }
-
-    .call-timer {
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 13px;
-      font-family: 'SF Mono', 'Courier New', monospace;
-    }
-
-    .waveform {
-      display: flex;
-      gap: 3px;
-      align-items: center;
-      height: 40px;
-      padding: 0 20px;
-      margin: 4px 0;
-    }
-
-    .wave-bar {
-      width: 4px;
-      border-radius: 2px;
-      background: #4E85F7;
-      animation: waveAnim 0.8s ease-in-out infinite;
-    }
-
-    @keyframes waveAnim {
-
-      0%,
-      100% {
-        height: 8px;
-        opacity: 0.35;
-      }
-
-      50% {
-        height: var(--max-h, 28px);
-        opacity: 1;
-      }
-    }
-
-    .transcript-section {
-      flex: 1;
-      overflow: hidden;
-      padding: 0 20px;
-      margin-top: 10px;
-    }
-
-    .transcript-label {
-      color: rgba(255, 255, 255, 0.25);
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 12px;
-    }
-
-    .transcript-messages {
-      display: flex;
-      flex-direction: column;
       gap: 10px;
     }
 
-    .msg {
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.4s ease;
+    .bg-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(138, 92, 246, 0.2);
+      border-top-color: #a78bfa;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
     }
 
-    .msg.visible {
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .bg-status-text {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .push-notification {
+      position: absolute;
+      top: 55px;
+      left: 12px;
+      right: 12px;
+      background: rgba(30, 30, 42, 0.97);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      transform: translateY(-120%);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+      z-index: 90;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .push-notification.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .push-notif-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #4E85F7, #61D19E);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .push-notif-content {
+      flex: 1;
+    }
+
+    .push-notif-app {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .push-notif-title {
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .push-notif-body {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .push-notif-time {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+
+    /* ========================================= */
+    /* PHASE 4b: Behind-the-Scenes Call View     */
+    /* ========================================= */
+    .call-view-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 8px 12px;
+      overflow: hidden;
+    }
+
+    .call-view-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px 14px 0 0;
+      border-bottom: none;
+    }
+
+    .call-view-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .call-secure-icon {
+      font-size: 14px;
+    }
+
+    .call-view-title {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .call-live-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 800;
+      color: #ef4444;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: live-pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes live-pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .call-view-body {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: none;
+      border-radius: 0 0 14px 14px;
+      padding: 10px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      scrollbar-width: none;
+    }
+
+    .call-view-body::-webkit-scrollbar {
+      display: none;
+    }
+
+    .call-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 6px 0 4px;
+    }
+
+    .call-timer-display {
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'SF Mono', 'Courier New', monospace;
+    }
+
+    .call-waveform {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 16px;
+    }
+
+    .wave-bar {
+      width: 3px;
+      background: #61D19E;
+      border-radius: 2px;
+      animation: wave-anim 0.6s ease-in-out infinite;
+    }
+
+    .wave-bar:nth-child(1) {
+      height: 6px;
+      animation-delay: 0s;
+    }
+
+    .wave-bar:nth-child(2) {
+      height: 12px;
+      animation-delay: 0.1s;
+    }
+
+    .wave-bar:nth-child(3) {
+      height: 8px;
+      animation-delay: 0.2s;
+    }
+
+    .wave-bar:nth-child(4) {
+      height: 14px;
+      animation-delay: 0.3s;
+    }
+
+    .wave-bar:nth-child(5) {
+      height: 6px;
+      animation-delay: 0.15s;
+    }
+
+    @keyframes wave-anim {
+
+      0%,
+      100% {
+        transform: scaleY(0.4);
+      }
+
+      50% {
+        transform: scaleY(1);
+      }
+    }
+
+    .call-facility {
+      color: rgba(255, 255, 255, 0.35);
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* Chat bubbles */
+    .call-bubble {
+      max-width: 88%;
+      padding: 8px 12px;
+      border-radius: 14px;
+      font-size: 11.5px;
+      line-height: 1.45;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: all 0.3s ease;
+    }
+
+    .call-bubble.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .msg-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 11px;
-      flex-shrink: 0;
-      margin-top: 2px;
+    .call-bubble.recep {
+      align-self: flex-start;
+      background: rgba(97, 209, 158, 0.1);
+      border: 1px solid rgba(97, 209, 158, 0.15);
+      color: rgba(255, 255, 255, 0.8);
     }
 
-    .msg-icon.agent {
-      background: rgba(78, 133, 247, 0.2);
+    .call-bubble.asst {
+      align-self: flex-end;
+      background: rgba(78, 133, 247, 0.12);
+      border: 1px solid rgba(78, 133, 247, 0.18);
+      color: rgba(255, 255, 255, 0.8);
     }
 
-    .msg-icon.receptionist {
-      background: rgba(97, 209, 158, 0.2);
+    .bubble-speaker {
+      font-size: 9px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 3px;
     }
 
-    .msg-text {
-      font-size: 13px;
-      line-height: 1.45;
-      color: rgba(255, 255, 255, 0.75);
-    }
-
-    .msg-text .speaker {
-      font-weight: 700;
-      font-size: 11px;
-      margin-bottom: 1px;
-      display: block;
-    }
-
-    .speaker.agent-name {
-      color: #4E85F7;
-    }
-
-    .speaker.recep-name {
+    .bubble-speaker.recep {
       color: #61D19E;
     }
 
-    .end-call-bar {
-      display: flex;
-      justify-content: center;
-      padding: 12px 0 20px;
+    .bubble-speaker.asst {
+      color: #4E85F7;
     }
 
-    .end-call-btn {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: #ef4444;
+    .call-typing {
+      align-self: flex-start;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      gap: 4px;
+      padding: 8px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .call-typing.visible {
+      opacity: 1;
+    }
+
+    .call-typing.right {
+      align-self: flex-end;
+    }
+
+    .typing-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      animation: typing-bounce 1s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes typing-bounce {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    .neg-rejected {
+      color: #fca5a5;
+      font-weight: 600;
+    }
+
+    .neg-accepted {
+      color: #86efac;
+      font-weight: 600;
+    }
+
+    .call-end-badge {
+      align-self: center;
+      background: rgba(97, 209, 158, 0.1);
+      border: 1px solid rgba(97, 209, 158, 0.2);
+      color: #61D19E;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .call-end-badge.visible {
+      opacity: 1;
+    }
+
+    .no-phone-callout {
+      margin: 10px 4px 0;
+      padding: 10px 14px;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(78, 133, 247, 0.1));
+      border: 1.5px solid rgba(138, 92, 246, 0.3);
+      border-radius: 14px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.5s ease;
+    }
+
+    .no-phone-callout.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .no-phone-callout-icon {
       font-size: 20px;
-      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+      margin-bottom: 4px;
+    }
+
+    .no-phone-callout-title {
+      color: #a78bfa;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 3px;
+    }
+
+    .no-phone-callout-text {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .no-phone-callout-text strong {
+      color: white;
     }
 
     /* ========================================= */
-    /* PHASE 5: Success                          */
+    /* PHASE 6: Success                          */
     /* ========================================= */
     .success-section {
       flex: 1;
@@ -1176,7 +1606,7 @@
         </div>
       </div>
 
-      <!-- ====== PHASE 3: Call Initiating ====== -->
+      <!-- ====== PHASE 3: Request Queued ====== -->
       <div class="phase" id="phase3">
         <div style="padding: 0 20px; margin-top: 8px;">
           <div class="appt-card-mini">
@@ -1186,39 +1616,174 @@
             </div>
             <div class="appt-mini-detail">
               📅 <span>Tue, Feb 18 · 3:30 PM</span><br>
-              📍 <span>Patel Family Medicine</span>
+              📍 <span>Patel Family Medicine</span><br>
+              🎯 <span id="request-action" style="color:#a78bfa">Reschedule to next Tuesday afternoon</span>
             </div>
           </div>
         </div>
-        <div class="call-section">
-          <div class="call-avatar">🤖</div>
-          <div class="call-name">IDDU Agent</div>
-          <div class="call-status preparing" id="call-status">Preparing to call...</div>
+        <div class="queued-section">
+          <div class="queued-icon-row">
+            <div class="queued-icon" id="queued-icon">✅</div>
+            <div>
+              <div class="queued-title" id="queued-title">Request Logged</div>
+              <div class="queued-subtitle" id="queued-subtitle">Your request has been queued</div>
+            </div>
+          </div>
+
+          <div class="cancel-window" id="cancel-window">
+            <div class="cancel-header">
+              <span class="cancel-label">⏳ Cancel window</span>
+              <span class="cancel-timer" id="cancel-timer">14:48</span>
+            </div>
+            <div class="cancel-bar-track">
+              <div class="cancel-bar-fill" id="cancel-bar"></div>
+            </div>
+            <div class="cancel-btn">✕ Cancel Request</div>
+          </div>
+
+          <div class="hours-check" id="hours-check">
+            <div class="hours-row">
+              <span class="hours-icon">🏥</span>
+              <div class="hours-text">
+                <div class="hours-label">Patel Family Medicine</div>
+                <div class="hours-value" id="hours-value">Checking hours...</div>
+              </div>
+              <span class="hours-status open" id="hours-status" style="opacity:0">Open</span>
+            </div>
+          </div>
+
+          <div class="schedule-confirm" id="schedule-confirm">
+            <span class="schedule-confirm-icon">🤖</span>
+            <div class="schedule-confirm-text" id="schedule-confirm-text">
+              <strong>IDDU will call automatically</strong><br>in the background via secure line
+            </div>
+          </div>
         </div>
         <div class="brand-label">powered by <em>iddu</em></div>
       </div>
 
-      <!-- ====== PHASE 4: Active Call + Transcript ====== -->
+      <!-- ====== PHASE 4: Behind-the-Scenes Call View ====== -->
       <div class="phase" id="phase4">
-        <div class="call-header-bar">
-          <div>
-            <div class="call-header-title">📞 Patel Family Medicine</div>
-            <div class="call-status connected">Connected</div>
+        <div class="call-view-container">
+          <div class="call-view-header">
+            <div class="call-view-left">
+              <span class="call-secure-icon">🔒</span>
+              <span class="call-view-title">Background Call</span>
+            </div>
+            <div class="call-live-badge" id="call-live-badge">
+              <div class="live-dot"></div>
+              LIVE
+            </div>
           </div>
-          <div class="call-timer" id="call-timer-live">0:00</div>
+          <div class="call-meta-bar">
+            <span class="call-facility">📞 Patel Family Medicine</span>
+            <div class="call-waveform" id="call-waveform">
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+              <div class="wave-bar"></div>
+            </div>
+            <span class="call-timer-display" id="call-timer">0:00</span>
+          </div>
+          <div class="call-view-body" id="call-chat">
+            <!-- Filled by JS -->
+          </div>
+          <div class="call-end-badge" id="call-end-badge">✅ Call Completed · Appointment Confirmed</div>
+          <div class="no-phone-callout" id="call-no-phone">
+            <div class="no-phone-callout-icon">📱🚫</div>
+            <div class="no-phone-callout-title">Your Phone Voice Service Was Never Used</div>
+            <div class="no-phone-callout-text">This entire call happened on <strong>IDDU's own secure
+                line</strong>.<br>Your phone, minutes, and carrier were <strong>never involved</strong>.</div>
+          </div>
         </div>
-        <div class="waveform" id="waveform"></div>
-        <div class="transcript-section">
-          <div class="transcript-label">Live Transcript</div>
-          <div class="transcript-messages" id="transcript"></div>
+        <div class="brand-label">powered by <em>iddu</em></div>
+      </div>
+
+      <!-- ====== PHASE 5: Background Processing + Notification ====== -->
+      <div class="phase" id="phase5">
+        <div class="appt-list-header">Appointments</div>
+        <div class="filter-row">
+          <div class="filter-chip active"><span class="icon">📅</span>All</div>
+          <div class="filter-chip"><span class="icon">⭐</span>Favorite</div>
+          <div class="filter-chip"><span class="icon">❤️</span>Health</div>
+          <div class="filter-chip"><span class="icon">🏢</span>Work</div>
         </div>
-        <div class="end-call-bar">
-          <div class="end-call-btn">📞</div>
+        <div class="bg-processing-status" id="bg-status">
+          <div class="bg-spinner"></div>
+          <span class="bg-status-text" id="bg-status-text">IDDU is calling Patel Family Medicine...</span>
+        </div>
+        <div class="appt-list">
+          <div class="appt-card-list">
+            <div class="appt-date-block">
+              <div class="appt-date-month">FEB</div>
+              <div class="appt-date-day">18</div>
+              <div class="appt-date-time">3:30 PM</div>
+            </div>
+            <div class="appt-info">
+              <div class="appt-info-title">Dr. Patel – Annual Physical</div>
+              <div class="appt-info-location">◉ Patel Family Medicine</div>
+            </div>
+            <div class="card-icons">
+              <div class="card-icon-btn health">🏥</div>
+              <div class="card-icon-btn nav">📍</div>
+            </div>
+            <div class="badge-sm badge-processing" id="processing-badge"
+              style="position:absolute;bottom:12px;right:14px;">🔄 AI Processing</div>
+          </div>
+          <div class="appt-card-list">
+            <div class="appt-date-block">
+              <div class="appt-date-month">FEB</div>
+              <div class="appt-date-day">25</div>
+              <div class="appt-date-time">9:00 AM</div>
+            </div>
+            <div class="appt-info">
+              <div class="appt-info-title">Dental Cleaning</div>
+              <div class="appt-info-location">◉ Johns Creek Dentistry</div>
+            </div>
+            <div class="card-icons">
+              <div class="card-icon-btn health">🏥</div>
+              <div class="card-icon-btn nav">📍</div>
+            </div>
+            <div class="ai-agent-badge">🤖 AI Agent</div>
+          </div>
+          <div class="appt-card-list">
+            <div class="appt-date-block">
+              <div class="appt-date-month">MAR</div>
+              <div class="appt-date-day">3</div>
+              <div class="appt-date-time">10:00 AM</div>
+            </div>
+            <div class="appt-info">
+              <div class="appt-info-title">Eye Exam</div>
+              <div class="appt-info-location">◉ Southeast Vision Center</div>
+            </div>
+            <div class="card-icons">
+              <div class="card-icon-btn health">🏥</div>
+              <div class="card-icon-btn nav">📍</div>
+            </div>
+            <div class="ai-agent-badge">🤖 AI Agent</div>
+          </div>
+        </div>
+        <!-- Push Notification -->
+        <div class="push-notification" id="push-notification">
+          <div class="push-notif-icon">🤖</div>
+          <div class="push-notif-content">
+            <div class="push-notif-app">IDDU</div>
+            <div class="push-notif-title">✅ Appointment Rescheduled</div>
+            <div class="push-notif-body">Dr. Patel moved to Thu, Feb 20 at 2:00 PM</div>
+          </div>
+          <div class="push-notif-time">now</div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item"><span class="tab-icon">📅</span>Today</div>
+          <div class="tab-item active"><span class="tab-icon">📋</span>Appointments</div>
+          <div class="tab-item"><span class="tab-icon">🤖</span>AI</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>Account</div>
         </div>
       </div>
 
-      <!-- ====== PHASE 5: Success ====== -->
-      <div class="phase" id="phase5">
+      <!-- ====== PHASE 6: Success ====== -->
+      <div class="phase" id="phase6">
         <div style="padding: 0 20px; margin-top: 8px;">
           <div class="appt-card-mini">
             <div class="appt-mini-header">
@@ -1235,17 +1800,23 @@
         <div class="success-section">
           <div class="success-icon">✅</div>
           <div class="success-title">Rescheduled!</div>
-          <div class="success-detail">Your appointment has been moved<br>without you picking up the phone.</div>
+          <div class="success-detail">Your appointment was moved<br>while you went about your day.</div>
           <div class="new-time-card">
             <div class="new-time-label">New Appointment</div>
             <div class="new-time-value">Thu, Feb 20 · 2:00 PM</div>
+          </div>
+          <div class="no-phone-callout visible" style="margin-top:14px">
+            <div class="no-phone-callout-icon">📱🚫</div>
+            <div class="no-phone-callout-title">Your Phone Voice Service Was Never Used</div>
+            <div class="no-phone-callout-text">All handled on <strong>IDDU's secure line</strong> — zero phone minutes
+              used.</div>
           </div>
         </div>
         <div class="brand-label">powered by <em>iddu</em></div>
       </div>
 
-      <!-- ====== PHASE 6: AI Call History / Transcript ====== -->
-      <div class="phase" id="phase6">
+      <!-- ====== PHASE 7: AI Call History / Transcript ====== -->
+      <div class="phase" id="phase7">
         <div class="history-container">
           <div class="history-header">
             <div class="history-handle"></div>
@@ -1286,32 +1857,18 @@
   </div>
 
   <script>
-    // === WAVEFORM ===
-    const waveformEl = document.getElementById('waveform');
-    for (let i = 0; i < 28; i++) {
-      const bar = document.createElement('div');
-      bar.className = 'wave-bar';
-      bar.style.setProperty('--max-h', `${8 + Math.random() * 24}px`);
-      bar.style.animationDelay = `${Math.random() * 0.8}s`;
-      waveformEl.appendChild(bar);
-    }
-
-    // === CONVERSATION ===
-    const conversation = [
-      { speaker: 'receptionist', name: 'Receptionist', text: "Dr. Patel's office, how can I help you?" },
-      { speaker: 'agent', name: 'IDDU Agent', text: "Hi! I'm calling on behalf of Smith Anderson to reschedule their annual physical on February 18th." },
-      { speaker: 'receptionist', name: 'Receptionist', text: "Sure! We have Thursday Feb 20th at 2 PM — would that work?" },
-      { speaker: 'agent', name: 'IDDU Agent', text: "That's perfect. Please go ahead and reschedule. Thank you!" },
-      { speaker: 'receptionist', name: 'Receptionist', text: "All set! Confirmed for Feb 20th at 2:00 PM. Have a great day!" },
-    ];
-
-    // History transcript (longer, matching the screenshot style)
-    const historyTranscript = [
-      { speaker: 'recep', label: 'RECEPTIONIST', text: "Hello?" },
-      { speaker: 'asst', label: 'ASSISTANT', text: "Hello, I'm Alex, an AI assistant calling on behalf of Smith Anderson to reschedule an appointment. May I please speak with someone who can assist me with that?" },
-      { speaker: 'recep', label: 'RECEPTIONIST', text: "Yeah. This is Smith Anderson. I can take care of that. What day and time he's looking for?" },
-      { speaker: 'asst', label: 'ASSISTANT', text: "Hi, thank you for helping out. I'm trying to reschedule Smith's appointment for next Tuesday. Specifically, he'd like to schedule it for 2 PM. Is that a possible time slot?" },
-      { speaker: 'recep', label: 'RECEPTIONIST', text: "Yeah. I can do at two PM." },
+    // Full 10-turn negotiation transcript
+    const fullTranscript = [
+      { speaker: 'asst', label: 'AI AGENT', text: "Hello, this is the IDDU AI Agent calling on behalf of Smith Anderson. This call is being recorded for quality purposes. I'd like to help reschedule an appointment with Dr. Patel, please." },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "Hi there. Sure, I can help with that. Can you verify the patient's date of birth for me?" },
+      { speaker: 'asst', label: 'AI AGENT', text: "Of course. Smith's date of birth is <strong>March 15, 1990</strong>." },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "Thank you, I've pulled up the file. What day and time is he looking for?" },
+      { speaker: 'asst', label: 'AI AGENT', text: "He'd like to move it to Tuesday, February 20th, preferably at <strong>10:00 AM</strong>." },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "Let me check... Unfortunately <span class=\"neg-rejected\">10 AM is fully booked</span> that day. I have <span class=\"neg-accepted\">2:00 PM</span> or <span class=\"neg-accepted\">3:30 PM</span> available." },
+      { speaker: 'asst', label: 'AI AGENT', text: "<span class=\"neg-accepted\">2:00 PM</span> on the 20th works great. Could you confirm that for Smith Anderson?" },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "All set! Smith Anderson is now scheduled for <strong>Tuesday, Feb 20th at 2:00 PM</strong> with Dr. Patel." },
+      { speaker: 'asst', label: 'AI AGENT', text: "Perfect, thank you so much for your help. Have a great day!" },
+      { speaker: 'recep', label: 'RECEPTIONIST', text: "You too, goodbye!" },
     ];
 
     // === UTILS ===
@@ -1331,23 +1888,6 @@
       ring.classList.add('animating');
     }
 
-    function addMessage(msg) {
-      const transcript = document.getElementById('transcript');
-      const div = document.createElement('div');
-      div.className = 'msg';
-      div.innerHTML = `
-      <div class="msg-icon ${msg.speaker}">
-        ${msg.speaker === 'agent' ? '🤖' : '👤'}
-      </div>
-      <div class="msg-text">
-        <span class="speaker ${msg.speaker === 'agent' ? 'agent-name' : 'recep-name'}">${msg.name}</span>
-        ${msg.text}
-      </div>
-    `;
-      transcript.appendChild(div);
-      requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('visible')));
-    }
-
     function addHistMessage(msg) {
       const container = document.getElementById('hist-transcript');
       const div = document.createElement('div');
@@ -1365,24 +1905,120 @@
       requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('visible')));
     }
 
-    let timerSec = 0;
-    let timerInterval = null;
+    // === CALL VIEW ANIMATION ===
+    function addCallBubble(msg) {
+      const chat = document.getElementById('call-chat');
+      const bubble = document.createElement('div');
+      bubble.className = `call-bubble ${msg.speaker}`;
+      bubble.innerHTML = `<div class="bubble-speaker ${msg.speaker}">${msg.label}</div><div>${msg.text}</div>`;
+      chat.appendChild(bubble);
+      chat.scrollTop = chat.scrollHeight;
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        bubble.classList.add('visible');
+        chat.scrollTop = chat.scrollHeight;
+      }));
+    }
 
-    function startTimer() {
-      timerSec = 0;
-      timerInterval = setInterval(() => {
-        timerSec++;
-        const m = Math.floor(timerSec / 60);
-        const s = timerSec % 60;
-        document.getElementById('call-timer-live').textContent = `${m}:${s.toString().padStart(2, '0')}`;
+    function showTyping(side) {
+      const chat = document.getElementById('call-chat');
+      const typing = document.createElement('div');
+      typing.className = `call-typing ${side === 'asst' ? 'right' : ''}`;
+      typing.id = 'active-typing';
+      typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+      chat.appendChild(typing);
+      chat.scrollTop = chat.scrollHeight;
+      requestAnimationFrame(() => typing.classList.add('visible'));
+      return typing;
+    }
+
+    function removeTyping() {
+      const t = document.getElementById('active-typing');
+      if (t) t.remove();
+    }
+
+    let callTimerInterval;
+    function startCallTimer() {
+      let sec = 0;
+      const el = document.getElementById('call-timer');
+      el.textContent = '0:00';
+      callTimerInterval = setInterval(() => {
+        sec++;
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
       }, 1000);
+    }
+    function stopCallTimer() {
+      clearInterval(callTimerInterval);
+    }
+
+    async function animateCallView() {
+      const chat = document.getElementById('call-chat');
+      chat.innerHTML = '';
+      document.getElementById('call-end-badge').classList.remove('visible');
+      document.getElementById('call-waveform').style.opacity = '1';
+
+      startCallTimer();
+
+      // Timing: short wait for typing, proportional to message length
+      for (let i = 0; i < fullTranscript.length; i++) {
+        const msg = fullTranscript[i];
+        const typingMs = Math.min(500 + msg.text.length * 3, 1200);
+
+        const typing = showTyping(msg.speaker);
+        await sleep(typingMs);
+        removeTyping();
+        addCallBubble(msg);
+
+        // Pause between turns (shorter for quick replies)
+        const pauseMs = msg.text.length < 30 ? 400 : 600;
+        await sleep(pauseMs);
+      }
+
+      // End call
+      stopCallTimer();
+      document.getElementById('call-waveform').style.opacity = '0.2';
+      document.getElementById('call-live-badge').style.opacity = '0.3';
+      await sleep(300);
+      document.getElementById('call-end-badge').classList.add('visible');
+      await sleep(800);
+      document.getElementById('call-no-phone').classList.add('visible');
+      await sleep(5000);
+    }
+
+    // Animate the cancel timer countdown (visual only, fast for demo)
+    function animateCancelTimer(durationMs) {
+      return new Promise(resolve => {
+        const bar = document.getElementById('cancel-bar');
+        const timer = document.getElementById('cancel-timer');
+        const steps = 8;
+        const stepMs = durationMs / steps;
+        let step = 0;
+        const startMin = 14;
+        const startSec = 48;
+        const totalStartSec = startMin * 60 + startSec;
+
+        const iv = setInterval(() => {
+          step++;
+          const pct = 1 - (step / steps);
+          bar.style.width = (pct * 100) + '%';
+          const remaining = Math.floor(totalStartSec * pct);
+          const m = Math.floor(remaining / 60);
+          const s = remaining % 60;
+          timer.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+          if (step >= steps) {
+            clearInterval(iv);
+            resolve();
+          }
+        }, stepMs);
+      });
     }
 
     // === MAIN DEMO ===
     async function runDemo() {
       // Reset all state
-      document.getElementById('transcript').innerHTML = '';
       document.getElementById('hist-transcript').innerHTML = '';
+      document.getElementById('call-chat').innerHTML = '';
       document.getElementById('bottom-sheet').classList.remove('visible');
       document.getElementById('ai-modal').classList.remove('visible');
       document.getElementById('mic-btn').classList.remove('recording');
@@ -1392,6 +2028,22 @@
       document.getElementById('user-voice-text').classList.remove('visible');
       document.getElementById('btn-ai').classList.remove('tapped');
       document.getElementById('agent-badge-1').classList.remove('highlight');
+      // Reset Phase 3
+      document.getElementById('hours-check').classList.remove('visible');
+      document.getElementById('schedule-confirm').classList.remove('visible');
+      document.getElementById('hours-status').style.opacity = '0';
+      document.getElementById('hours-value').textContent = 'Checking hours...';
+      document.getElementById('cancel-bar').style.width = '100%';
+      document.getElementById('cancel-timer').textContent = '14:48';
+      // Reset Phase 4
+      document.getElementById('call-end-badge').classList.remove('visible');
+      document.getElementById('call-no-phone').classList.remove('visible');
+      document.getElementById('call-live-badge').style.opacity = '1';
+      document.getElementById('call-waveform').style.opacity = '1';
+      stopCallTimer();
+      document.getElementById('call-timer').textContent = '0:00';
+      // Reset Phase 5
+      document.getElementById('push-notification').classList.remove('visible');
 
       // === PHASE 0: Appointments List ===
       showPhase(0);
@@ -1427,43 +2079,41 @@
       document.getElementById('user-voice-text').classList.add('visible');
       await sleep(1500);
 
-      // === PHASE 3: Call Initiating ===
+      // === PHASE 3: Request Queued ===
       showPhase(3);
-      const statusEl = document.getElementById('call-status');
-      statusEl.textContent = 'Preparing to call...';
-      statusEl.className = 'call-status preparing';
+      await sleep(800);
+      animateCancelTimer(2400);
       await sleep(1200);
-      statusEl.textContent = 'Dialing...';
-      statusEl.className = 'call-status ringing';
-      await sleep(1500);
-      statusEl.textContent = 'Ringing...';
-      await sleep(1500);
-      statusEl.textContent = 'Connected!';
-      statusEl.className = 'call-status connected';
-      await sleep(700);
+      document.getElementById('hours-check').classList.add('visible');
+      await sleep(1000);
+      document.getElementById('hours-value').textContent = 'Mon–Fri 8:00 AM – 5:00 PM';
+      document.getElementById('hours-status').style.opacity = '1';
+      await sleep(1000);
+      document.getElementById('schedule-confirm').classList.add('visible');
+      await sleep(2000);
 
-      // === PHASE 4: Active Call ===
+      // === PHASE 4: Behind-the-Scenes Call View ===
       showPhase(4);
-      startTimer();
-      for (const msg of conversation) {
-        await sleep(1500);
-        addMessage(msg);
-      }
-      await sleep(1800);
-      clearInterval(timerInterval);
+      await animateCallView();
 
-      // === PHASE 5: Success ===
+      // === PHASE 5: Background Processing + Notification ===
       showPhase(5);
+      await sleep(2000);
+      document.getElementById('push-notification').classList.add('visible');
+      await sleep(3000);
+
+      // === PHASE 6: Success ===
+      showPhase(6);
       await sleep(3500);
 
-      // === PHASE 6: Call History with Transcript ===
-      showPhase(6);
+      // === PHASE 7: Call History with Full Transcript ===
+      showPhase(7);
       await sleep(600);
-      for (const msg of historyTranscript) {
-        await sleep(800);
+      for (const msg of fullTranscript) {
+        await sleep(600);
         addHistMessage(msg);
       }
-      await sleep(4500);
+      await sleep(4000);
 
       // Loop
       runDemo();
