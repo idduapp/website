@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDDU AI Chat Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .phone-frame {
+            width: 340px;
+            height: 720px;
+            background: #000;
+            border-radius: 44px;
+            border: 3px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(168, 85, 247, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ambient Background effect from screenshot */
+        .chat-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 10% 20%, rgba(138, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.15) 0%, transparent 40%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .notch {
+            width: 126px;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 22px 22px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .status-bar {
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 28px 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* App Header */
+        .app-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            z-index: 10;
+            position: relative;
+        }
+
+        .agent-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(138, 92, 246, 0.2);
+            border: 1px solid rgba(138, 92, 246, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            margin-right: 12px;
+        }
+
+        .header-info {
+            flex: 1;
+        }
+
+        .header-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .header-status {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .header-action-btn.has-notif {
+            position: relative;
+        }
+
+        .header-action-btn.has-notif::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #000;
+        }
+
+        /* Chat Area */
+        .chat-container {
+            flex: 1;
+            padding: 20px;
+            overflow-y: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .message-row {
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            display: none;
+        }
+
+        .message-row.visible {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-row.ai {
+            align-items: flex-end;
+        }
+
+        .message-row.user {
+            justify-content: flex-end;
+        }
+
+        .msg-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: rgba(138, 92, 246, 0.15);
+            border: 1px solid rgba(138, 92, 246, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 36px;
+            flex-shrink: 0;
+        }
+
+        .msg-bubble-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .message-row.user .msg-bubble-wrapper {
+            align-items: flex-end;
+        }
+
+        .msg-bubble {
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.5;
+            max-width: 240px;
+        }
+
+        .message-row.ai .msg-bubble {
+            background: #1a1a24;
+            color: white;
+            border-radius: 16px 16px 16px 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .message-row.user .msg-bubble {
+            background: linear-gradient(135deg, #7c3aed, #3b82f6);
+            color: white;
+            border-radius: 16px 16px 4px 16px;
+            font-weight: 500;
+        }
+
+        .msg-bubble strong {
+            color: #a855f7;
+        }
+
+        .message-row.user .msg-bubble strong {
+            color: white;
+        }
+
+        .msg-actions {
+            display: flex;
+            gap: 16px;
+            padding-left: 8px;
+        }
+
+        .message-row.user .msg-actions {
+            padding-left: 0;
+            padding-right: 8px;
+        }
+
+        .msg-action-icon {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 18px 16px;
+            background: #1a1a24;
+            border-radius: 16px 16px 16px 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: fit-content;
+            display: none;
+        }
+
+        .typing-indicator.visible {
+            display: flex;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .typing-dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 10px 20px 20px;
+            z-index: 10;
+            position: relative;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1) 80%, transparent);
+        }
+
+        .pills-scroll {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+            overflow-x: hidden;
+            padding-bottom: 4px;
+        }
+
+        .pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 8px 14px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .chat-input-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 28px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 6px 0 20px;
+        }
+
+        .chat-placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .send-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(138, 92, 246, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #a855f7;
+            font-size: 18px;
+        }
+
+        .tab-bar {
+            height: 60px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(10, 10, 15, 0.95);
+            z-index: 10;
+            position: relative;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.35);
+            font-weight: 600;
+        }
+
+        .tab-item.active {
+            color: white;
+        }
+
+        .tab-item .tab-icon {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="phone-frame">
+        <div class="chat-bg"></div>
+        <div class="notch"></div>
+        <div class="status-bar">
+            <span>4:27</span>
+            <div style="display: flex; gap: 4px; align-items: center;">
+                <span>📶</span>
+                <span>🔋</span>
+            </div>
+        </div>
+
+        <div class="app-header">
+            <div class="agent-avatar">🧠</div>
+            <div class="header-info">
+                <div class="header-title">IDDU Agent</div>
+                <div class="header-status">ONLINE</div>
+            </div>
+            <div class="header-actions">
+                <div class="header-action-btn has-notif">🔔</div>
+                <div class="header-action-btn">✉️</div>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chat-container">
+
+            <!-- MSG 1: Initial AI -->
+            <div class="message-row ai" id="msg-1">
+                <div class="msg-avatar">🧠</div>
+                <div class="msg-bubble-wrapper">
+                    <div class="msg-bubble" id="text-1"></div>
+                    <div class="msg-actions">
+                        <span class="msg-action-icon">📋</span>
+                        <span class="msg-action-icon">💬</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MSG 2: User Q1 -->
+            <div class="message-row user" id="msg-2">
+                <div class="msg-bubble-wrapper">
+                    <div class="msg-bubble" id="text-2"></div>
+                </div>
+            </div>
+
+            <!-- MSG 3: AI A1 -->
+            <div class="message-row ai" id="msg-3">
+                <div class="msg-avatar">🧠</div>
+                <div class="msg-bubble-wrapper">
+                    <div class="typing-indicator" id="typing-1">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                    <div class="msg-bubble" id="text-3" style="display:none;"></div>
+                    <div class="msg-actions" id="action-3" style="display:none;">
+                        <span class="msg-action-icon">📋</span>
+                        <span class="msg-action-icon">💬</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MSG 4: User Q2 -->
+            <div class="message-row user" id="msg-4">
+                <div class="msg-bubble-wrapper">
+                    <div class="msg-bubble" id="text-4"></div>
+                </div>
+            </div>
+
+            <!-- MSG 5: AI A2 -->
+            <div class="message-row ai" id="msg-5">
+                <div class="msg-avatar">🧠</div>
+                <div class="msg-bubble-wrapper">
+                    <div class="typing-indicator" id="typing-2">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                    <div class="msg-bubble" id="text-5" style="display:none;"></div>
+                    <div class="msg-actions" id="action-5" style="display:none;">
+                        <span class="msg-action-icon">📋</span>
+                        <span class="msg-action-icon">💬</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom UI Input -->
+        <div class="input-area">
+            <div class="pills-scroll">
+                <div class="pill">💰 My spending this year</div>
+                <div class="pill">📅 My Schedule</div>
+                <div class="pill">🦷</div>
+            </div>
+            <div class="chat-input-box">
+                <div class="chat-placeholder">Ask IDDU anything...</div>
+                <div class="send-btn">➤</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab-bar">
+            <div class="tab-item">
+                <span class="tab-icon">📅</span>
+                <span>Today</span>
+            </div>
+            <div class="tab-item">
+                <span class="tab-icon">📋</span>
+                <span>Appointments</span>
+            </div>
+            <div class="tab-item active">
+                <span class="tab-icon">🧠</span>
+                <span>AI</span>
+            </div>
+            <div class="tab-item">
+                <span class="tab-icon">👤</span>
+                <span>Account</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Typewriter effect function
+        function typeWriter(elementId, htmlContent, speed, callback) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = '';
+            el.style.display = 'block';
+
+            // We parse the HTML so we can type text but render tags instantly
+            let i = 0;
+            let isTag = false;
+            let currentHTML = "";
+
+            function type() {
+                if (i < htmlContent.length) {
+                    currentHTML += htmlContent.charAt(i);
+                    el.innerHTML = currentHTML;
+
+                    if (htmlContent.charAt(i) === '<') isTag = true;
+                    if (htmlContent.charAt(i) === '>') isTag = false;
+
+                    let nextDelay = isTag ? 0 : speed;
+
+                    // Randomize text typing slightly for realism
+                    if (!isTag && htmlContent.charAt(i) !== ' ') {
+                        nextDelay = speed + (Math.random() * 20 - 10);
+                    }
+
+                    i++;
+                    setTimeout(type, nextDelay);
+                } else {
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        const script = [
+            { id: 'msg-1', textId: 'text-1', content: "Hello! I'm IDDU, your AI health assistant. I can access your appointments, spending history, procedure codes, and medical records. Ask me anything!", type: 'ai' },
+            { id: 'msg-2', textId: 'text-2', content: "Can you tell me how much I spend in the year 2024?", type: 'user', delayNext: 800 },
+            { id: 'msg-3', textId: 'text-3', typingId: 'typing-1', actionId: 'action-3', content: "In 2024, you spent a total of <strong>$1011.33</strong>.", type: 'ai', thinkTime: 1200, delayNext: 2000 },
+            { id: 'msg-4', textId: 'text-4', content: "Is there any appointment in next 2 months?", type: 'user', delayNext: 800 },
+            { id: 'msg-5', textId: 'text-5', typingId: 'typing-2', actionId: 'action-5', content: "Yes, there is one confirmed appointment in the next 2 months:<br><br>• <strong>Anderson's Eye appointment</strong> at Thomas Eye Group on <strong>March 24, 2026, at 8:30 AM</strong>.", type: 'ai', thinkTime: 1500, delayNext: 4000 }
+        ];
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function runDemo() {
+            const container = document.getElementById('chat-container');
+
+            // Initial state - just show first message
+            document.getElementById('msg-1').classList.add('visible');
+            typeWriter('text-1', script[0].content, 20, async () => {
+
+                // Loop through the rest of the script
+                for (let i = 1; i < script.length; i++) {
+                    const step = script[i];
+
+                    await delay(script[i - 1].delayNext || 1500);
+
+                    const row = document.getElementById(step.id);
+                    row.classList.add('visible');
+
+                    // Scroll to bottom
+                    container.scrollTop = container.scrollHeight;
+
+                    if (step.type === 'user') {
+                        document.getElementById(step.textId).innerHTML = step.content;
+                        container.scrollTop = container.scrollHeight;
+                    } else if (step.type === 'ai') {
+                        const typingInd = document.getElementById(step.typingId);
+                        typingInd.classList.add('visible');
+                        container.scrollTop = container.scrollHeight;
+
+                        await delay(step.thinkTime);
+
+                        typingInd.classList.remove('visible');
+                        typingInd.style.display = 'none';
+
+                        await new Promise(resolve => {
+                            typeWriter(step.textId, step.content, 15, () => {
+                                document.getElementById(step.actionId).style.display = 'flex';
+                                container.scrollTop = container.scrollHeight;
+                                resolve();
+                            });
+                        });
+                    }
+                }
+
+                // Loop back after end
+                await delay(5000);
+                location.reload();
+            });
+        }
+
+        // Start
+        setTimeout(runDemo, 500);
+
+    </script>
+</body>
+
+</html>
