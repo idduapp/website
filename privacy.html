@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Iddu</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg: #020617;
+            --text: #f8fafc;
+            --sub: #94a3b8;
+            --accent: #a855f7;
+            --secondary: #38bdf8;
+            --card: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .nav {
+            margin-bottom: 3rem;
+        }
+
+        .back-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.2s;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .last-updated {
+            color: var(--sub);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        section {
+            margin-bottom: 2.5rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent);
+            padding-left: 1rem;
+        }
+
+        p,
+        li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--sub);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav">
+            <a href="/" class="back-link">← Back to Home</a>
+        </div>
+
+        <header>
+            <h1>Privacy Policy</h1>
+            <p class="last-updated">Last Updated: March 7, 2026</p>
+        </header>
+
+        <div class="highlight-box">
+            <strong>The "Iddu" Privacy Charter:</strong> We believe that healthcare data is the most personal
+            information you own. Our architecture is built to process your data, get your chores done, and then get out
+            of the way. We never sell your data, and we provide tools for instantaneous and permanent deletion of
+            sensitive records.
+        </div>
+
+        <section>
+            <h2>1. Introduction</h2>
+            <p>Iddu Technologies LLC ("Iddu", "we", "us", or "our") is committed to protecting your privacy. This
+                Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile
+                application and related services (the "Services").</p>
+        </section>
+
+        <section>
+            <h2>2. Information We Collect</h2>
+            <p>To provide our AI-driven logistics services, we collect various types of data:</p>
+            <ul>
+                <li><strong>Account Information:</strong> Email address provided during registration or third-party
+                    sign-in (Google/Apple).</li>
+                <li><strong>Healthcare Logistics Data:</strong> Information from forwarded emails, scanned
+                    bills/receipts (EOBs), and voice notes related to your appointments.</li>
+                <li><strong>Communication Data:</strong> We record the AI-agent’s interactions when it calls medical
+                    offices on your behalf to reschedule or verify appointments.</li>
+                <li><strong>Device Information:</strong> Standard technical logs, including IP address, device type, and
+                    app usage statistics.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>3. AI Data Processing</h2>
+            <p>Iddu utilizes advanced Artificial Intelligence (including Google Gemini) to parse documents and voice
+                recordings. Your data is passed to these models via secure enterprise APIs for the sole purpose of
+                extraction and logic processing. Your personal health information is NOT used to train the general
+                public models of our AI providers.</p>
+        </section>
+
+        <section>
+            <h2>4. Data Minimization & Retention</h2>
+            <p>We pride ourselves on a "Security-First" approach to data retention:</p>
+            <ul>
+                <li><strong>Sensitive Assets:</strong> Voice recordings, transcripts, and scanned EOBs/medical bills are
+                    <strong>permanently hard-deleted</strong> from our S3 storage the moment you delete an appointment.
+                </li>
+                <li><strong>Audit Records:</strong> A stripped-down metadata record of the appointment (provider name,
+                    date) is retained in an "Archived/Deleted" state for 30 days for system integrity before being
+                    permanently destroyed.</li>
+                <li><strong>Health Wallet:</strong> You have full control over your Health Wallet. Deleting a record
+                    from the app removes all associated financial metadata immediately.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. How We Share Information</h2>
+            <p>We do not sell your personal data to third parties. We only share information as necessary to provide the
+                Services:</p>
+            <ul>
+                <li><strong>Infrastructure Providers:</strong> AWS (storage and hosting) and Google (AI parsing).</li>
+                <li><strong>Medical Providers:</strong> When you provide explicit consent for Iddu to call an office, we
+                    share only the necessary details (your name, date of birth, and appointment request) to complete the
+                    task.</li>
+                <li><strong>Legal Compliance:</strong> If required by law to comply with a subpoena or similar legal
+                    process.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>6. Security</h2>
+            <p>We implement industry-standard security measures including AES-256 encryption at rest (S3 and DynamoDB)
+                and TLS encryption for all data in transit. While we are a logistics assistant, we treat your medical
+                data with the rigor expected of healthcare-adjacent applications.</p>
+        </section>
+
+        <section>
+            <h2>7. Your Rights</h2>
+            <p>You have the right to access the data we hold about you, request corrections, or demand permanent
+                deletion of your account. You can perform these actions directly within the app settings or by
+                contacting us.</p>
+        </section>
+
+        <section>
+            <h2>8. Contact Us</h2>
+            <p>If you have questions about this Privacy Policy, please contact our privacy team at:</p>
+            <p>
+                <strong>Admin @ Iddu.app</strong><br>
+                Iddu Technologies LLC<br>
+                1045 Gallatin Way, Suwanee, Georgia 30024<br>
+                United States
+            </p>
+        </section>
+
+        <div class="footer">
+            &copy; 2026 Iddu Technologies LLC. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>
