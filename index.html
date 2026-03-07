@@ -4,555 +4,549 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- Primary Meta Tags -->
   <title>Iddu — Your AI That Gets Things Done</title>
-  <meta name="title" content="Iddu — Your AI That Gets Things Done" />
   <meta name="description"
-    content="Iddu is your real-world AI agent that manages appointments, scans your forwarded emails, understands voice and camera input, and even calls offices to reschedule on your behalf." />
+    content="Iddu is your real-world AI agent that manages appointments, scans forwarded emails, understands voice input, and calls offices to reschedule on your behalf." />
 
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://iddu.app/" />
-
+  <!-- Theme and Icons -->
+  <meta name="theme-color" content="#020617" />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <meta property="og:image" content="https://iddu.app/og-image.png" />
-  <meta name="twitter:image" content="https://iddu.app/og-image.png" />
 
-
-  <!-- OpenGraph / Facebook -->
+  <!-- OpenGraph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://iddu.app/" />
   <meta property="og:title" content="Iddu — Your AI That Gets Things Done" />
-  <meta property="og:description"
-    content="Iddu scans your forwarded appointment emails, understands natural speech and camera input, and calls offices to reschedule appointments automatically." />
   <meta property="og:image" content="https://iddu.app/og-image.png" />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://iddu.app/" />
-  <meta name="twitter:title" content="Iddu — Your AI That Gets Things Done" />
-  <meta name="twitter:description" content="Iddu is your real-world AI agent that manages your life’s logistics." />
-  <meta name="twitter:image" content="https://iddu.app/og-image.png" />
+  <!-- Google Fonts: Inter & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap"
+    rel="stylesheet">
 
-  <!-- Theme color (browser UI) -->
-  <meta name="theme-color" content="#0f172a" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-  <!-- Web Manifest -->
-  <link rel="manifest" href="/site.webmanifest" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Iddu",
-      "url": "https://iddu.app",
-      "image": "https://iddu.app/og-image.png",
-      "publisher": {
-        "@type": "Organization",
-        "name": "Iddu"
-      },
-      "applicationCategory": "ProductivityApplication",
-      "operatingSystem": "iOS, Android, Web",
-      "description": "Iddu is your AI assistant that scans forwarded emails, handles appointments, understands natural voice and camera input, and calls providers on your behalf.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    }
-  </script>
-
-  <!-- Vite injects scripts automatically -->
-  <script type="module" crossorigin src="/assets/index-B8uJuSUD.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-D8ekzTa4.css">
-</head>
-
-<body>
-  <div id="root"></div>
-
-  <!-- Branded Header Override: Replace dull React header with stunning branded section -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-    .iddu-branded-header {
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      padding: 0;
-      border-bottom: 1px solid rgba(168, 85, 247, 0.15);
-      background: linear-gradient(135deg, rgba(2, 6, 23, 0.97), rgba(15, 23, 42, 0.95));
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      overflow: hidden;
+    :root {
+      --bg-base: #020617;
+      /* slate-950 */
+      --bg-surface: #0f172a;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --brand-blue: #38bdf8;
+      --brand-purple: #a855f7;
+      --brand-pink: #ec4899;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-hover: rgba(255, 255, 255, 0.06);
     }
 
-    .iddu-branded-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:
-        radial-gradient(ellipse 600px 200px at 10% 50%, rgba(56, 189, 248, 0.08), transparent),
-        radial-gradient(ellipse 600px 200px at 90% 50%, rgba(168, 85, 247, 0.08), transparent);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient Background Glows */
+    .ambient-glow {
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      filter: blur(140px);
+      z-index: -1;
+      opacity: 0.15;
       pointer-events: none;
     }
 
-    .iddu-branded-header::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg,
-          transparent,
-          rgba(56, 189, 248, 0.4) 20%,
-          rgba(168, 85, 247, 0.6) 50%,
-          rgba(56, 189, 248, 0.4) 80%,
-          transparent);
-      animation: headerShimmer 4s ease-in-out infinite;
+    .glow-1 {
+      top: -200px;
+      left: -100px;
+      background: var(--brand-blue);
     }
 
-    @keyframes headerShimmer {
-
-      0%,
-      100% {
-        opacity: 0.5;
-      }
-
-      50% {
-        opacity: 1;
-      }
+    .glow-2 {
+      bottom: -200px;
+      right: -100px;
+      background: var(--brand-purple);
     }
 
-    .iddu-header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.9rem 1.2rem;
-      position: relative;
-      z-index: 1;
-      gap: 1.5rem;
+    /* Typography */
+    h1,
+    h2,
+    h3 {
+      font-family: 'Outfit', sans-serif;
     }
 
-    .iddu-brand-left {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-shrink: 0;
-    }
-
-    .iddu-logo-wrap {
-      position: relative;
-    }
-
-    .iddu-logo-wrap img {
-      height: 42px;
-      object-fit: contain;
-      filter: drop-shadow(0 0 18px rgba(168, 85, 247, 0.5)) drop-shadow(0 0 6px rgba(56, 189, 248, 0.3));
-    }
-
-    .iddu-pronunciation {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .iddu-phonetic {
-      font-size: 1.05rem;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      background: linear-gradient(135deg, #38bdf8, #a855f7, #ec4899);
-      background-size: 200% 200%;
+    .gradient-text {
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple), var(--brand-pink));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      animation: gradientShift 3s ease-in-out infinite;
     }
 
-    @keyframes gradientShift {
-
-      0%,
-      100% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
+    /* Nav/Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(2, 6, 23, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
     }
 
-    .iddu-meaning {
-      font-size: 0.72rem;
-      color: rgba(255, 255, 255, 0.55);
-      font-weight: 500;
-      letter-spacing: 0.3px;
-    }
-
-    .iddu-meaning em {
-      font-style: italic;
-      color: rgba(168, 133, 247, 0.85);
-    }
-
-    .iddu-value-prop {
-      flex: 1;
-      max-width: 520px;
-      text-align: right;
-    }
-
-    .iddu-tagline {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.92);
-      line-height: 1.5;
-      letter-spacing: -0.01em;
-    }
-
-    .iddu-tagline .highlight {
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(168, 85, 247, 0.15));
-      border: 1px solid rgba(168, 85, 247, 0.25);
-      padding: 1px 8px;
-      border-radius: 6px;
-      color: #c4b5fd;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    /* Mobile responsive */
-    @media (max-width: 640px) {
-      .iddu-header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.7rem;
-        padding: 0.8rem 1rem;
-      }
-
-      .iddu-value-prop {
-        text-align: left;
-        max-width: 100%;
-      }
-
-      .iddu-tagline {
-        font-size: 0.78rem;
-      }
-
-      .iddu-phonetic {
-        font-size: 0.95rem;
-      }
-    }
-  </style>
-
-  <script>
-    (function () {
-      function replaceHeader() {
-        var root = document.getElementById('root');
-        if (!root || !root.children.length) return false;
-
-        // Find the React header element
-        var header = root.querySelector('header');
-        if (!header) return false;
-
-        // Don't inject twice
-        if (document.querySelector('.iddu-branded-header')) return true;
-
-        // Create the new branded header
-        var newHeader = document.createElement('div');
-        newHeader.className = 'iddu-branded-header';
-        newHeader.innerHTML = `
-          <div class="iddu-header-inner">
-            <div class="iddu-brand-left">
-              <div class="iddu-logo-wrap">
-                <img src="/images/iddu-logo.png" alt="iddu logo" />
-              </div>
-              <div class="iddu-pronunciation">
-                <span class="iddu-phonetic">/aɪ duː/ — "I do"</span>
-                <span class="iddu-meaning"><em>I do it for you.</em></span>
-              </div>
-            </div>
-            <div class="iddu-value-prop">
-              <div style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 6px; text-align: right; display: flex; align-items: center; justify-content: flex-end; gap: 6px;">
-                 <span>Questions?</span> <a href="mailto:admin@iddu.app" style="color: #38bdf8; text-decoration: none; font-weight: 500; transition: color 0.2s;">admin@iddu.app</a>
-              </div>
-              <div class="iddu-tagline">
-                Your AI-powered assistant that <span class="highlight">handles your busy schedule</span> — so you don't have to,
-                Let 'I do' handle it
-              </div>
-            </div>
-          </div>
-        `;
-
-        // Replace the React header
-        header.style.display = 'none';
-        header.parentElement.insertBefore(newHeader, header);
-
-        return true;
-      }
-
-      var obs = new MutationObserver(function (m, o) {
-        if (replaceHeader()) o.disconnect();
-      });
-      obs.observe(document.getElementById('root'), { childList: true, subtree: true });
-      window.addEventListener('load', function () { setTimeout(replaceHeader, 400); });
-    })();
-  </script>
-
-  <!-- Hero Highlight Cards: Fill empty space in left column below chips -->
-  <script>
-    (function () {
-      function injectHeroHighlights() {
-        var root = document.getElementById('root');
-        if (!root || !root.children.length) return false;
-
-        // Find chips container
-        var chips = root.querySelectorAll('.chip');
-        if (!chips.length) return false;
-        var chipsContainer = chips[0].parentElement;
-        if (!chipsContainer) return false;
-
-        // Don't inject twice
-        if (chipsContainer.parentElement.querySelector('.hero-highlights')) return true;
-
-        var leftCol = chipsContainer.parentElement;
-
-        // Create highlights container
-        var container = document.createElement('div');
-        container.className = 'hero-highlights';
-        container.style.cssText = 'display:flex;flex-direction:column;gap:0.55rem;margin-top:1.5rem;';
-
-        var highlights = [
-          {
-            icon: '📧',
-            title: 'Smart Email Parsing',
-            desc: 'Forward appointment emails to your personal inbox — iddu extracts dates, times & provider details automatically'
-          },
-          {
-            icon: '🤖',
-            title: 'AI Phone Agent',
-            desc: 'iddu calls the office, speaks to staff, and reschedules your appointments — completely hands-free'
-          },
-          {
-            icon: '📸',
-            title: 'Camera & Voice Input',
-            desc: 'Snap a paper slip or just speak naturally — iddu understands and creates beautiful appointment cards'
-          }
-        ];
-
-        highlights.forEach(function (h, i) {
-          var card = document.createElement('div');
-          card.style.cssText =
-            'display:flex;align-items:flex-start;gap:0.75rem;padding:0.75rem 1rem;' +
-            'background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);' +
-            'border-radius:12px;opacity:0;animation:heroCardIn 0.5s ease forwards;' +
-            'animation-delay:' + (i * 0.15) + 's;';
-
-          var iconEl = document.createElement('span');
-          iconEl.style.cssText = 'font-size:1.35rem;line-height:1;flex-shrink:0;margin-top:2px;';
-          iconEl.textContent = h.icon;
-
-          var textWrap = document.createElement('div');
-
-          var titleEl = document.createElement('div');
-          titleEl.style.cssText = 'font-weight:600;font-size:0.82rem;color:rgba(255,255,255,0.92);margin-bottom:2px;';
-          titleEl.textContent = h.title;
-
-          var descEl = document.createElement('div');
-          descEl.style.cssText = 'font-size:0.74rem;color:rgba(255,255,255,0.48);line-height:1.35;';
-          descEl.textContent = h.desc;
-
-          textWrap.appendChild(titleEl);
-          textWrap.appendChild(descEl);
-          card.appendChild(iconEl);
-          card.appendChild(textWrap);
-          container.appendChild(card);
-        });
-
-        // Inject keyframes
-        if (!document.getElementById('hero-card-anim')) {
-          var style = document.createElement('style');
-          style.id = 'hero-card-anim';
-          style.textContent = '@keyframes heroCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}';
-          document.head.appendChild(style);
-        }
-
-        leftCol.appendChild(container);
-        return true;
-      }
-
-      var obs = new MutationObserver(function (m, o) {
-        if (injectHeroHighlights()) o.disconnect();
-      });
-      obs.observe(document.getElementById('root'), { childList: true, subtree: true });
-      window.addEventListener('load', function () { setTimeout(injectHeroHighlights, 600); });
-    })();
-  </script>
-
-  <!-- Voice Agent Demo: Replace hero phone mockup with animated demo -->
-  <script>
-    (function () {
-      function replaceHeroMockup() {
-        const root = document.getElementById('root');
-        if (!root || !root.children.length) return false;
-
-        // Find the hero phone mockup: it's a div.glass with "My Appointments" text
-        const glassDivs = root.querySelectorAll('.glass');
-        let mockup = null;
-
-        for (const glass of glassDivs) {
-          const text = glass.textContent || '';
-          if (text.includes('My Appointments')) {
-            // Verify it's the phone-sized one (width ~260px), not the outer hero glass
-            const rect = glass.getBoundingClientRect();
-            if (rect.width < 400 && rect.height < 600) {
-              mockup = glass;
-              break;
-            }
-          }
-        }
-
-        if (!mockup) return false;
-
-        // Get the container that holds the mockup (the flex centering wrapper)
-        const mockupContainer = mockup.parentElement;
-
-        // Create the iframe to replace the static mockup
-        const iframe = document.createElement('iframe');
-        iframe.src = '/demo/voice-agent-demo.html';
-        iframe.title = 'IDDU Voice Agent Demo';
-        iframe.loading = 'lazy';
-        iframe.style.cssText = `
-          width: 340px;
-          height: 720px;
-          border: none;
-          border-radius: 44px;
-          overflow: hidden;
-          background: #0a0a0f;
-        `;
-
-        // Replace the static mockup with the animated iframe
-        mockupContainer.replaceChild(iframe, mockup);
-
-        return true;
-      }
-
-      // Wait for React to render
-      const observer = new MutationObserver(function (mutations, obs) {
-        if (replaceHeroMockup()) {
-          obs.disconnect();
-        }
-      });
-
-      observer.observe(document.getElementById('root'), {
-        childList: true,
-        subtree: true
-      });
-
-      // Fallback: try after DOM load
-      window.addEventListener('load', function () {
-        setTimeout(replaceHeroMockup, 500);
-      });
-    })();
-  </script>
-  <!-- Contact Footer: Required for Verification -->
-  <style>
-    .iddu-footer {
-      background: #0f172a;
-      border-top: 1px solid rgba(168, 85, 247, 0.15);
-      padding: 3rem 1.5rem;
-      margin-top: 4rem;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 0.9rem;
-    }
-
-    .iddu-footer-content {
-      max-width: 1100px;
+    .nav-inner {
+      max-width: 1280px;
       margin: 0 auto;
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      text-align: center;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
     }
 
-    .iddu-footer h4 {
-      color: #fff;
-      margin: 0 0 0.5rem 0;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      height: 40px;
+      filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.4));
+    }
+
+    .phonetics {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .phonetics-main {
+      font-family: 'Outfit';
+      font-weight: 800;
       font-size: 1.1rem;
     }
 
-    .iddu-footer a {
-      color: #38bdf8;
+    .phonetics-sub {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+
+    .contact-btn {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      color: var(--brand-blue);
       text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
     }
 
-    .iddu-footer a:hover {
-      text-decoration: underline;
+    .contact-btn:hover {
+      background: rgba(56, 189, 248, 0.2);
     }
 
-    .iddu-footer p {
-      margin: 0.25rem 0;
-      line-height: 1.6;
+    /* Main Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
     }
 
-    .iddu-copyright {
-      margin-top: 2rem;
+    /* Hero Section */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      min-height: 100vh;
+      padding-top: 8rem;
+      align-items: center;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      max-width: 500px;
+    }
+
+    /* Hero Mini Features */
+    .hero-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .highlight-card {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      padding: 1.25rem;
+      border-radius: 16px;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .highlight-card:hover {
+      transform: translateX(8px);
+      background: var(--glass-hover);
+    }
+
+    .highlight-card .icon {
+      font-size: 1.5rem;
+    }
+
+    .highlight-card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+      color: #fff;
+    }
+
+    .highlight-card p {
+      font-size: 0.85rem;
+      margin: 0;
+      color: var(--text-secondary);
+    }
+
+    /* Phone Demo Wrapper */
+    .phone-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone-frame {
+      position: relative;
+      border-radius: 48px;
+      padding: 12px;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.5));
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .demo-iframe {
+      width: 340px;
+      height: 740px;
+      border: none;
+      border-radius: 36px;
+      background: #0a0a0f;
+      display: block;
+    }
+
+    /* Features Grid */
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin: 8rem 0 4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 8rem;
+    }
+
+    .feature-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-5px);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .feature-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand-blue), var(--brand-purple));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-box:hover::before {
+      opacity: 1;
+    }
+
+    .fb-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+
+    .fb-title {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .fb-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .fb-list {
+      list-style: none;
+    }
+
+    .fb-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 0.5rem;
+    }
+
+    .fb-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--brand-blue);
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      background: #090e17;
+      border-top: 1px solid var(--glass-border);
+      padding: 4rem 2rem;
+      margin-top: 6rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .copyright {
+      color: rgba(255, 255, 255, 0.3);
       font-size: 0.8rem;
-      opacity: 0.5;
+    }
+
+    /* Responsive */
+    @media (max-width: 968px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding-top: 6rem;
+      }
+
+      .hero-content p {
+        margin: 0 auto 2.5rem;
+      }
+
+      .highlight-card {
+        text-align: left;
+      }
+
+      .hero-content h1 {
+        font-size: 3rem;
+      }
     }
   </style>
-  <script>
-    (function () {
-      function injectFooter() {
-        if (document.querySelector('.iddu-footer')) return;
+</head>
 
-        var footer = document.createElement('footer');
-        footer.className = 'iddu-footer';
-        footer.innerHTML = `
-          <div class="iddu-footer-content">
+<body>
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="/images/iddu-logo.png" alt="Iddu" class="logo" />
+        <div class="phonetics">
+          <span class="phonetics-main gradient-text">/aɪ duː/</span>
+          <span class="phonetics-sub">I do it for you.</span>
+        </div>
+      </div>
+      <a href="mailto:admin@iddu.app" class="contact-btn">Contact Support</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Your Medical AI That <span class="gradient-text">Actually Gets Things Done</span></h1>
+        <p>Iddu manages your complete healthcare logistics. We seamlessly organize appointments, digest medical bills,
+          and our AI agent physically calls provider offices to reschedule on your behalf.</p>
+
+        <div class="hero-highlights">
+          <div class="highlight-card">
+            <span class="icon">🤖</span>
             <div>
-              <h4>Contact Us</h4>
-              <p><strong>Iddu Technologies LLC</strong></p>
-              <p>1045 Gallatin Way<br>Suwanee, Georgia 30024-1261<br>United States</p>
-              <p>Email: <a href="mailto:admin@iddu.app">admin@iddu.app</a></p>
-            </div>
-            <div style="margin-top: 1rem; display: flex; justify-content: center; gap: 20px; font-size: 0.85rem;">
-                <a href="/privacy.html" style="color: rgba(255,255,255,0.5); text-decoration: none;">Privacy Policy</a>
-                <a href="/terms.html" style="color: rgba(255,255,255,0.5); text-decoration: none;">Terms of Service</a>
-            </div>
-            <div class="iddu-copyright">
-              &copy; ${new Date().getFullYear()} Iddu Technologies LLC. All rights reserved.
+              <h3>Autonomous Voice Agent</h3>
+              <p>Need to reschedule? Tell the app, and our AI calls the office, navigates the secretary, and sets the
+                new date.</p>
             </div>
           </div>
-        `;
-        document.body.appendChild(footer);
-      }
+          <div class="highlight-card">
+            <span class="icon">📧</span>
+            <div>
+              <h3>Smart Inbox Triage</h3>
+              <p>Forward your appointment confirmations and digital receipts directly to your @iddu.app email address.
+              </p>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <span class="icon">🛡️</span>
+            <div>
+              <h3>Enterprise-Level Privacy</h3>
+              <p>We use zero-training APIs and strict hard-deletion protocols. Your medical data stays yours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      // Inject after load to ensure it's at the bottom
-      if (document.readyState === 'complete') {
-        injectFooter();
-      } else {
-        window.addEventListener('load', injectFooter);
-      }
+      <div class="phone-wrapper">
+        <div class="phone-frame">
+          <iframe src="/demo/voice-agent-demo.html" class="demo-iframe" title="Iddu Voice Demo"></iframe>
+        </div>
+      </div>
+    </section>
 
-      // Also try to inject if the root is modified (SPA navigation)
-      var obs = new MutationObserver(function (m) {
-        if (!document.querySelector('.iddu-footer') && document.body) {
-          injectFooter();
-        }
-      });
-      obs.observe(document.body, { childList: true, subtree: true });
-    })();
-  </script>
+    <!-- Comprehensive Features Grid -->
+    <h2 class="section-title">The Complete <span class="gradient-text">Health Toolchain</span></h2>
+
+    <div class="features-grid">
+      <!-- Feature: Core Appointments -->
+      <div class="feature-box">
+        <span class="fb-icon">📅</span>
+        <h3 class="fb-title">Appointment Management</h3>
+        <p class="fb-desc">The central hub for all your medical, dental, and health provider logistics, powered by
+          multimodal input.</p>
+        <ul class="fb-list">
+          <li>Camera & Voice data extraction</li>
+          <li>Automated Contextual Linking</li>
+          <li>Real-time Status Tracking</li>
+        </ul>
+      </div>
+
+      <!-- Feature: AI Phone Logistics -->
+      <div class="feature-box">
+        <span class="fb-icon">📞</span>
+        <h3 class="fb-title">The AI Phone Agent</h3>
+        <p class="fb-desc">Don't wait on hold. Our trained AI acts as your proxy to handle administrative phone calls.
+        </p>
+        <ul class="fb-list">
+          <li>Autonomous office calling & rescheduling</li>
+          <li>Natural conversational flow</li>
+          <li>Full audio and text transcripts generated</li>
+        </ul>
+      </div>
+
+      <!-- Feature: Health Wallet -->
+      <div class="feature-box">
+        <span class="fb-icon">💳</span>
+        <h3 class="fb-title">The Health Wallet</h3>
+        <p class="fb-desc">Tame your medical spending. We digest the complex paperwork so you can see your true
+          out-of-pocket costs.</p>
+        <ul class="fb-list">
+          <li>Aggregate Financial View by Tax Year</li>
+          <li>Email Bill Extraction (Reads EOBs & Invoices)</li>
+          <li>1-Click FSA/HSA Claim Generation (Coming Soon)</li>
+        </ul>
+      </div>
+
+      <!-- Feature: Proactive Agent -->
+      <div class="feature-box">
+        <span class="fb-icon">🔔</span>
+        <h3 class="fb-title">Proactive Intelligence</h3>
+        <p class="fb-desc">Iddu doesn't just store data; it anticipates what needs to happen next based on your scanned
+          documents.</p>
+        <ul class="fb-list">
+          <li>Smart Billing Reminders ("Balance Due" alerts)</li>
+          <li>Automated follow-up drafting</li>
+          <li>Appointment conflict resolution</li>
+        </ul>
+      </div>
+
+      <!-- Feature: Enterprise Privacy -->
+      <div class="feature-box">
+        <span class="fb-icon">🔒</span>
+        <h3 class="fb-title">Healthcare-Grade Security</h3>
+        <p class="fb-desc">Built like a fortress so you can trust us with your most sensitive medical paperwork.</p>
+        <ul class="fb-list">
+          <li>Instant Hard-Deletion protocols (S3/DB Wipe)</li>
+          <li>Enterprise AI Isolation (No public model training)</li>
+          <li>AES-256 Encryption at rest</li>
+        </ul>
+      </div>
+
+      <!-- Feature: Frictionless Identity -->
+      <div class="feature-box">
+        <span class="fb-icon">🔑</span>
+        <h3 class="fb-title">Frictionless Check-In</h3>
+        <p class="fb-desc">Gain access to your secure portal immediately using identities you already trust through our
+          Federated Broker.</p>
+        <ul class="fb-list">
+          <li>Apple Sign-In Support</li>
+          <li>Google Social Authentication</li>
+          <li>Unified Provider Synchronization</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="mailto:admin@iddu.app">Contact Us</a>
+    </div>
+    <p class="copyright">&copy;
+      <script>document.write(new Date().getFullYear())</script> Iddu Technologies LLC. All rights reserved.
+    </p>
+    <p style="color: rgba(255,255,255,0.2); font-size: 0.75rem; margin-top: 1rem;">1045 Gallatin Way, Suwanee, Georgia
+      30024-1261, United States</p>
+  </footer>
+
 </body>
 
 </html>
