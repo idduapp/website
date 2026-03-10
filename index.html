@@ -468,20 +468,25 @@
     }
 
     /* Video Section Styles */
-    .video-section {
-      padding: 8rem 0;
-      text-align: center;
+    .hero-media {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
     }
 
     .video-container {
       position: relative;
-      max-width: 1000px;
+      width: 100%;
+      max-width: 480px;
+      /* Reduced by ~50% from 1000px */
       margin: 0 auto;
-      border-radius: 24px;
+      border-radius: 20px;
       overflow: hidden;
       background: var(--bg-surface);
       border: 1px solid var(--glass-border);
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6), 0 0 20px rgba(168, 85, 247, 0.1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 15px rgba(168, 85, 247, 0.1);
       line-height: 0;
     }
 
@@ -626,54 +631,55 @@
           </div>
         </div>
       </div>
+      <div class="hero-media">
+        <!-- Video Integrated Here -->
+        <div class="video-container" id="mainVideoContainer">
+          <video id="idduVideo" poster="/images/iddu-logo.png">
+            <source src="demo/IDDU__AI_Chief_of_Staff.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
 
-      <div class="phone-wrapper">
-        <div class="phone-frame">
-          <iframe src="/demo/voice-agent-demo.html" class="demo-iframe" title="Iddu Voice Demo"></iframe>
-        </div>
-      </div>
-    </section>
+          <div class="video-overlay" id="videoOverlay">
+            <div class="play-icon-large">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
 
-    <!-- Video Integration Section -->
-    <section class="video-section">
-      <div class="video-container" id="mainVideoContainer">
-        <video id="idduVideo" poster="/images/iddu-logo.png">
-          <source src="demo/IDDU__AI_Chief_of_Staff.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-
-        <div class="video-overlay" id="videoOverlay">
-          <div class="play-icon-large">
-            <svg viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+          <div class="video-controls">
+            <button class="video-btn" id="playPauseBtn">
+              <svg id="playIcon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+              <span id="playText">Play</span>
+            </button>
+            <button class="video-btn" id="muteUnmuteBtn">
+              <svg id="muteIcon" viewBox="0 0 24 24" style="display:none;">
+                <path
+                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z" />
+              </svg>
+              <svg id="unmuteIcon" viewBox="0 0 24 24">
+                <path
+                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02z" />
+              </svg>
+              <span id="muteText">Unmute</span>
+            </button>
           </div>
         </div>
 
-        <div class="video-controls">
-          <button class="video-btn" id="playPauseBtn">
-            <svg id="playIcon" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;">
-              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-            </svg>
-            <span id="playText">Play</span>
-          </button>
-          <button class="video-btn" id="muteUnmuteBtn">
-            <svg id="muteIcon" viewBox="0 0 24 24" style="display:none;">
-              <path
-                d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z" />
-            </svg>
-            <svg id="unmuteIcon" viewBox="0 0 24 24">
-              <path
-                d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02z" />
-            </svg>
-            <span id="muteText">Unmute</span>
-          </button>
+        <div class="phone-wrapper">
+          <div class="phone-frame">
+            <iframe src="/demo/voice-agent-demo.html" class="demo-iframe" title="Iddu Voice Demo"></iframe>
+          </div>
         </div>
       </div>
     </section>
+
+
 
     <!-- Comprehensive Features Grid -->
     <h2 class="section-title">The Complete <span class="gradient-text">Health Toolchain</span></h2>
