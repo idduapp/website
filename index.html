@@ -466,120 +466,6 @@
         font-size: 3rem;
       }
     }
-
-    /* Video Section Styles */
-    .hero-media {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .video-container {
-      position: relative;
-      width: 100%;
-      border-radius: 20px;
-      overflow: hidden;
-      background: var(--bg-surface);
-      border: 2px solid var(--brand-blue);
-      box-shadow: 0 0 20px var(--brand-blue), 0 0 40px rgba(56, 189, 248, 0.2);
-      line-height: 0;
-      transition: all 0.3s ease;
-    }
-
-    .video-container:hover {
-      border-color: var(--brand-purple);
-      box-shadow: 0 0 30px var(--brand-purple), 0 0 60px rgba(168, 85, 247, 0.3);
-    }
-
-    .video-container video {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .video-controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(2, 6, 23, 0.9), transparent);
-      padding: 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: 10;
-    }
-
-    .video-container:hover .video-controls {
-      opacity: 1;
-    }
-
-    .video-btn {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      color: #fff;
-      padding: 0.8rem 1.5rem;
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      transition: all 0.2s ease;
-    }
-
-    .video-btn:hover {
-      background: var(--glass-hover);
-      border-color: var(--brand-blue);
-      transform: translateY(-2px);
-    }
-
-    .video-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
-
-    .video-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(2, 6, 23, 0.4);
-      cursor: pointer;
-      transition: background 0.3s ease;
-      z-index: 5;
-    }
-
-    .video-container.is-playing .video-overlay {
-      display: none;
-    }
-
-    .play-icon-large {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .video-overlay:hover .play-icon-large {
-      transform: scale(1.1);
-    }
   </style>
 </head>
 
@@ -634,19 +520,13 @@
           </div>
         </div>
       </div>
-      <div class="hero-media">
-
-      </div>
 
       <div class="phone-wrapper">
         <div class="phone-frame">
           <iframe src="/demo/voice-agent-demo.html" class="demo-iframe" title="Iddu Voice Demo"></iframe>
         </div>
       </div>
-      </div>
     </section>
-
-
 
     <!-- Comprehensive Features Grid -->
     <h2 class="section-title">The Complete <span class="gradient-text">Health Toolchain</span></h2>
@@ -773,72 +653,6 @@
       </div>
     </section>
 
-    <!-- New Video Synopsis Section -->
-    <section class="hero" style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid var(--glass-border);">
-      <div class="hero-content">
-        <h1>Your AI <span class="gradient-text">Chief of Staff</span></h1>
-        <p>Experience the future of healthcare management. Iddu acts as your personal Chief of Staff, handling the
-          complex logistics of your medical life with robotic precision and human-like intelligence.</p>
-
-        <div class="hero-highlights">
-          <div class="highlight-card">
-            <span class="icon">🏛️</span>
-            <div>
-              <h3>Institutional Knowledge</h3>
-              <p>Iddu learns your preferences and healthcare history to make informed decisions on your behalf.</p>
-            </div>
-          </div>
-          <div class="highlight-card">
-            <span class="icon">🤝</span>
-            <div>
-              <h3>Seamless Coordination</h3>
-              <p>From booking appointments to resolving billing disputes, your AI agent coordinates every detail.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-media">
-        <div class="video-container" id="mainVideoContainer">
-          <video id="idduVideo" poster="/images/iddu-logo.png">
-            <source src="demo/IDDU__AI_Chief_of_Staff.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-
-          <div class="video-overlay" id="videoOverlay">
-            <div class="play-icon-large">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </div>
-
-          <div class="video-controls">
-            <button class="video-btn" id="playPauseBtn">
-              <svg id="playIcon" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-              </svg>
-              <span id="playText">Play</span>
-            </button>
-            <button class="video-btn" id="muteUnmuteBtn">
-              <svg id="muteIcon" viewBox="0 0 24 24" style="display:none;">
-                <path
-                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z" />
-              </svg>
-              <svg id="unmuteIcon" viewBox="0 0 24 24">
-                <path
-                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02z" />
-              </svg>
-              <span id="muteText">Unmute</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Early Access CTA Section -->
     <section class="cta-section">
       <h2>Get <span class="gradient-text">Early Access</span></h2>
@@ -876,71 +690,6 @@
       30024-1261, United States</p>
   </footer>
 
-  <script>
-    const video = document.getElementById('idduVideo');
-    const container = document.getElementById('mainVideoContainer');
-    const overlay = document.getElementById('videoOverlay');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    const muteUnmuteBtn = document.getElementById('muteUnmuteBtn');
-
-    const playIcon = document.getElementById('playIcon');
-    const pauseIcon = document.getElementById('pauseIcon');
-    const playText = document.getElementById('playText');
-
-    const muteIcon = document.getElementById('muteIcon');
-    const unmuteIcon = document.getElementById('unmuteIcon');
-    const muteText = document.getElementById('muteText');
-
-    // Initially muted as per request for better UX (though autolpay is off)
-    video.muted = true;
-
-    function togglePlay() {
-      if (video.paused) {
-        video.play();
-        container.classList.add('is-playing');
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-        playText.textContent = 'Pause';
-      } else {
-        video.pause();
-        container.classList.remove('is-playing');
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-        playText.textContent = 'Play';
-      }
-    }
-
-    function toggleMute() {
-      video.muted = !video.muted;
-      if (video.muted) {
-        muteIcon.style.display = 'none';
-        unmuteIcon.style.display = 'block';
-        muteText.textContent = 'Unmute';
-      } else {
-        muteIcon.style.display = 'block';
-        unmuteIcon.style.display = 'none';
-        muteText.textContent = 'Mute';
-      }
-    }
-
-    overlay.addEventListener('click', togglePlay);
-    playPauseBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      togglePlay();
-    });
-    muteUnmuteBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleMute();
-    });
-
-    // Handle end of video
-    video.addEventListener('ended', () => {
-      container.classList.remove('is-playing');
-      playIcon.style.display = 'block';
-      pauseIcon.style.display = 'none';
-      playText.textContent = 'Play';
-    });
-  </script>
 </body>
 
 </html>
