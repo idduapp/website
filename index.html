@@ -479,15 +479,18 @@
     .video-container {
       position: relative;
       width: 100%;
-      max-width: 480px;
-      /* Reduced by ~50% from 1000px */
-      margin: 0 auto;
       border-radius: 20px;
       overflow: hidden;
       background: var(--bg-surface);
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 15px rgba(168, 85, 247, 0.1);
+      border: 2px solid var(--brand-blue);
+      box-shadow: 0 0 20px var(--brand-blue), 0 0 40px rgba(56, 189, 248, 0.2);
       line-height: 0;
+      transition: all 0.3s ease;
+    }
+
+    .video-container:hover {
+      border-color: var(--brand-purple);
+      box-shadow: 0 0 30px var(--brand-purple), 0 0 60px rgba(168, 85, 247, 0.3);
     }
 
     .video-container video {
@@ -632,50 +635,14 @@
         </div>
       </div>
       <div class="hero-media">
-        <!-- Video Integrated Here -->
-        <div class="video-container" id="mainVideoContainer">
-          <video id="idduVideo" poster="/images/iddu-logo.png">
-            <source src="demo/IDDU__AI_Chief_of_Staff.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
 
-          <div class="video-overlay" id="videoOverlay">
-            <div class="play-icon-large">
-              <svg viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </div>
+      </div>
 
-          <div class="video-controls">
-            <button class="video-btn" id="playPauseBtn">
-              <svg id="playIcon" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-              </svg>
-              <span id="playText">Play</span>
-            </button>
-            <button class="video-btn" id="muteUnmuteBtn">
-              <svg id="muteIcon" viewBox="0 0 24 24" style="display:none;">
-                <path
-                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z" />
-              </svg>
-              <svg id="unmuteIcon" viewBox="0 0 24 24">
-                <path
-                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02z" />
-              </svg>
-              <span id="muteText">Unmute</span>
-            </button>
-          </div>
+      <div class="phone-wrapper">
+        <div class="phone-frame">
+          <iframe src="/demo/voice-agent-demo.html" class="demo-iframe" title="Iddu Voice Demo"></iframe>
         </div>
-
-        <div class="phone-wrapper">
-          <div class="phone-frame">
-            <iframe src="/demo/voice-agent-demo.html" class="demo-iframe" title="Iddu Voice Demo"></iframe>
-          </div>
-        </div>
+      </div>
       </div>
     </section>
 
@@ -801,6 +768,72 @@
               <p>No more digging through PDFs. Our deterministic AI layer reads your documents securely so you don't
                 have to.</p>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- New Video Synopsis Section -->
+    <section class="hero" style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid var(--glass-border);">
+      <div class="hero-content">
+        <h1>Your AI <span class="gradient-text">Chief of Staff</span></h1>
+        <p>Experience the future of healthcare management. Iddu acts as your personal Chief of Staff, handling the
+          complex logistics of your medical life with robotic precision and human-like intelligence.</p>
+
+        <div class="hero-highlights">
+          <div class="highlight-card">
+            <span class="icon">🏛️</span>
+            <div>
+              <h3>Institutional Knowledge</h3>
+              <p>Iddu learns your preferences and healthcare history to make informed decisions on your behalf.</p>
+            </div>
+          </div>
+          <div class="highlight-card">
+            <span class="icon">🤝</span>
+            <div>
+              <h3>Seamless Coordination</h3>
+              <p>From booking appointments to resolving billing disputes, your AI agent coordinates every detail.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <div class="video-container" id="mainVideoContainer">
+          <video id="idduVideo" poster="/images/iddu-logo.png">
+            <source src="demo/IDDU__AI_Chief_of_Staff.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+
+          <div class="video-overlay" id="videoOverlay">
+            <div class="play-icon-large">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="video-controls">
+            <button class="video-btn" id="playPauseBtn">
+              <svg id="playIcon" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+              <span id="playText">Play</span>
+            </button>
+            <button class="video-btn" id="muteUnmuteBtn">
+              <svg id="muteIcon" viewBox="0 0 24 24" style="display:none;">
+                <path
+                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3z" />
+              </svg>
+              <svg id="unmuteIcon" viewBox="0 0 24 24">
+                <path
+                  d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.26 2.5-4.02z" />
+              </svg>
+              <span id="muteText">Unmute</span>
+            </button>
           </div>
         </div>
       </div>
