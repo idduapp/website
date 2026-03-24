@@ -466,6 +466,94 @@
         font-size: 3rem;
       }
     }
+    /* AI Agent in Action Gallery */
+    .ai-gallery-section {
+      padding: 6rem 0;
+      margin-top: 4rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .ai-gallery-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 4rem;
+      letter-spacing: -0.02em;
+    }
+
+    .ai-gallery-container {
+      display: flex;
+      gap: 2rem;
+      padding: 1rem 2rem 3rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--brand-purple) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .ai-gallery-container::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .ai-gallery-container::-webkit-scrollbar-thumb {
+      background: linear-gradient(to right, var(--brand-blue), var(--brand-purple));
+      border-radius: 10px;
+    }
+
+    .gallery-item {
+      flex: 0 0 320px;
+      scroll-snap-align: center;
+      perspective: 1000px;
+    }
+
+    .gallery-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      overflow: hidden;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .gallery-card:hover .gallery-img {
+      transform: scale(1.05);
+    }
+
+    .gallery-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem 1.5rem 1.5rem;
+      background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 20%, rgba(15, 23, 42, 0.8) 50%, transparent);
+      backdrop-filter: blur(8px);
+    }
+
+    .gallery-label h4 {
+      font-family: 'Outfit';
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .gallery-label p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
   </style>
 </head>
 
@@ -491,8 +579,7 @@
     <section class="hero">
       <div class="hero-content">
         <h1>Your Personal AI That <span class="gradient-text">Actually Gets Things Done</span></h1>
-        <p>Iddu is your autonomous health assistant. We manage your schedule, digest complex medical bills, and our AI
-          agent handles the logistics—even calling offices to reschedule on your behalf.</p>
+        <p>Iddu is your autonomous health assistant. We manage the schedules for users like <strong>Jordan Rivera</strong>—digesting medical bills, tracking follow-ups at <strong>Metro Health Clinic</strong>, and our AI agent even handles the calls to reschedule on your behalf.</p>
 
         <div class="hero-highlights">
           <div class="highlight-card">
@@ -566,12 +653,12 @@
         <span class="fb-icon">📞</span>
         <h3 class="fb-title">Autonomous Agent</h3>
         <p class="fb-desc">Our AI doesn't just suggest—it acts. It handles the manual work of administrative phone
-          calls.</p>
+          calls with full transparency.</p>
         <ul class="fb-list">
-          <li>"Running Late" auto-notifications</li>
+          <li>"WOW" Success Overlays for clarity</li>
           <li>Autonomous Rescheduling & Cancellation</li>
+          <li>Real-time status tracking & Push alerts</li>
           <li>Full call transcripts & audio records</li>
-          <li>Zero-UI interaction via Voice</li>
         </ul>
       </div>
 
@@ -640,6 +727,56 @@
         </ul>
       </div>
     </div>
+
+    <!-- AI Agent in Action Gallery -->
+    <section class="ai-gallery-section" id="ai-action">
+      <h2 class="ai-gallery-title">AI Agent <span class="gradient-text">In Action</span></h2>
+      <div class="ai-gallery-container">
+        <!-- Phase 1: Awareness -->
+        <div class="gallery-item">
+          <div class="gallery-card">
+            <img src="/images/gallery/push-notification.png" alt="Smart Push Notification" class="gallery-img" />
+            <div class="gallery-label">
+              <h4>1. Real-Time Awareness</h4>
+              <p>Silent, smart push notifications keep you informed without the noise as the AI initiates the work.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 2: Execution -->
+        <div class="gallery-item">
+          <div class="gallery-card">
+            <img src="/images/gallery/ai-actions.png" alt="AI Actions Sheet" class="gallery-img" />
+            <div class="gallery-label">
+              <h4>2. Full Oversight</h4>
+              <p>Granular control over every AI action. View live progress, transcripts, and schedule details.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 3: Success -->
+        <div class="gallery-item">
+          <div class="gallery-card">
+            <img src="/images/gallery/wow-success.png" alt="WOW Success Overlay" class="gallery-img" />
+            <div class="gallery-label">
+              <h4>3. "WOW" Feedback</h4>
+              <p>Premium full-screen celebrations confirm your success the second the call concludes.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Phase 4: Persistence -->
+        <div class="gallery-item">
+          <div class="gallery-card">
+            <img src="/images/gallery/informative-update.png" alt="Informative Overlay" class="gallery-img" />
+            <div class="gallery-label">
+              <h4>4. Deep Transparency</h4>
+              <p>Know exactly why an office was busy and when the next attempt is queued automatically.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- AI Chat Demo Section -->
     <section class="hero" style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid var(--glass-border);">
@@ -716,8 +853,7 @@
     <p class="copyright">&copy;
       <script>document.write(new Date().getFullYear())</script> Iddu Technologies LLC. All rights reserved.
     </p>
-    <p style="color: rgba(255,255,255,0.2); font-size: 0.75rem; margin-top: 1rem;">1045 Gallatin Way, Suwanee, Georgia
-      30024-1261, United States</p>
+    <p style="color: rgba(255,255,255,0.2); font-size: 0.75rem; margin-top: 1rem;">100 Peachtree St NW, Atlanta, GA 30303, United States</p>
   </footer>
 
 </body>
