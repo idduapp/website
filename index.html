@@ -532,6 +532,20 @@
       transform: scale(1.05);
     }
 
+    .gallery-img-frame {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* Override for images inside frames to stay at the top */
+    .gallery-img-frame .gallery-img {
+      height: auto;
+      object-position: top;
+    }
+
     .gallery-label {
       position: absolute;
       bottom: 0;
@@ -835,7 +849,9 @@
         <!-- Phase 1: Registration -->
         <div class="gallery-item">
           <div class="gallery-card">
-            <img src="/images/gallery/mfa-1.png" alt="Secure Registration" class="gallery-img" />
+            <div class="gallery-img-frame">
+              <img src="/images/gallery/mfa-1.png" alt="Secure Registration" class="gallery-img" />
+            </div>
             <div class="gallery-label">
               <h4>1. Identity-First Enrollment</h4>
               <p>End-to-End Encrypted (E2EE) registration using SHA-256 hashing and salted cryptographic storage.</p>
@@ -846,7 +862,9 @@
         <!-- Phase 2: MFA Setup -->
         <div class="gallery-item">
           <div class="gallery-card">
-            <img src="/images/gallery/mfa-2.png" alt="MFA Setup" class="gallery-img" />
+            <div class="gallery-img-frame">
+              <img src="/images/gallery/mfa-2.png" alt="MFA Setup" class="gallery-img" />
+            </div>
             <div class="gallery-label">
               <h4>2. Cryptographic Seed Exchange</h4>
               <p>RSA-4096 based TOTP handshake for multi-device cross-platform authenticator synchronization.</p>
@@ -857,7 +875,9 @@
         <!-- Phase 3: Active Protection -->
         <div class="gallery-item">
           <div class="gallery-card">
-            <img src="/images/gallery/mfa-3.png" alt="Active Protection" class="gallery-img" />
+            <div class="gallery-img-frame">
+              <img src="/images/gallery/mfa-3.png" alt="Active Protection" class="gallery-img" />
+            </div>
             <div class="gallery-label">
               <h4>3. Hardened Perimeter</h4>
               <p>Active Multi-Factor Architecture (MFA) with out-of-band validation for mission-critical accounts.</p>
@@ -868,7 +888,9 @@
         <!-- Phase 4: Secure Login -->
         <div class="gallery-item">
           <div class="gallery-card">
-            <img src="/images/gallery/mfa-4.png" alt="Secure Login Flow" class="gallery-img" />
+            <div class="gallery-img-frame">
+              <img src="/images/gallery/mfa-4.png" alt="Secure Login Flow" class="gallery-img" />
+            </div>
             <div class="gallery-label">
               <h4>4. Adaptive Zero-Trust Logic</h4>
               <p>Real-time challenge-and-response protocol for high-integrity session verification and access.</p>
@@ -879,7 +901,9 @@
         <!-- Phase 5: Device Binding -->
         <div class="gallery-item">
           <div class="gallery-card">
-            <img src="/images/gallery/mfa-5.png" alt="Trusted Device List" class="gallery-img" />
+            <div class="gallery-img-frame">
+              <img src="/images/gallery/mfa-5.png" alt="Trusted Device List" class="gallery-img" />
+            </div>
             <div class="gallery-label">
               <h4>5. Cryptographic Device Binding</h4>
               <p>Hardware-backed secure enclave fingerprinting for seamless, low-friction biometric MFA bypass.</p>
