@@ -1,0 +1,93 @@
+/**
+ * Iddu AI Call Simulator
+ * Simulates realistic health assistant phone call transcripts.
+ */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('start-sim-btn');
+    const complexBtn = document.getElementById('start-complex-sim-btn');
+    const transcript = document.getElementById('sim-transcript');
+    
+    if (!transcript) return;
+
+    const scenarios = {
+        standard: [
+            { role: 'Agent', text: 'Hello, this is Iddu, calling on behalf of Jordan Rivera regarding an appointment at Metro Health.' },
+            { role: 'Clinic', text: 'Hi, yes, how can I help you?' },
+            { role: 'Agent', text: 'Jordan needs to reschedule their follow-up for next Tuesday. Do you have anything available in the morning?' },
+            { role: 'Clinic', text: 'Let me check... we have a 9:30 AM or a 10:45 AM.' },
+            { role: 'Agent', text: '10:45 AM works perfectly for Jordan. Please confirm that time.' },
+            { role: 'Clinic', text: 'Okay, I have Jordan moved to Tuesday at 10:45 AM. Anything else?' },
+            { role: 'Agent', text: 'That completes it. Thank you for your help. Goodbye.' }
+        ],
+        complex: [
+            { role: 'IVR', text: '[BEEP] Welcome to Metro Health Clinic. Press 1 for Appointments, 2 for Billing...' },
+            { role: 'Agent', text: '[Sending DTMF 1]' },
+            { role: 'IVR', text: 'Connecting you to the scheduling department... [Hold music playing]' },
+            { role: 'Clinic', text: 'Appointments, this is Sarah. How can I help you today?' },
+            { role: 'Agent', text: 'Hello, this is Jordan Rivera’s personal AI assistant. Jordan needs to move his follow-up. He is looking for next week Tuesday or Wednesday, specifically between 2:00 PM and 4:00 PM.' },
+            { role: 'Clinic', text: 'Hmm, I don’t see any afternoon slots those days. But we actually had a cancellation this Friday at 3:15 PM? That’s sooner.' },
+            { role: 'Agent', text: 'Jordan specifically requested no Fridays. Could you check again for any Tuesday or Wednesday slots between 2:00 and 4:00 PM? He’s flexible within that window.' },
+            { role: 'Clinic', text: 'Oh, you’re right, a slot just opened up. How about next Wednesday at 2:30 PM?' },
+            { role: 'Agent', text: 'Wednesday at 2:30 PM is perfect. I have confirmed that in Jordan’s calendar and notified him. Thank you, Sarah.' },
+            { role: 'Clinic', text: 'Perfect. You’re all set. Have a good one!' }
+        ]
+    };
+
+    let isRunning = false;
+
+    const runSimulation = async (scenarioKey) => {
+        if (isRunning) return;
+        isRunning = true;
+        
+        const scenario = scenarios[scenarioKey];
+        const activeBtn = scenarioKey === 'standard' ? startBtn : complexBtn;
+        const otherBtn = scenarioKey === 'standard' ? complexBtn : startBtn;
+        
+        const originalText = activeBtn.innerText;
+        activeBtn.innerText = 'Simulation Running...';
+        activeBtn.disabled = true;
+        otherBtn.disabled = true;
+        transcript.innerHTML = '';
+
+        for (const line of scenario) {
+            const lineEl = document.createElement('div');
+            lineEl.className = 'sim-line';
+            
+            let roleLabel = line.role;
+            let roleClass = 'role-clinic';
+            
+            if (line.role === 'Agent') {
+                roleClass = 'role-agent';
+            } else if (line.role === 'IVR') {
+                roleClass = 'role-ivr';
+                roleLabel = 'SYSTEM';
+            }
+            
+            lineEl.innerHTML = `
+                <span class="sim-role ${roleClass}">${roleLabel.toUpperCase()}:</span>
+                <span class="sim-text">${line.text}</span>
+            `;
+            
+            transcript.appendChild(lineEl);
+            transcript.scrollTop = transcript.scrollHeight;
+            
+            // Interaction delay
+            let delay = 1200 + (line.text.length * 25);
+            if (line.role === 'IVR' || line.text.includes('DTMF')) delay = 800; // Faster for system/DTMF
+            
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        activeBtn.innerText = 'Simulation Complete';
+        setTimeout(() => {
+            activeBtn.innerText = originalText;
+            activeBtn.disabled = false;
+            otherBtn.disabled = false;
+            isRunning = false;
+        }, 3000);
+    };
+
+    if (startBtn) startBtn.addEventListener('click', () => runSimulation('standard'));
+    if (complexBtn) complexBtn.addEventListener('click', () => runSimulation('complex'));
+});
