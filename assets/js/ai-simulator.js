@@ -1,6 +1,6 @@
 /**
  * Iddu AI Call Simulator
- * Simulates realistic health assistant phone call transcripts with live synthesis.
+ * Simulates realistic health assistant phone call transcripts with hybrid synthesis.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,15 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let isAudioEnabled = false;
     const synth = window.speechSynthesis;
 
-    // Toggle Audio State
     if (audioToggleBtn) {
         audioToggleBtn.addEventListener('click', () => {
             isAudioEnabled = !isAudioEnabled;
             audioToggleBtn.classList.toggle('active');
             audioToggleBtn.style.color = isAudioEnabled ? 'var(--brand-blue)' : 'var(--text-secondary)';
             audioToggleBtn.querySelector('span').innerText = isAudioEnabled ? '🔊 Audio ON' : '🔊 Audio Sample';
-            
-            if (!isAudioEnabled) synth.cancel(); // Stop speaking if disabled
+            if (!isAudioEnabled) {
+                synth.cancel();
+                // We'll also need to stop any HTML5 audio playing
+            }
         });
     }
 
@@ -54,33 +55,41 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-    const speak = (text, role) => {
+    /**
+     * Hybrid Speech Logic:
+     * 1. Try playing premium pre-recorded MP3
+     * 2. Fall back to SpeechSynthesis if MP3 is missing
+     */
+    const speakLine = (scenarioKey, index, text, role) => {
         return new Promise((resolve) => {
-            if (!isAudioEnabled) {
-                resolve();
-                return;
-            }
+            if (!isAudioEnabled) return resolve();
 
-            const utterance = new SpeechSynthesisUtterance(text);
-            const voices = synth.getVoices();
-            
-            // Basic role-based voice profiles
-            if (role === 'AI Agent') {
-                utterance.pitch = 1.1;
-                utterance.rate = 1.0;
-                // Try to find a clear English voice
-                utterance.voice = voices.find(v => v.lang.includes('en') && v.name.includes('Google')) || voices[0];
-            } else if (role === 'Clinic') {
-                utterance.pitch = 0.9;
-                utterance.rate = 0.95;
-            } else if (role === 'IVR') {
-                utterance.pitch = 0.5;
-                utterance.rate = 0.8;
-            }
+            const audioPath = `assets/audio/${scenarioKey}/line_${index}.mp3`;
+            const audio = new Audio(audioPath);
 
-            utterance.onend = resolve;
-            utterance.onerror = resolve; // Don't block if speech fails
-            synth.speak(utterance);
+            audio.oncanplaythrough = () => {
+                audio.play();
+                audio.onended = resolve;
+            };
+
+            audio.onerror = () => {
+                // Fallback to Live Synthesis
+                const utterance = new SpeechSynthesisUtterance(text);
+                const voices = synth.getVoices();
+                
+                if (role === 'AI Agent') {
+                    utterance.pitch = 1.1;
+                    utterance.voice = voices.find(v => v.lang.includes('en') && v.name.includes('Google')) || voices[0];
+                } else if (role === 'Clinic') {
+                    utterance.pitch = 0.9;
+                } else if (role === 'IVR') {
+                    utterance.pitch = 0.5;
+                }
+
+                utterance.onend = resolve;
+                utterance.onerror = resolve;
+                synth.speak(utterance);
+            };
         });
     };
 
@@ -100,7 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
         otherBtn.disabled = true;
         transcript.innerHTML = '';
 
-        for (const line of scenario) {
+        for (let i = 0; i < scenario.length; i++) {
+            const line = scenario[i];
             const lineEl = document.createElement('div');
             lineEl.className = 'sim-line';
             
@@ -122,11 +132,9 @@ document.addEventListener('DOMContentLoaded', () => {
             transcript.appendChild(lineEl);
             transcript.scrollTop = transcript.scrollHeight;
             
-            // Synchronized Speech
             if (isAudioEnabled) {
-                await speak(line.text, line.role);
+                await speakLine(scenarioKey, i, line.text, line.role);
             } else {
-                // Regular delay if audio is off
                 let delay = 1200 + (line.text.length * 25);
                 if (line.role === 'IVR' || line.text.includes('DTMF')) delay = 800;
                 await new Promise(resolve => setTimeout(resolve, delay));
@@ -145,6 +153,5 @@ document.addEventListener('DOMContentLoaded', () => {
     if (startBtn) startBtn.addEventListener('click', () => runSimulation('standard'));
     if (complexBtn) complexBtn.addEventListener('click', () => runSimulation('complex'));
     
-    // Ensure voices are loaded so first synthesis works correctly
     synth.getVoices();
 });
