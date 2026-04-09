@@ -1,14 +1,30 @@
 /**
  * Iddu AI Call Simulator
- * Simulates realistic health assistant phone call transcripts.
+ * Simulates realistic health assistant phone call transcripts with live synthesis.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('start-sim-btn');
     const complexBtn = document.getElementById('start-complex-sim-btn');
     const transcript = document.getElementById('sim-transcript');
+    const audioToggleBtn = document.querySelector('.audio-toggle');
     
     if (!transcript) return;
+
+    let isAudioEnabled = false;
+    const synth = window.speechSynthesis;
+
+    // Toggle Audio State
+    if (audioToggleBtn) {
+        audioToggleBtn.addEventListener('click', () => {
+            isAudioEnabled = !isAudioEnabled;
+            audioToggleBtn.classList.toggle('active');
+            audioToggleBtn.style.color = isAudioEnabled ? 'var(--brand-blue)' : 'var(--text-secondary)';
+            audioToggleBtn.querySelector('span').innerText = isAudioEnabled ? '🔊 Audio ON' : '🔊 Audio Sample';
+            
+            if (!isAudioEnabled) synth.cancel(); // Stop speaking if disabled
+        });
+    }
 
     const scenarios = {
         standard: [
@@ -23,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
             { role: 'AI Agent', text: 'That completes it. Thank you for your help. Goodbye.' }
         ],
         complex: [
-            { role: 'IVR', text: '[BEEP] Welcome to Metro Health Clinic. Press 1 for Appointments, 2 for Billing...' },
-            { role: 'AI Agent', text: '[Sending DTMF 1]' },
-            { role: 'IVR', text: 'Connecting you to the scheduling department... [Hold music playing]' },
+            { role: 'IVR', text: 'Welcome to Metro Health Clinic. Press 1 for Appointments, 2 for Billing.' },
+            { role: 'AI Agent', text: 'Sending DTMF 1' },
+            { role: 'IVR', text: 'Connecting you to the scheduling department.' },
             { role: 'Clinic', text: 'Appointments, this is Sarah. How can I help you today?' },
             { role: 'AI Agent', text: 'Hello, this is Jordan Rivera’s personal AI assistant. Jordan needs to move his follow-up. He is looking for next week Tuesday or Wednesday, specifically between 2:00 PM and 4:00 PM.' },
             { role: 'Clinic', text: 'I can look into that. To protect the patient’s privacy, can you please verify the date of birth and the address we have on file?' },
@@ -36,6 +52,36 @@ document.addEventListener('DOMContentLoaded', () => {
             { role: 'AI Agent', text: 'Wednesday at 2:30 PM is perfect. I have confirmed that in Jordan’s calendar and notified him. Thank you, Sarah.' },
             { role: 'Clinic', text: 'Perfect. You’re all set. Have a good one!' }
         ]
+    };
+
+    const speak = (text, role) => {
+        return new Promise((resolve) => {
+            if (!isAudioEnabled) {
+                resolve();
+                return;
+            }
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            const voices = synth.getVoices();
+            
+            // Basic role-based voice profiles
+            if (role === 'AI Agent') {
+                utterance.pitch = 1.1;
+                utterance.rate = 1.0;
+                // Try to find a clear English voice
+                utterance.voice = voices.find(v => v.lang.includes('en') && v.name.includes('Google')) || voices[0];
+            } else if (role === 'Clinic') {
+                utterance.pitch = 0.9;
+                utterance.rate = 0.95;
+            } else if (role === 'IVR') {
+                utterance.pitch = 0.5;
+                utterance.rate = 0.8;
+            }
+
+            utterance.onend = resolve;
+            utterance.onerror = resolve; // Don't block if speech fails
+            synth.speak(utterance);
+        });
     };
 
     let isRunning = false;
@@ -76,11 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
             transcript.appendChild(lineEl);
             transcript.scrollTop = transcript.scrollHeight;
             
-            // Interaction delay
-            let delay = 1200 + (line.text.length * 25);
-            if (line.role === 'IVR' || line.text.includes('DTMF')) delay = 800; // Faster for system/DTMF
-            
-            await new Promise(resolve => setTimeout(resolve, delay));
+            // Synchronized Speech
+            if (isAudioEnabled) {
+                await speak(line.text, line.role);
+            } else {
+                // Regular delay if audio is off
+                let delay = 1200 + (line.text.length * 25);
+                if (line.role === 'IVR' || line.text.includes('DTMF')) delay = 800;
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
         }
 
         activeBtn.innerText = 'Simulation Complete';
@@ -94,4 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (startBtn) startBtn.addEventListener('click', () => runSimulation('standard'));
     if (complexBtn) complexBtn.addEventListener('click', () => runSimulation('complex'));
+    
+    // Ensure voices are loaded so first synthesis works correctly
+    synth.getVoices();
 });
