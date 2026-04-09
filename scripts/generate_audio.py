@@ -5,11 +5,10 @@ import requests
 # 1. Get your API Key from https://elevenlabs.io/ (Free tier works!)
 API_KEY = "YOUR_ELEVENLABS_API_KEY"
 
-# 2. Voices (You can browse more in the ElevenLabs Voice Library)
-VOICE_AGENT = "nH9XW1iXfG0W4Wc6x2Wq" # "Josh" - Professional & Clear
-VOICE_CLINIC = "9BWts9j2IxUz9Yp4nd2Y" # "Aria" - Helpful & Natural
-VOICE_IVR = "EXAVITQu4vr4xnSDOCYw"   # "Sarah" - Can be used for System/IVR
-
+# 2. Voices (Verified Premade Female Profiles - Guaranteed Free Tier API)
+VOICE_AGENT = "XrExE9yKIg1WjnnlVkGX" # "Matilda" - Professional & Upbeat
+VOICE_CLINIC = "EXAVITQu4vr4xnSDxMaL" # "Sarah" - Reassuring & Confident
+VOICE_IVR = "Xb7hH8MSUJpSbSDYk0k2"    # "Alice" - Clear Educator
 # 3. Output Directory
 OUTPUT_DIR = "assets/audio"
 
@@ -51,7 +50,7 @@ def generate_voice(text, voice_id, filename):
     }
     data = {
         "text": text,
-        "model_id": "eleven_monolingual_v1",
+        "model_id": "eleven_multilingual_v2",
         "voice_settings": {
             "stability": 0.5,
             "similarity_boost": 0.75
