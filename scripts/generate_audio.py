@@ -15,28 +15,28 @@ OUTPUT_DIR = "assets/audio"
 # --- SCRIPT DATA ---
 scenarios = {
     "standard": [
-        {"role": "agent", "text": "Hello... um, this is Iddu, calling on behalf of Jordan Rivera regarding an appointment at Metro Health."},
-        {"role": "clinic", "text": "Hi... let me pull that up. Can you, uh, confirm the patient’s date of birth and address?"},
-        {"role": "agent", "text": "Certainly. Date of birth is... let me see... 05/xx/19xx and the address is 123 xxxxx Lane, APT 4B."},
+        {"role": "agent", "text": "Hello... um, this is Iddu, calling on behalf of Alex M. regarding an appointment at the Clinic."},
+        {"role": "clinic", "text": "Hi... let me pull that up. Can you, uh, confirm the patient’s date of birth?"},
+        {"role": "agent", "text": "Certainly. Date of birth is... let me see... 05/xx/19xx and "},
         {"role": "clinic", "text": "Thank you... hmm, that matches. How can I help you today?"},
-        {"role": "agent", "text": "Jordan needs to reschedule their follow-up for next Tuesday. Do you have anything, uh, available in the morning?"},
+        {"role": "agent", "text": "Alex needs to reschedule their follow-up for next Tuesday. Do you have anything, uh, available in the morning?"},
         {"role": "clinic", "text": "Let me check... we have a 9:30 AM or a 10:45 AM."},
-        {"role": "agent", "text": "10:45 AM works perfectly for Jordan. Please confirm that time."},
-        {"role": "clinic", "text": "Okay, I have Jordan moved to Tuesday at 10:45 AM. Anything else?"},
+        {"role": "agent", "text": "10:45 AM works perfectly for Alex. Please confirm that time."},
+        {"role": "clinic", "text": "Okay, I have Alex moved to Tuesday at 10:45 AM. Anything else?"},
         {"role": "agent", "text": "That completes it. Thank you for your help. Goodbye."}
     ],
     "complex": [
-        {"role": "ivr", "text": "Welcome to Metro Health Clinic. Press 1 for Appointments, 2 for Billing."},
+        {"role": "ivr", "text": "Welcome to the Clinic. Press 1 for Appointments, 2 for Billing."},
         {"role": "agent", "text": "Sending D T M F 1"},
         {"role": "ivr", "text": "Connecting you to the scheduling department."},
-        {"role": "clinic", "text": "Appointments, this is Sarah. How can I help you today?"},
-        {"role": "agent", "text": "Hello... um, this is Jordan Rivera’s personal AI assistant. Jordan needs to move his follow-up. He is looking for next week Tuesday or Wednesday... specifically between 2:00 PM and 4:00 PM."},
-        {"role": "clinic", "text": "I can, uh, look into that. To protect the patient’s privacy, can you please verify the date of birth and, um, the address we have on file?"},
-        {"role": "agent", "text": "Of course. The date of birth is 11/xx/19xx and... the current address is 456 xxxxx Drive."},
+        {"role": "clinic", "text": "Appointments, how can I help you today?"},
+        {"role": "agent", "text": "Hello... um, this is Alex M.’s personal AI assistant. Alex needs to move his follow-up. He is looking for next week Tuesday or Wednesday... specifically between 2:00 PM and 4:00 PM."},
+        {"role": "clinic", "text": "I can, uh, look into that. To protect the patient’s privacy, can you please verify the date of birth?"},
+        {"role": "agent", "text": "Of course. The date of birth is 11/xx/19xx."},
         {"role": "clinic", "text": "Great, thanks... Hmm, I don’t see any afternoon slots those days. But we actually had a cancellation this Friday at 3:15 PM? That’s sooner."},
-        {"role": "agent", "text": "Jordan specifically requested no Fridays. Could you check again for any Tuesday or Wednesday slots between 2:00 and 4:00 PM? He’s... uh, flexible within that window."},
+        {"role": "agent", "text": "Alex specifically requested no Fridays. Could you check again for any Tuesday or Wednesday slots between 2:00 and 4:00 PM? He’s... uh, flexible within that window."},
         {"role": "clinic", "text": "Oh, you’re right... a slot just opened up. How about next Wednesday at 2:30 PM?"},
-        {"role": "agent", "text": "Wednesday at 2:30 PM is perfect. I have confirmed that in Jordan’s calendar and notified him. Thank you, Sarah."},
+        {"role": "agent", "text": "Wednesday at 2:30 PM is perfect. I have confirmed that in Alex’s calendar and notified him. Thank you!"},
         {"role": "clinic", "text": "Perfect. You’re all set. Have a good one!"}
     ]
 }
