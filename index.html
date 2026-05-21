@@ -8,6 +8,24 @@
   <meta name="description"
     content="Iddu is your real-world AI agent that manages appointments, scans forwarded emails, understands voice input, and calls offices to reschedule on your behalf." />
 
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Iddu",
+    "operatingSystem": "iOS",
+    "applicationCategory": "HealthApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "4.99",
+      "priceCurrency": "USD"
+    },
+    "description": "Your personal AI that manages healthcare appointments, calls offices to reschedule, scans medical documents, and coordinates care for your entire family.",
+    "url": "https://iddu.app"
+  }
+  </script>
+
   <!-- Theme and Icons -->
   <meta name="theme-color" content="#020617" />
   <link rel="icon" type="image/png" href="favicon.png" />
@@ -436,6 +454,176 @@
       text-align: center;
     }
 
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: #fff; }
+
+    /* Beta CTA button in hero */
+    .btn-beta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
+      color: #fff;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(168,85,247,0.3);
+    }
+    .btn-beta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(168,85,247,0.45);
+    }
+    .btn-beta-sub {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.6rem;
+    }
+
+    /* Pain Points section */
+    .pain-section {
+      padding: 5rem 0 3rem;
+      text-align: center;
+    }
+    .pain-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 600px;
+      margin: 2rem auto 2.5rem;
+    }
+    .pain-list li {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.8);
+      text-align: left;
+    }
+    .pain-list li span.x { color: #f87171; font-weight: 700; margin-right: 0.5rem; }
+    .pain-answer {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 1.5rem;
+    }
+    .pain-answer span { color: var(--brand-blue); }
+
+    /* Persona grid */
+    .persona-section { padding: 4rem 0 5rem; }
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .persona-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .persona-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(168,85,247,0.35);
+    }
+    .persona-emoji { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
+    .persona-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff; }
+    .persona-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* Pricing section */
+    .pricing-section { padding: 5rem 0; border-top: 1px solid var(--glass-border); }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pricing-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2.5rem 2rem;
+      position: relative;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .pricing-card:hover { transform: translateY(-5px); }
+    .pricing-card.popular {
+      border-color: rgba(168,85,247,0.5);
+      background: linear-gradient(145deg, rgba(168,85,247,0.08), rgba(56,189,248,0.04));
+    }
+    .pricing-popular-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .pricing-tier { font-size: 1.1rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 1rem; }
+    .pricing-price {
+      font-family: 'Outfit';
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .pricing-period { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.6rem; }
+    .pricing-features li {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.75);
+      padding-left: 1.4rem;
+      position: relative;
+    }
+    .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--brand-blue); font-weight: 700; }
+    .pricing-trial { font-size: 0.8rem; color: #7bc67e; font-weight: 600; margin-top: -0.5rem; margin-bottom: 1.5rem; }
+    .btn-pricing {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 12px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-pricing:hover { background: rgba(255,255,255,0.14); transform: translateY(-1px); }
+    .pricing-card.popular .btn-pricing {
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
+      border: none;
+    }
+
     .footer-links {
       margin-bottom: 2rem;
       display: flex;
@@ -802,7 +990,12 @@
           <span class="phonetics-sub">I do it for you.</span>
         </div>
       </div>
-      <a href="mailto:admin@iddu.app" class="contact-btn">Contact Support</a>
+      <nav class="nav-links">
+        <a href="#simulation" class="nav-link">See It Live</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#pricing" class="nav-link">Pricing</a>
+        <a href="#beta-access" class="contact-btn">🚀 Get Beta Access</a>
+      </nav>
     </div>
   </header>
 
@@ -811,9 +1004,14 @@
     <section class="hero">
       <div class="hero-content">
         <h1 class="reveal">Your Personal AI That <span class="gradient-text">Actually Gets Things Done</span></h1>
-        <p class="reveal reveal-delay-1">Iddu is your Personal Assistant. We manage schedules for busy families like <strong>Alex M.</strong>—organizing provider bills, tracking appointments, and our AI assistant even handles calls to reschedule on your behalf.</p>
+        <p class="reveal reveal-delay-1">Stop wasting hours on hold. Iddu is your personal AI assistant that manages healthcare appointments, calls offices to reschedule, tracks your bills, and coordinates care for your entire family — automatically.</p>
 
-        <div class="hero-highlights reveal reveal-delay-2">
+        <a href="#beta-access" class="btn-beta reveal reveal-delay-1">
+          🚀 Request Private Beta Access
+        </a>
+        <span class="btn-beta-sub reveal reveal-delay-2">Limited spots · Includes 3 months of Premium+ free</span>
+
+        <div class="hero-highlights reveal reveal-delay-2" style="margin-top: 2rem;">
           <div class="highlight-card">
             <span class="icon">✨</span>
             <div>
@@ -858,10 +1056,9 @@
           </div>
           <div class="ticker-item">
             <div style="display: flex; align-items: baseline; gap: 2px;">
-              <span class="ticker-value" data-target="0">0</span>
-              <span style="font-family: 'Outfit'; font-size: 1.5rem; font-weight: 800; color: #fff;">s</span>
+              <span style="font-family: 'Outfit'; font-size: 2.5rem; font-weight: 800; color: #fff; line-height:1;">You</span>
             </div>
-            <span class="ticker-label">Waiting on Hold</span>
+            <span class="ticker-label">Never Wait on Hold</span>
           </div>
         </div>
       </div>
@@ -869,6 +1066,43 @@
       <div class="phone-wrapper reveal">
         <div class="phone-frame">
           <iframe src="demo/voice-agent-demo.html?v=20260412v5" class="demo-iframe" title="Iddu Voice Demo"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pain Points Hook Section -->
+    <section class="pain-section reveal">
+      <h2 class="section-title" style="margin: 0 0 0.5rem;">Sound <span class="gradient-text">Familiar?</span></h2>
+      <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">You're not alone. These are the healthcare admin problems Iddu was built to eliminate.</p>
+      <ul class="pain-list">
+        <li><span class="x">✗</span> Sitting on hold for 25 minutes just to reschedule a single appointment</li>
+        <li><span class="x">✗</span> Another EOB buried in your inbox with no idea what you actually owe</li>
+        <li><span class="x">✗</span> Forgetting to call the office to say you're running late</li>
+        <li><span class="x">✗</span> No idea if your deductible has been met or what insurance covered</li>
+        <li><span class="x">✗</span> Managing your spouse, kids, and parents across 4 different portals</li>
+      </ul>
+      <p class="pain-answer">Iddu handles <span>all of this</span>. Automatically.</p>
+    </section>
+
+    <!-- Who Is Iddu For? -->
+    <section class="persona-section reveal">
+      <h2 class="section-title" style="margin: 0 0 0.5rem;">Built for <span class="gradient-text">Real Life</span></h2>
+      <p style="text-align:center; color: var(--text-secondary); max-width: 550px; margin: 0 auto;">Iddu works hardest for people who have no time to waste.</p>
+      <div class="persona-grid">
+        <div class="persona-card">
+          <span class="persona-emoji">👩‍👧‍👦</span>
+          <p class="persona-title">Busy Parents</p>
+          <p class="persona-desc">Juggling pediatrician visits, dental checkups, school physicals, and your own appointments — all while working full time. Iddu keeps everyone's health calendar in one place and makes the calls you don't have time for.</p>
+        </div>
+        <div class="persona-card">
+          <span class="persona-emoji">🧓</span>
+          <p class="persona-title">Adults Managing Aging Parents</p>
+          <p class="persona-desc">Coordinating specialist visits, Medicare billing confusion, and follow-up calls for a parent who lives across town. Iddu becomes your remote care coordination hub.</p>
+        </div>
+        <div class="persona-card">
+          <span class="persona-emoji">💼</span>
+          <p class="persona-title">Anyone Who Values Their Time</p>
+          <p class="persona-desc">You earn more per hour than the time you spend on hold. Let Iddu's AI agent handle the administrative overhead of modern healthcare so you can focus on what matters.</p>
         </div>
       </div>
     </section>
@@ -939,7 +1173,7 @@
     </section>
 
     <!-- Comprehensive Features Grid -->
-    <h2 class="section-title reveal">The Complete <span class="gradient-text">Health Toolchain</span></h2>
+    <h2 class="section-title reveal" id="features">The Complete <span class="gradient-text">Health Toolchain</span></h2>
 
     <div class="features-grid">
       <!-- Feature: Daily Digest -->
@@ -1263,25 +1497,73 @@
       </div>
     </section>
 
-    <!-- Early Access CTA Section -->
-    <section class="cta-section">
-      <h2>Get <span class="gradient-text">Early Access</span></h2>
-      <p>Iddu is currently launching in limited capacity. Secure your spot on the waitlist today to let our AI start
-        managing your healthcare logistics.</p>
+    <!-- Pricing Section -->
+    <section class="pricing-section reveal" id="pricing">
+      <h2 class="section-title" style="margin-top: 0;">Simple, <span class="gradient-text">Honest Pricing</span></h2>
+      <p style="text-align:center; color: var(--text-secondary); max-width: 500px; margin: 0 auto 0.5rem;">Every plan includes a <strong style="color:#7bc67e;">7-day free trial</strong>. No credit card required to start.</p>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <p class="pricing-tier">Basic</p>
+          <p class="pricing-price">$4.99</p>
+          <p class="pricing-period">/month</p>
+          <p class="pricing-trial">★ 7-day free trial</p>
+          <ul class="pricing-features">
+            <li>Manual &amp; voice appointment entry</li>
+            <li>AI Agent scheduling calls</li>
+            <li>Quick Actions (reschedule, late, cancel)</li>
+            <li>Insurance Card sharing</li>
+            <li>Gmail appointment import</li>
+          </ul>
+          <button class="btn-pricing" onclick="document.getElementById('beta-access').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+        </div>
+        <div class="pricing-card popular">
+          <span class="pricing-popular-badge">⭐ Most Popular</span>
+          <p class="pricing-tier">Premium</p>
+          <p class="pricing-price">$9.99</p>
+          <p class="pricing-period">/month</p>
+          <p class="pricing-trial">★ 7-day free trial</p>
+          <ul class="pricing-features">
+            <li>Everything in Basic</li>
+            <li>Family Mode (up to 4 members)</li>
+            <li>Health Personas &amp; AI context</li>
+            <li>Health Card scanning &amp; OCR</li>
+            <li>Smart Start Alerts</li>
+            <li>Health Insights &amp; analytics</li>
+          </ul>
+          <button class="btn-pricing" onclick="document.getElementById('beta-access').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+        </div>
+        <div class="pricing-card">
+          <p class="pricing-tier">Premium+</p>
+          <p class="pricing-price">$14.99</p>
+          <p class="pricing-period">/month</p>
+          <p class="pricing-trial">★ 7-day free trial</p>
+          <ul class="pricing-features">
+            <li>Everything in Premium</li>
+            <li>AI Call Recording &amp; transcripts</li>
+            <li>Unlimited usage on all features</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn-pricing" onclick="document.getElementById('beta-access').scrollIntoView({behavior:'smooth'})">Start Free Trial</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Beta Access CTA Section -->
+    <section class="cta-section" id="beta-access">
+      <h2>🚀 Request <span class="gradient-text">Private Beta Access</span></h2>
+      <p>Iddu is in private beta on TestFlight. Early members get <strong style="color:#7bc67e;">3 months of Premium+ free</strong> and a direct line to shape the product.</p>
 
       <form class="cta-form" action="https://formsubmit.co/admin@iddu.app" method="POST">
-        <!-- Disable captcha for better UX -->
         <input type="hidden" name="_captcha" value="false">
-        <!-- Configure auto-response email subject -->
-        <input type="hidden" name="_subject" value="New Early Access Waitlist Signup!">
+        <input type="hidden" name="_subject" value="New Beta Access Request!">
         <div class="input-group">
           <input type="text" name="name" placeholder="Your Full Name" required>
         </div>
         <div class="input-group">
           <input type="email" name="email" placeholder="Your Email Address" required>
         </div>
-        <button type="submit" class="btn-primary">Join the Waitlist</button>
-        <p class="privacy-note">🔒 We value your privacy. We never sell your data or send spam.</p>
+        <button type="submit" class="btn-primary">Request Beta Access →</button>
+        <p class="privacy-note">🔒 Your info is never shared. Limited spots available.</p>
       </form>
     </section>
 
