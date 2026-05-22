@@ -655,25 +655,114 @@
       font-size: 0.8rem;
     }
 
-    /* Responsive */
+    /* ── Responsive: Tablet (≤968px) ──────────────────── */
     @media (max-width: 968px) {
       .hero {
         grid-template-columns: 1fr;
         text-align: center;
         padding-top: 6rem;
       }
+      .hero-content p { margin: 0 auto 2.5rem; }
+      .highlight-card { text-align: left; }
+      .hero-content h1 { font-size: 3rem; }
 
-      .hero-content p {
-        margin: 0 auto 2.5rem;
-      }
+      .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
 
-      .highlight-card {
-        text-align: left;
-      }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
 
-      .hero-content h1 {
-        font-size: 3rem;
+      .persona-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .btn-beta { display: block; text-align: center; }
+    }
+
+    /* ── Responsive: Mobile (≤640px) ──────────────────── */
+    @media (max-width: 640px) {
+      /* Nav: stack logo + button vertically, hide text links */
+      header {
+        top: 0.75rem;
+        width: calc(100% - 2rem);
+        border-radius: 20px;
       }
+      .nav-inner { padding: 0.75rem 1.25rem; }
+      .nav-links { gap: 0; }
+      .nav-link { display: none; } /* hide text links, keep CTA */
+      .contact-btn {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.8rem;
+      }
+      .phonetics-main { font-size: 0.95rem; }
+      .phonetics-sub { display: none; }
+
+      /* Hero */
+      .hero { padding-top: 5rem; gap: 2rem; }
+      .hero-content h1 { font-size: 2.2rem; letter-spacing: -0.02em; }
+      .hero-content p { font-size: 1rem; }
+      .btn-beta { font-size: 0.95rem; padding: 0.85rem 1.5rem; }
+      .btn-beta-sub { font-size: 0.75rem; }
+
+      /* Phone demo frame */
+      .demo-iframe { width: 280px; height: 610px; }
+
+      /* Section titles */
+      .section-title { font-size: 1.9rem; margin: 3rem 0 2rem; }
+      .ai-gallery-title { font-size: 1.9rem; margin-bottom: 2rem; }
+
+      /* Tickers */
+      .ticker-container { gap: 1.5rem; flex-wrap: wrap; }
+      .ticker-value { font-size: 2rem; }
+
+      /* Pain points */
+      .pain-section { padding: 3rem 0 2rem; }
+      .pain-list li { font-size: 0.9rem; padding: 0.85rem 1.1rem; }
+      .pain-answer { font-size: 1.1rem; }
+
+      /* Personas */
+      .persona-section { padding: 2.5rem 0 3rem; }
+      .persona-grid { grid-template-columns: 1fr; }
+      .persona-card { padding: 1.5rem; }
+
+      /* Pipeline */
+      .pipeline-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+      .pipeline-step { padding: 1.25rem; }
+
+      /* Features grid */
+      .features-grid { grid-template-columns: 1fr; }
+      .feature-box { padding: 1.75rem; }
+
+      /* Gallery */
+      .gallery-item { flex: 0 0 260px; }
+      .gallery-img-frame { height: 380px; }
+
+      /* Pricing */
+      .pricing-section { padding: 3rem 0; }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        padding: 0 0.5rem;
+      }
+      .pricing-card { padding: 2rem 1.5rem; }
+      .pricing-price { font-size: 2.5rem; }
+
+      /* Simulator */
+      .simulator-ui { min-height: 300px; padding: 1.25rem; }
+      #start-sim-btn, #start-complex-sim-btn { font-size: 0.85rem; }
+
+      /* CTA */
+      .cta-section { padding: 3.5rem 1.25rem; border-radius: 20px; }
+      .cta-section h2 { font-size: 1.9rem; }
+
+      /* Footer */
+      .footer-links { flex-direction: column; gap: 1rem; }
+
+      /* General container padding */
+      .container { padding: 0 1.25rem; }
+    }
+
+    /* ── Responsive: Small Mobile (≤380px) ────────────── */
+    @media (max-width: 380px) {
+      .hero-content h1 { font-size: 1.9rem; }
+      .demo-iframe { width: 240px; height: 520px; }
+      .pipeline-grid { grid-template-columns: 1fr; }
     }
     /* AI Agent in Action Gallery */
     .ai-gallery-section {
