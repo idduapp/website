@@ -127,6 +127,8 @@
       border: 1px solid var(--glass-border);
       border-radius: 100px;
       transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      box-sizing: border-box;
+      overflow: visible;
     }
 
     header.scrolled {
@@ -677,21 +679,30 @@
 
     /* ── Responsive: Mobile (≤640px) ──────────────────── */
     @media (max-width: 640px) {
-      /* Nav: stack logo + button vertically, hide text links */
+      /* Nav: logo only + compact CTA button */
       header {
-        top: 0.75rem;
-        width: calc(100% - 2rem);
-        border-radius: 20px;
+        top: 0.5rem;
+        left: 0.75rem;
+        right: 0.75rem;
+        width: auto;
+        transform: none;
+        border-radius: 18px;
       }
-      .nav-inner { padding: 0.75rem 1.25rem; }
-      .nav-links { gap: 0; }
-      .nav-link { display: none; } /* hide text links, keep CTA */
+      .nav-inner {
+        padding: 0.6rem 1rem;
+        gap: 0.5rem;
+      }
+      .brand { gap: 0.5rem; flex-shrink: 1; min-width: 0; }
+      .logo { height: 28px; }
+      .phonetics { display: none; } /* hide /aɪ duː/ entirely */
+      .nav-links { gap: 0; flex-shrink: 0; }
+      .nav-link { display: none; }
       .contact-btn {
-        padding: 0.45rem 0.85rem;
-        font-size: 0.8rem;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.78rem;
+        white-space: nowrap;
+        border-radius: 14px;
       }
-      .phonetics-main { font-size: 0.95rem; }
-      .phonetics-sub { display: none; }
 
       /* Hero */
       .hero { padding-top: 5rem; gap: 2rem; }
