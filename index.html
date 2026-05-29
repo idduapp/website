@@ -883,18 +883,49 @@
     /* Reveal Animations */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+      transform: translateY(48px) scale(0.97);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
     }
 
     .reveal.active {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
 
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-48px) scale(0.97);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(48px) scale(0.97);
+      transition:
+        opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+    .reveal-delay-5 { transition-delay: 0.40s; }
 
     /* Ticker UI */
     .ticker-container {
@@ -1402,7 +1433,7 @@
 
     <!-- AI Agent in Action Gallery -->
     <section class="ai-gallery-section" id="ai-action">
-      <h2 class="ai-gallery-title">AI Agent <span class="gradient-text">In Action</span></h2>
+      <h2 class="ai-gallery-title reveal">AI Agent <span class="gradient-text">In Action</span></h2>
       <div class="ai-gallery-container">
         <!-- Phase 1: Awareness -->
         <div class="gallery-item reveal">
@@ -1452,7 +1483,7 @@
 
     <!-- Family Mode in Action Gallery -->
     <section class="ai-gallery-section" id="family-action" style="background: rgba(168, 85, 247, 0.02); border-bottom: 1px solid var(--glass-border); margin-top: 0;">
-      <h2 class="ai-gallery-title">Family Mode <span class="gradient-text">In Action</span></h2>
+      <h2 class="ai-gallery-title reveal">Family Mode <span class="gradient-text">In Action</span></h2>
       <div class="ai-gallery-container">
         <!-- Phase 1: Onboarding -->
         <div class="gallery-item reveal">
@@ -1502,7 +1533,7 @@
 
     <!-- World Class Security in Action Gallery -->
     <section class="ai-gallery-section" id="security-action" style="background: rgba(56, 189, 248, 0.02); border-bottom: 1px solid var(--glass-border); margin-top: 0;">
-      <h2 class="ai-gallery-title">World Class Security <span class="gradient-text">In Action</span></h2>
+      <h2 class="ai-gallery-title reveal">World Class Security <span class="gradient-text">In Action</span></h2>
       <div class="ai-gallery-container">
         <!-- Phase 1: Registration -->
         <div class="gallery-item reveal">
@@ -1573,13 +1604,13 @@
 
     <!-- AI Chat Demo Section -->
     <section class="hero" style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid var(--glass-border);">
-      <div class="phone-wrapper">
+      <div class="phone-wrapper reveal-left">
         <div class="phone-frame">
           <iframe src="demo/ai-chat-demo.html?v=20260412v5" class="demo-iframe" title="Iddu AI Chat Demo"></iframe>
         </div>
       </div>
 
-      <div class="hero-content">
+      <div class="hero-content reveal-right">
         <h1><span class="gradient-text">Conversational Intelligence</span></h1>
         <p>Iddu doesn't just store your medical history—it understands it. Ask complex questions about your family's
           spending, upcoming schedules, and provider history with full RBAC privacy protection.</p>
