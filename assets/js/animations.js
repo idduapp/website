@@ -84,45 +84,35 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
-    // 5. Typewriter effect for Family Mode tagline
-    const taglineEl = document.getElementById('family-tagline');
-    if (taglineEl) {
-        const fullText = taglineEl.textContent.trim();
-        taglineEl.textContent = '';
-
+    // 5. Typewriter effect — fires on any .typewriter-tagline element
+    const makeTypewriter = (el) => {
+        const fullText = el.textContent.trim();
+        el.textContent = '';
         const cursor = document.createElement('span');
         cursor.className = 'type-cursor';
-        taglineEl.appendChild(cursor);
+        el.appendChild(cursor);
 
-        let triggered = false;
-
-        const startTyping = () => {
-            if (triggered) return;
-            triggered = true;
-            let i = 0;
-            const tick = () => {
-                if (i < fullText.length) {
-                    taglineEl.insertBefore(document.createTextNode(fullText[i]), cursor);
-                    i++;
-                    setTimeout(tick, 18);
-                } else {
-                    setTimeout(() => cursor.classList.add('done'), 1200);
-                }
-            };
-            setTimeout(tick, 250);
-        };
-
-        const typeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    typeObserver.disconnect();
-                    startTyping();
-                }
-            });
+        let fired = false;
+        const obs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !fired) {
+                fired = true;
+                obs.disconnect();
+                let i = 0;
+                const tick = () => {
+                    if (i < fullText.length) {
+                        el.insertBefore(document.createTextNode(fullText[i++]), cursor);
+                        setTimeout(tick, 18);
+                    } else {
+                        setTimeout(() => cursor.classList.add('done'), 1200);
+                    }
+                };
+                setTimeout(tick, 250);
+            }
         }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+        obs.observe(el);
+    };
 
-        typeObserver.observe(taglineEl);
-    }
+    document.querySelectorAll('.typewriter-tagline').forEach(makeTypewriter);
 
     // 5. Parallax Mouse Effect for Hero Glows
     const glows = document.querySelectorAll('.ambient-glow');
