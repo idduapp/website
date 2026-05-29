@@ -516,57 +516,64 @@
     }
 
     .pain-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-      max-width: 780px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 640px;
       margin: 3rem auto 0;
-      text-align: left;
-    }
-
-    /* Center the 5th card (odd last-child) spanning full width */
-    .pain-card:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-      max-width: 368px;
-      justify-self: center;
-      width: 100%;
     }
 
     .pain-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
       background: rgba(239,68,68,0.05);
       border: 1px solid rgba(239,68,68,0.14);
       border-radius: 20px;
-      padding: 1.75rem;
+      padding: 1.5rem 1.75rem;
       position: relative;
-      overflow: hidden;
       transition: transform 0.3s ease, border-color 0.3s, background 0.3s;
     }
 
     .pain-card:hover {
-      transform: translateY(-5px);
+      transform: translateX(8px);
       border-color: rgba(239,68,68,0.3);
       background: rgba(239,68,68,0.09);
     }
 
-    /* Big faded watermark icon in the background */
-    .pain-watermark {
-      position: absolute;
-      top: 0.25rem;
-      right: 0.75rem;
-      font-size: 5rem;
-      opacity: 0.18;
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
+    /* SVG icon box */
+    .pain-icon-wrap {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.22);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* ✗ badge top-right */
+    .pain-icon-wrap svg {
+      width: 24px;
+      height: 24px;
+      stroke: #f87171;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pain-card-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ✗ badge */
     .pain-x-badge {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      width: 26px;
-      height: 26px;
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
       background: rgba(239,68,68,0.12);
       border: 1px solid rgba(239,68,68,0.28);
       border-radius: 50%;
@@ -574,15 +581,9 @@
       align-items: center;
       justify-content: center;
       color: #f87171;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 900;
-    }
-
-    .pain-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.85rem;
-      line-height: 1;
+      margin-top: 0.2rem;
     }
 
     .pain-card-title {
@@ -590,7 +591,7 @@
       font-size: 1.05rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .pain-card-desc {
@@ -822,8 +823,8 @@
 
       /* Pain points */
       .pain-section { padding: 3rem 0 2rem; }
-      .pain-grid { grid-template-columns: 1fr; max-width: 100%; }
-      .pain-card:last-child:nth-child(odd) { grid-column: auto; max-width: 100%; justify-self: stretch; }
+      .pain-grid { max-width: 100%; }
+      .pain-card { padding: 1.25rem; }
       .pain-resolution { flex-direction: column; text-align: center; padding: 1.5rem; gap: 0.75rem; }
       .pain-resolution-text { font-size: 1.05rem; }
 
@@ -1315,45 +1316,62 @@
       <p class="reveal" style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">You're not alone. These are the healthcare admin problems Iddu was built to eliminate.</p>
 
       <div class="pain-grid">
+
         <div class="pain-card reveal">
-          <span class="pain-watermark">🎧</span>
+          <div class="pain-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          </div>
+          <div class="pain-card-body">
+            <p class="pain-card-title">Stuck on Hold — Forever</p>
+            <p class="pain-card-desc">Sitting on hold for 25+ minutes just to reschedule an appointment that took 10 seconds to book online.</p>
+          </div>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">🎧</span>
-          <p class="pain-card-title">Stuck on Hold — Forever</p>
-          <p class="pain-card-desc">Sitting on hold for 25+ minutes just to reschedule an appointment that took 10 seconds to book online.</p>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-watermark">💸</span>
+          <div class="pain-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2z"/></svg>
+          </div>
+          <div class="pain-card-body">
+            <p class="pain-card-title">Confusing Bills &amp; EOBs</p>
+            <p class="pain-card-desc">Another Explanation of Benefits buried in your inbox with no idea what you actually owe or why.</p>
+          </div>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">💸</span>
-          <p class="pain-card-title">Confusing Bills &amp; EOBs</p>
-          <p class="pain-card-desc">Another Explanation of Benefits buried in your inbox with no idea what you actually owe or why.</p>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-watermark">⏰</span>
+          <div class="pain-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+          </div>
+          <div class="pain-card-body">
+            <p class="pain-card-title">Running Late, No Way to Notify</p>
+            <p class="pain-card-desc">Stuck in traffic and forgot to call the office — arrive late and lose your slot entirely.</p>
+          </div>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">⏰</span>
-          <p class="pain-card-title">Running Late, No Way to Notify</p>
-          <p class="pain-card-desc">Stuck in traffic and forgot to call the office — arrive late and lose your slot entirely.</p>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-watermark">💰</span>
+          <div class="pain-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0 1 12 2.944a11.955 11.955 0 0 1-8.618 3.04A12.02 12.02 0 0 0 3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div class="pain-card-body">
+            <p class="pain-card-title">Zero Deductible Visibility</p>
+            <p class="pain-card-desc">No idea if your deductible's been met, what insurance covered, or how close you are to your out-of-pocket max.</p>
+          </div>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">💰</span>
-          <p class="pain-card-title">Zero Deductible Visibility</p>
-          <p class="pain-card-desc">No idea if your deductible's been met, what insurance covered, or how close you are to your out-of-pocket max.</p>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-watermark">👨‍👩‍👧‍👦</span>
+          <div class="pain-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0M15 7a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm6 3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM7 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0z"/></svg>
+          </div>
+          <div class="pain-card-body">
+            <p class="pain-card-title">4 Portals for 1 Family</p>
+            <p class="pain-card-desc">Managing your spouse, kids, and aging parents across completely separate portals with no single unified view.</p>
+          </div>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">👨‍👩‍👧‍👦</span>
-          <p class="pain-card-title">4 Portals for 1 Family</p>
-          <p class="pain-card-desc">Managing your spouse, kids, and aging parents across completely separate portals with no single unified view.</p>
         </div>
+
       </div>
 
       <div class="pain-resolution reveal">
