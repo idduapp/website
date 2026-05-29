@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Auto-stagger children in grid/list containers
     // Each child gets .reveal + an incremental transition-delay so items cascade in.
     const staggerConfigs = [
-        { container: '.features-grid',       child: '.feature-box',     step: 0.10 },
+        { container: '.pain-grid',            child: '.pain-card',       step: 0.10 },
+        { container: '.features-grid',        child: '.feature-box',     step: 0.10 },
         { container: '.persona-grid',         child: '.persona-card',    step: 0.12 },
         { container: '.pricing-grid',         child: '.pricing-card',    step: 0.14 },
         { container: '.pipeline-grid',        child: '.pipeline-step',   step: 0.12 },
