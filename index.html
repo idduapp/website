@@ -857,6 +857,44 @@
       margin-bottom: 4rem;
       letter-spacing: -0.02em;
     }
+    .family-tagline {
+      text-align: center;
+      color: var(--text-secondary);
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 4rem;
+      margin: -1.5rem auto 3rem;
+      line-height: 1.85;
+      font-size: 1.08rem;
+      min-height: 3.5em;
+      opacity: 0;
+    }
+    .family-tagline.typed {
+      opacity: 1;
+    }
+    .family-tagline .type-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--brand-purple);
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      animation: cursor-blink 0.75s step-end infinite;
+    }
+    .family-tagline .type-cursor.done {
+      animation: none;
+      opacity: 0;
+    }
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @media (max-width: 900px) {
+      .family-tagline { padding: 0 2rem; font-size: 1rem; }
+    }
+    @media (max-width: 600px) {
+      .family-tagline { padding: 0 1.25rem; font-size: 0.93rem; line-height: 1.75; }
+    }
 
     .ai-gallery-container {
       display: flex;
@@ -1591,9 +1629,7 @@
     <!-- Family Mode in Action Gallery -->
     <section class="ai-gallery-section" id="family-action" style="background: rgba(168, 85, 247, 0.02); border-bottom: 1px solid var(--glass-border); margin-top: 0;">
       <h2 class="ai-gallery-title reveal">Family Mode <span class="gradient-text">In Action</span></h2>
-      <p class="reveal" style="text-align:center; color: var(--text-secondary); max-width: 600px; margin: -1rem auto 2.5rem; line-height: 1.7; font-size: 0.97rem;">
-        One account covers your entire household — family members, aging parents, and pets included. Each person gets their own profile with custom permissions, and every appointment, reminder, and wellness record stays organized in a single shared view. No more juggling separate apps or missing someone's follow-up.
-      </p>
+      <p class="family-tagline" id="family-tagline" data-typetext="One account covers your entire household — family members, aging parents, and pets included. Each person gets their own profile with custom permissions, and every appointment, reminder, and wellness record stays organized in a single shared view. No more juggling separate apps or missing someone's follow-up."></p>
       <div class="ai-gallery-container">
 
         <!-- Phase 1: Family Dashboard -->

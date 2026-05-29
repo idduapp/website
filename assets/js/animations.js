@@ -84,6 +84,41 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.toggle('scrolled', window.scrollY > 50);
     }, { passive: true });
 
+    // 5. Typewriter effect for Family Mode tagline
+    const taglineEl = document.getElementById('family-tagline');
+    if (taglineEl) {
+        const fullText = taglineEl.dataset.typetext || '';
+        const cursor = document.createElement('span');
+        cursor.className = 'type-cursor';
+        taglineEl.appendChild(cursor);
+
+        let triggered = false;
+        const typeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !triggered) {
+                    triggered = true;
+                    typeObserver.unobserve(taglineEl);
+                    taglineEl.classList.add('typed');
+
+                    let i = 0;
+                    const speed = 20; // ms per character
+                    const tick = () => {
+                        if (i < fullText.length) {
+                            taglineEl.insertBefore(document.createTextNode(fullText[i]), cursor);
+                            i++;
+                            setTimeout(tick, speed);
+                        } else {
+                            setTimeout(() => cursor.classList.add('done'), 1200);
+                        }
+                    };
+                    setTimeout(tick, 300); // brief pause before typing starts
+                }
+            });
+        }, { threshold: 0.4 });
+
+        typeObserver.observe(taglineEl);
+    }
+
     // 5. Parallax Mouse Effect for Hero Glows
     const glows = document.querySelectorAll('.ambient-glow');
     document.addEventListener('mousemove', (e) => {
