@@ -549,13 +549,12 @@
     }
 
     /* Big faded watermark icon in the background */
-    .pain-card::before {
-      content: attr(data-watermark);
+    .pain-watermark {
       position: absolute;
-      top: -0.25rem;
-      right: 0.5rem;
-      font-size: 5.5rem;
-      opacity: 0.07;
+      top: 0.25rem;
+      right: 0.75rem;
+      font-size: 5rem;
+      opacity: 0.1;
       line-height: 1;
       pointer-events: none;
       user-select: none;
@@ -1316,37 +1315,42 @@
       <p class="reveal" style="color: var(--text-secondary); max-width: 500px; margin: 0 auto;">You're not alone. These are the healthcare admin problems Iddu was built to eliminate.</p>
 
       <div class="pain-grid">
-        <div class="pain-card reveal" data-watermark="📞">
+        <div class="pain-card reveal">
+          <span class="pain-watermark">📞</span>
           <span class="pain-x-badge">✗</span>
           <span class="pain-icon">📞</span>
           <p class="pain-card-title">Stuck on Hold — Forever</p>
           <p class="pain-card-desc">Sitting on hold for 25+ minutes just to reschedule an appointment that took 10 seconds to book online.</p>
         </div>
 
-        <div class="pain-card reveal" data-watermark="📄">
+        <div class="pain-card reveal">
+          <span class="pain-watermark">🧾</span>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">📄</span>
+          <span class="pain-icon">🧾</span>
           <p class="pain-card-title">Confusing Bills &amp; EOBs</p>
           <p class="pain-card-desc">Another Explanation of Benefits buried in your inbox with no idea what you actually owe or why.</p>
         </div>
 
-        <div class="pain-card reveal" data-watermark="⏰">
+        <div class="pain-card reveal">
+          <span class="pain-watermark">⏰</span>
           <span class="pain-x-badge">✗</span>
           <span class="pain-icon">⏰</span>
           <p class="pain-card-title">Running Late, No Way to Notify</p>
           <p class="pain-card-desc">Stuck in traffic and forgot to call the office — arrive late and lose your slot entirely.</p>
         </div>
 
-        <div class="pain-card reveal" data-watermark="💰">
+        <div class="pain-card reveal">
+          <span class="pain-watermark">💰</span>
           <span class="pain-x-badge">✗</span>
           <span class="pain-icon">💰</span>
           <p class="pain-card-title">Zero Deductible Visibility</p>
           <p class="pain-card-desc">No idea if your deductible's been met, what insurance covered, or how close you are to your out-of-pocket max.</p>
         </div>
 
-        <div class="pain-card reveal" data-watermark="🗂️">
+        <div class="pain-card reveal">
+          <span class="pain-watermark">📁</span>
           <span class="pain-x-badge">✗</span>
-          <span class="pain-icon">🗂️</span>
+          <span class="pain-icon">📁</span>
           <p class="pain-card-title">4 Portals for 1 Family</p>
           <p class="pain-card-desc">Managing your spouse, kids, and aging parents across completely separate portals with no single unified view.</p>
         </div>
