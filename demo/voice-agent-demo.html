@@ -1262,12 +1262,86 @@
       font-weight: 600;
     }
 
-    /* Chat bubbles */
+    /* Chat bubbles — voice transcript style */
+    .transcript-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 4px 10px 4px 8px;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: rgba(255,255,255,0.35);
+      align-self: center;
+      margin-bottom: 2px;
+      flex-shrink: 0;
+    }
+    .transcript-pill svg { opacity: 0.5; }
+
+    .pstn-disclaimer {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255, 170, 0, 0.07);
+      border: 1px solid rgba(255,170,0,0.18);
+      border-radius: 10px;
+      padding: 6px 10px;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .pstn-disclaimer-icon {
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .pstn-disclaimer-text {
+      font-size: 9px;
+      color: rgba(255,200,80,0.7);
+      line-height: 1.4;
+      font-weight: 500;
+    }
+    .pstn-disclaimer-text strong {
+      color: rgba(255,210,100,0.9);
+      font-weight: 700;
+    }
+
+    /* Per-speaker voice wave bars */
+    .spk-wave {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5px;
+      height: 10px;
+      margin-left: 5px;
+      vertical-align: middle;
+    }
+    .spk-wave span {
+      display: inline-block;
+      width: 2px;
+      border-radius: 2px;
+      animation: spk-pulse 0.7s ease-in-out infinite;
+    }
+    .spk-wave.ai span  { background: #4E85F7; }
+    .spk-wave.rec span { background: #61D19E; }
+    .spk-wave span:nth-child(1) { height: 4px;  animation-delay: 0.0s; }
+    .spk-wave span:nth-child(2) { height: 8px;  animation-delay: 0.1s; }
+    .spk-wave span:nth-child(3) { height: 6px;  animation-delay: 0.2s; }
+    .spk-wave span:nth-child(4) { height: 10px; animation-delay: 0.05s;}
+    .spk-wave span:nth-child(5) { height: 5px;  animation-delay: 0.15s;}
+    @keyframes spk-pulse {
+      0%,100% { transform: scaleY(0.35); }
+      50%      { transform: scaleY(1);    }
+    }
+    /* static (non-speaking) state */
+    .spk-wave.idle span { animation: none; transform: scaleY(0.35); }
+
     .call-bubble {
       max-width: 88%;
-      padding: 8px 12px;
-      border-radius: 14px;
-      font-size: 11.5px;
+      padding: 7px 11px;
+      border-radius: 12px;
+      font-size: 11px;
       line-height: 1.45;
       opacity: 0;
       transform: translateY(6px);
@@ -1281,64 +1355,56 @@
 
     .call-bubble.recep {
       align-self: flex-start;
-      background: rgba(97, 209, 158, 0.1);
-      border: 1px solid rgba(97, 209, 158, 0.15);
+      background: rgba(97, 209, 158, 0.07);
+      border: 1px solid rgba(97, 209, 158, 0.14);
+      border-left: 2.5px solid rgba(97,209,158,0.5);
+      border-radius: 4px 12px 12px 4px;
       color: rgba(255, 255, 255, 0.8);
     }
 
     .call-bubble.asst {
       align-self: flex-end;
-      background: rgba(78, 133, 247, 0.12);
-      border: 1px solid rgba(78, 133, 247, 0.18);
+      background: rgba(78, 133, 247, 0.08);
+      border: 1px solid rgba(78, 133, 247, 0.15);
+      border-right: 2.5px solid rgba(78,133,247,0.5);
+      border-radius: 12px 4px 4px 12px;
       color: rgba(255, 255, 255, 0.8);
     }
 
     .bubble-speaker {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       margin-bottom: 3px;
+      display: flex;
+      align-items: center;
     }
 
-    .bubble-speaker.recep {
-      color: #61D19E;
-    }
+    .bubble-speaker.recep { color: #61D19E; }
+    .bubble-speaker.asst  { color: #4E85F7; }
 
-    .bubble-speaker.asst {
-      color: #4E85F7;
-    }
-
+    /* Voice typing indicator — bars instead of dots */
     .call-typing {
       align-self: flex-start;
       display: flex;
-      gap: 4px;
+      align-items: center;
+      gap: 2px;
       padding: 8px 14px;
       background: rgba(255, 255, 255, 0.04);
-      border-radius: 14px;
+      border-radius: 12px;
       opacity: 0;
       transition: opacity 0.2s;
+      height: 32px;
     }
 
-    .call-typing.visible {
-      opacity: 1;
-    }
-
-    .call-typing.right {
-      align-self: flex-end;
-    }
+    .call-typing.visible { opacity: 1; }
+    .call-typing.right   { align-self: flex-end; }
 
     .typing-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
+      width: 2.5px;
+      border-radius: 2px;
       background: rgba(255, 255, 255, 0.3);
-      animation: typing-bounce 1s ease-in-out infinite;
-    }
-
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.15s;
-    }
 
     .typing-dot:nth-child(3) {
       animation-delay: 0.3s;
@@ -2101,6 +2167,11 @@
             <span class="call-timer-display" id="call-timer">0:00</span>
           </div>
           <div class="call-view-body" id="call-chat">
+            <!-- Transcript pill -->
+            <div class="transcript-pill">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>
+              Live Call Transcript &nbsp;·&nbsp; Demo Only
+            </div>
             <!-- Filled by JS -->
           </div>
           <div class="call-end-badge" id="call-end-badge">✅ Call Completed · Appointment Confirmed</div>
@@ -2376,11 +2447,14 @@
     }
 
     // === CALL VIEW ANIMATION ===
+    const SPK_WAVE = `<span class="spk-wave {cls}"><span></span><span></span><span></span><span></span><span></span></span>`;
     function addCallBubble(msg) {
       const chat = document.getElementById('call-chat');
       const bubble = document.createElement('div');
       bubble.className = `call-bubble ${msg.speaker}`;
-      bubble.innerHTML = `<div class="bubble-speaker ${msg.speaker}">${msg.label}</div><div>${msg.text}</div>`;
+      const waveClass = msg.speaker === 'asst' ? 'ai' : 'rec';
+      const wave = SPK_WAVE.replace('{cls}', waveClass);
+      bubble.innerHTML = `<div class="bubble-speaker ${msg.speaker}">${msg.label}${wave}</div><div>${msg.text}</div>`;
       chat.appendChild(bubble);
       chat.scrollTop = chat.scrollHeight;
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -2394,7 +2468,7 @@
       const typing = document.createElement('div');
       typing.className = `call-typing ${side === 'asst' ? 'right' : ''}`;
       typing.id = 'active-typing';
-      typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+      typing.innerHTML = '<div class="typing-dot"></div>'.repeat(6);
       chat.appendChild(typing);
       chat.scrollTop = chat.scrollHeight;
       requestAnimationFrame(() => typing.classList.add('visible'));
@@ -2404,6 +2478,16 @@
     function removeTyping() {
       const t = document.getElementById('active-typing');
       if (t) t.remove();
+    }
+
+    function resetCallChat() {
+      const chat = document.getElementById('call-chat');
+      chat.innerHTML = '';
+      // Re-insert transcript pill after reset
+      const pill = document.createElement('div');
+      pill.className = 'transcript-pill';
+      pill.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>Live Call Transcript &nbsp;·&nbsp; Demo Only`;
+      chat.appendChild(pill);
     }
 
     let callTimerInterval;
@@ -2424,7 +2508,7 @@
 
     async function animateCallView() {
       const chat = document.getElementById('call-chat');
-      chat.innerHTML = '';
+      resetCallChat();
       document.getElementById('call-end-badge').classList.remove('visible');
       document.getElementById('call-waveform').style.opacity = '1';
 
@@ -2449,6 +2533,19 @@
       stopCallTimer();
       document.getElementById('call-waveform').style.opacity = '0.2';
       document.getElementById('call-live-badge').style.opacity = '0.3';
+
+      // Inject PSTN disclaimer into chat body
+      const disclaimer = document.createElement('div');
+      disclaimer.className = 'pstn-disclaimer';
+      disclaimer.innerHTML = `
+        <div class="pstn-disclaimer-icon">📞</div>
+        <div class="pstn-disclaimer-text">
+          <strong>Real PSTN phone call</strong> — transcript shown for demo only.<br>
+          IDDU's AI dials the clinic directly. No typing. No chat.
+        </div>`;
+      chat.appendChild(disclaimer);
+      chat.scrollTop = chat.scrollHeight;
+
       await sleep(300);
       document.getElementById('call-end-badge').classList.add('visible');
       await sleep(800);
