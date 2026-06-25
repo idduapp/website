@@ -304,6 +304,7 @@
       opacity: 0;
       transition: opacity 0.4s ease;
       pointer-events: none;
+      overflow: hidden;
     }
 
     .phase.active {
@@ -1574,8 +1575,12 @@
     .history-container {
       flex: 1;
       padding: 0 16px;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
+      min-height: 0;
     }
+    .history-container::-webkit-scrollbar { display: none; }
 
     .history-header {
       text-align: center;
@@ -2175,14 +2180,14 @@
               Live Call Transcript &nbsp;·&nbsp; Demo Only
             </div>
             <!-- Filled by JS -->
-          </div>
-          <div class="call-end-badge" id="call-end-badge">✅ Call Completed · Appointment Confirmed</div>
-          <div class="no-phone-callout" id="call-no-phone">
-            <div class="no-phone-callout-icon">📱🚫</div>
-            <div class="no-phone-callout-title">Your Phone Voice Service Was Never Used</div>
-            <div class="no-phone-callout-text">This entire call happened on <strong>IDDU's own secure
-                telephony infrastructure</strong>.<br>Your phone, minutes, and carrier were <strong>never
-                involved</strong>.</div>
+            <div class="call-end-badge" id="call-end-badge">✅ Call Completed · Appointment Confirmed</div>
+            <div class="no-phone-callout" id="call-no-phone">
+              <div class="no-phone-callout-icon">📱🚫</div>
+              <div class="no-phone-callout-title">Your Phone Voice Service Was Never Used</div>
+              <div class="no-phone-callout-text">This entire call happened on <strong>IDDU's own secure
+                  telephony infrastructure</strong>.<br>Your phone, minutes, and carrier were <strong>never
+                  involved</strong>.</div>
+            </div>
           </div>
         </div>
         <div class="brand-label">powered by <em>iddu</em></div>
@@ -2498,12 +2503,24 @@
 
     function resetCallChat() {
       const chat = document.getElementById('call-chat');
+      // Save end-of-call elements before clearing
+      const endBadge = document.getElementById('call-end-badge');
+      const noPhone = document.getElementById('call-no-phone');
+      if (endBadge) endBadge.classList.remove('visible');
+      if (noPhone) noPhone.classList.remove('visible');
+      // Detach them temporarily
+      if (endBadge) endBadge.remove();
+      if (noPhone) noPhone.remove();
+      // Clear chat content
       chat.innerHTML = '';
-      // Re-insert transcript pill after reset
+      // Re-insert transcript pill
       const pill = document.createElement('div');
       pill.className = 'transcript-pill';
       pill.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16z"/></svg>Live Call Transcript &nbsp;·&nbsp; Demo Only`;
       chat.appendChild(pill);
+      // Re-attach end-of-call elements (hidden)
+      if (endBadge) chat.appendChild(endBadge);
+      if (noPhone) chat.appendChild(noPhone);
     }
 
     let callTimerInterval;
@@ -2550,7 +2567,8 @@
       document.getElementById('call-waveform').style.opacity = '0.2';
       document.getElementById('call-live-badge').style.opacity = '0.3';
 
-      // Inject PSTN disclaimer into chat body
+      // Inject PSTN disclaimer before end-badge
+      const endBadge = document.getElementById('call-end-badge');
       const disclaimer = document.createElement('div');
       disclaimer.className = 'pstn-disclaimer';
       disclaimer.innerHTML = `
@@ -2559,15 +2577,18 @@
           <strong>Real PSTN phone call</strong> — transcript shown for demo only.<br>
           IDDU's AI dials the clinic directly. No typing. No chat.
         </div>`;
-      chat.appendChild(disclaimer);
+      chat.insertBefore(disclaimer, endBadge);
       chat.scrollTop = chat.scrollHeight;
 
       await sleep(300);
-      document.getElementById('call-end-badge').classList.add('visible');
+      endBadge.classList.add('visible');
+      chat.scrollTop = chat.scrollHeight;
       await sleep(800);
       document.getElementById('call-no-phone').classList.add('visible');
+      chat.scrollTop = chat.scrollHeight;
       await sleep(5000);
     }
+
 
     // Animate the cancel timer countdown (visual only, fast for demo)
     function animateCancelTimer(durationMs) {
