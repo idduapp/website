@@ -2622,7 +2622,7 @@
     async function runDemo() {
       // Reset all state
       document.getElementById('hist-transcript').innerHTML = '';
-      document.getElementById('call-chat').innerHTML = '';
+      resetCallChat();
       document.getElementById('bottom-sheet').classList.remove('visible');
       document.getElementById('ai-modal').classList.remove('visible');
       document.getElementById('mic-btn').classList.remove('recording');
@@ -2640,8 +2640,6 @@
       document.getElementById('cancel-bar').style.width = '100%';
       document.getElementById('cancel-timer').textContent = '14:48';
       // Reset Phase 4
-      document.getElementById('call-end-badge').classList.remove('visible');
-      document.getElementById('call-no-phone').classList.remove('visible');
       document.getElementById('call-live-badge').style.opacity = '1';
       document.getElementById('call-waveform').style.opacity = '1';
       stopCallTimer();
