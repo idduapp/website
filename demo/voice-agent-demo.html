@@ -1106,6 +1106,7 @@
       flex-direction: column;
       padding: 8px 12px;
       overflow: hidden;
+      min-height: 0;
     }
 
     .call-view-header {
@@ -1174,6 +1175,7 @@
 
     .call-view-body {
       flex: 1;
+      min-height: 0;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-top: none;
@@ -2388,10 +2390,22 @@
         </div>
 
         <div class="tab-bar">
-          <div class="tab-item"><span class="tab-icon">📅</span>Today</div>
-          <div class="tab-item active"><span class="tab-icon">📋</span>Appointments</div>
-          <div class="tab-item"><span class="tab-icon">🤖</span>AI</div>
-          <div class="tab-item"><span class="tab-icon">👤</span>Account</div>
+          <div class="tab-item">
+            <div class="tab-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            Today
+          </div>
+          <div class="tab-item active">
+            <div class="tab-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></div>
+            Appointments
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg></div>
+            AI
+          </div>
+          <div class="tab-item">
+            <div class="tab-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            Account
+          </div>
         </div>
       </div>
     </div>
@@ -2429,13 +2443,15 @@
       ring.classList.add('animating');
     }
 
+    const AI_ICON_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><line x1="8" y1="16" x2="8" y2="16" stroke-width="3"/><line x1="16" y1="16" x2="16" y2="16" stroke-width="3"/></svg>`;
+    const PERSON_ICON_SVG = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
     function addHistMessage(msg) {
       const container = document.getElementById('hist-transcript');
       const div = document.createElement('div');
       div.className = 'hist-msg';
       div.innerHTML = `
       <div class="hist-msg-icon ${msg.speaker}">
-        ${msg.speaker === 'asst' ? '🤖' : '👤'}
+        ${msg.speaker === 'asst' ? AI_ICON_SVG : PERSON_ICON_SVG}
       </div>
       <div>
         <div class="hist-msg-speaker ${msg.speaker}">${msg.label}</div>
