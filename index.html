@@ -844,6 +844,145 @@
       .demo-iframe { width: 240px; height: 520px; }
       .pipeline-grid { grid-template-columns: 1fr; }
     }
+
+    /* ===== SCENARIO DEMO SYSTEM ===== */
+    .scenario-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .snp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(168, 85, 247, 0.08);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+      border-radius: 100px;
+      padding: 5px 16px 5px 10px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 340px;
+      overflow: hidden;
+    }
+
+    .snp-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brand-purple);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px var(--brand-purple);
+      animation: pulse 2s infinite;
+    }
+
+    .snp-playing-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand-purple);
+      flex-shrink: 0;
+    }
+
+    .snp-title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .scenario-phone-wrap {
+      position: relative;
+    }
+
+    #scenario-phone-frame {
+      transition: opacity 0.22s ease;
+    }
+
+    .scenario-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 340px;
+    }
+
+    .scenario-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    .scenario-divider-text {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      width: 340px;
+    }
+
+    .scenario-chip {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      padding: 10px 11px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 13px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+      font-family: 'Inter', system-ui, sans-serif;
+      text-align: left;
+      color: var(--text-secondary);
+    }
+
+    .scenario-chip:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(168, 85, 247, 0.35);
+      color: rgba(255, 255, 255, 0.85);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    .scenario-chip.active {
+      background: linear-gradient(135deg, rgba(56,189,248,0.13), rgba(168,85,247,0.13));
+      border-color: rgba(168, 85, 247, 0.6);
+      color: #fff;
+      box-shadow: 0 0 22px rgba(168,85,247,0.18), inset 0 0 0 1px rgba(168,85,247,0.12);
+      transform: translateY(-1px);
+    }
+
+    .chip-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .chip-label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      line-height: 1.25;
+      color: inherit;
+    }
+
+    @media (max-width: 640px) {
+      .scenario-grid  { width: 280px; }
+      .scenario-divider { width: 280px; }
+      .snp-badge { max-width: 280px; }
+    }
+    @media (max-width: 380px) {
+      .scenario-grid { width: 240px; grid-template-columns: repeat(2, 1fr); }
+      .scenario-divider { width: 240px; }
+      .snp-badge { max-width: 240px; }
+    }
     /* AI Agent in Action Gallery */
     .ai-gallery-section {
       padding: 6rem 0;
@@ -1304,10 +1443,81 @@
         </div>
       </div>
 
-      <div class="phone-wrapper reveal">
-        <div class="phone-frame">
-          <iframe src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1" class="demo-iframe" title="Iddu App Demo" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <div class="scenario-demo reveal">
+
+        <!-- Now Playing badge -->
+        <div class="snp-badge">
+          <span class="snp-dot"></span>
+          <span class="snp-playing-label">Now Playing</span>
+          <span class="snp-title" id="snp-title">Rescheduling an Appointment</span>
         </div>
+
+        <!-- Phone Frame -->
+        <div class="scenario-phone-wrap">
+          <div class="phone-frame" id="scenario-phone-frame">
+            <iframe id="demo-video"
+              src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1"
+              class="demo-iframe" title="Iddu App Demo"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="scenario-divider">
+          <div class="scenario-divider-line"></div>
+          <span class="scenario-divider-text">WATCH A SCENARIO</span>
+          <div class="scenario-divider-line"></div>
+        </div>
+
+        <!-- Scenario Grid -->
+        <div class="scenario-grid">
+          <button class="scenario-chip active" data-video="Iici9o2NJt8" data-title="Rescheduling an Appointment" onclick="playScenario(this)">
+            <span class="chip-icon">📅</span><span class="chip-label">Reschedule</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Cancelling an Appointment" onclick="playScenario(this)">
+            <span class="chip-icon">❌</span><span class="chip-label">Cancel Visit</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="You're Running Late" onclick="playScenario(this)">
+            <span class="chip-icon">🏃</span><span class="chip-label">Running Late</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Booking a New Appointment" onclick="playScenario(this)">
+            <span class="chip-icon">📞</span><span class="chip-label">Book New</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Requesting a Prescription Refill" onclick="playScenario(this)">
+            <span class="chip-icon">💊</span><span class="chip-label">Rx Refill</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Following Up on Lab Results" onclick="playScenario(this)">
+            <span class="chip-icon">🧪</span><span class="chip-label">Lab Results</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Managing Family Appointments" onclick="playScenario(this)">
+            <span class="chip-icon">👨‍👩‍👧</span><span class="chip-label">Family Care</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Scheduling a Vet Visit" onclick="playScenario(this)">
+            <span class="chip-icon">🐶</span><span class="chip-label">Vet Visit</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Verifying Insurance Coverage" onclick="playScenario(this)">
+            <span class="chip-icon">🛡️</span><span class="chip-label">Insurance</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Scanning a Medical Bill" onclick="playScenario(this)">
+            <span class="chip-icon">📄</span><span class="chip-label">Scan Bill</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Understanding Your Medical Bill" onclick="playScenario(this)">
+            <span class="chip-icon">💰</span><span class="chip-label">Bill Help</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Getting a Specialist Referral" onclick="playScenario(this)">
+            <span class="chip-icon">🏥</span><span class="chip-label">Referral</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Your Morning AI Briefing" onclick="playScenario(this)">
+            <span class="chip-icon">✨</span><span class="chip-label">AI Briefing</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Emergency Appointment Handling" onclick="playScenario(this)">
+            <span class="chip-icon">⚡</span><span class="chip-label">Emergency</span>
+          </button>
+          <button class="scenario-chip" data-video="Iici9o2NJt8" data-title="Wellness Spending Insights" onclick="playScenario(this)">
+            <span class="chip-icon">📊</span><span class="chip-label">Insights</span>
+          </button>
+        </div>
+
       </div>
     </section>
 
@@ -1867,6 +2077,25 @@
     </p>
 
   </footer>
+
+  <!-- Scenario Switcher -->
+  <script>
+    function playScenario(el) {
+      if (el.classList.contains('active')) return;
+      document.querySelectorAll('.scenario-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('snp-title').textContent = el.dataset.title;
+      const videoId = el.dataset.video;
+      const frame = document.getElementById('scenario-phone-frame');
+      const iframe = document.getElementById('demo-video');
+      frame.style.opacity = '0.4';
+      setTimeout(() => {
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId
+          + '?autoplay=1&mute=1&loop=1&playlist=' + videoId + '&controls=0&rel=0&playsinline=1';
+        frame.style.opacity = '1';
+      }, 220);
+    }
+  </script>
 
   <!-- Custom Scripts -->
   <script src="assets/js/animations.js?v=20260412v5"></script>
