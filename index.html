@@ -846,40 +846,61 @@
     }
 
     /* ===== SCENARIO DEMO SYSTEM ===== */
-    .scenario-demo {
+
+    /* Side-by-side: phone left, orbit right */
+    .scenario-zone {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .scenario-phone-side {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
+      flex-shrink: 0;
     }
 
-    .snp-badge {
+    /* Smaller phone for side-by-side layout */
+    .scenario-zone .demo-iframe {
+      width: 196px;
+      height: 425px;
+    }
+
+    .scenario-phone-wrap { position: relative; }
+
+    #scenario-phone-frame { transition: opacity 0.22s ease; }
+
+    /* Now-playing label below the phone */
+    .snp-label {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(168, 85, 247, 0.08);
-      border: 1px solid rgba(168, 85, 247, 0.22);
+      gap: 7px;
+      background: rgba(168, 85, 247, 0.06);
+      border: 1px solid rgba(168, 85, 247, 0.2);
       border-radius: 100px;
-      padding: 5px 16px 5px 10px;
-      font-size: 0.73rem;
+      padding: 4px 12px 4px 9px;
+      font-size: 0.62rem;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.8);
-      max-width: 340px;
+      color: rgba(255, 255, 255, 0.78);
+      max-width: 218px;
       overflow: hidden;
     }
 
     .snp-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--brand-purple);
       flex-shrink: 0;
-      box-shadow: 0 0 8px var(--brand-purple);
+      box-shadow: 0 0 7px var(--brand-purple);
       animation: pulse 2s infinite;
     }
 
     .snp-playing-label {
-      font-size: 0.65rem;
+      font-size: 0.58rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -893,19 +914,11 @@
       text-overflow: ellipsis;
     }
 
-    .scenario-phone-wrap {
-      position: relative;
-    }
-
-    #scenario-phone-frame {
-      transition: opacity 0.22s ease;
-    }
-
     /* ── Radial Orbit Picker ─────────────────── */
     .radial-picker {
       position: relative;
-      width: 360px;
-      height: 360px;
+      width: 340px;
+      height: 340px;
       flex-shrink: 0;
     }
 
@@ -917,6 +930,7 @@
       pointer-events: none;
     }
 
+    /* JS overrides width/height at runtime based on picker size */
     .ring-track-outer {
       width: 296px; height: 296px;
       border: 1px solid rgba(168, 85, 247, 0.12);
@@ -996,17 +1010,19 @@
       overflow-wrap: break-word;
     }
 
-    .ring-chip.active .chip-label {
-      color: rgba(255, 255, 255, 0.92);
-    }
+    .ring-chip.active .chip-label { color: rgba(255, 255, 255, 0.92); }
 
-    @media (max-width: 640px) {
-      .radial-picker { transform: scale(0.82); transform-origin: top center; margin-bottom: -65px; }
-      .snp-badge { max-width: 295px; }
+    /* Stack vertically on narrow screens */
+    @media (max-width: 700px) {
+      .scenario-zone { flex-direction: column; gap: 16px; }
+      .scenario-zone .demo-iframe { width: 260px; height: 565px; }
+      .radial-picker { width: 300px; height: 300px; }
+      .snp-label { max-width: 260px; }
     }
     @media (max-width: 380px) {
-      .radial-picker { transform: scale(0.67); transform-origin: top center; margin-bottom: -119px; }
-      .snp-badge { max-width: 241px; }
+      .scenario-zone .demo-iframe { width: 220px; height: 478px; }
+      .radial-picker { width: 250px; height: 250px; }
+      .snp-label { max-width: 220px; }
     }
     /* AI Agent in Action Gallery */
     .ai-gallery-section {
@@ -1468,26 +1484,26 @@
         </div>
       </div>
 
-      <div class="scenario-demo reveal">
+      <div class="scenario-zone reveal">
 
-        <!-- Now Playing badge -->
-        <div class="snp-badge">
-          <span class="snp-dot"></span>
-          <span class="snp-playing-label">Now Playing</span>
-          <span class="snp-title" id="snp-title">Rescheduling an Appointment</span>
-        </div>
-
-        <!-- Phone Frame -->
-        <div class="scenario-phone-wrap">
-          <div class="phone-frame" id="scenario-phone-frame">
-            <iframe id="demo-video"
-              src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1"
-              class="demo-iframe" title="Iddu App Demo"
-              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <!-- Left: Phone + now-playing label below -->
+        <div class="scenario-phone-side">
+          <div class="scenario-phone-wrap">
+            <div class="phone-frame" id="scenario-phone-frame">
+              <iframe id="demo-video"
+                src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1"
+                class="demo-iframe" title="Iddu App Demo"
+                allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="snp-label">
+            <span class="snp-dot"></span>
+            <span class="snp-playing-label">Now Playing</span>
+            <span class="snp-title" id="snp-title">Rescheduling an Appointment</span>
           </div>
         </div>
 
-        <!-- Radial Orbit Picker -->
+        <!-- Right: Radial orbit picker -->
         <div class="radial-picker" id="radial-picker">
 
           <!-- Orbital track rings (decorative) -->
@@ -2131,25 +2147,52 @@
     function initRadialPicker() {
       const picker = document.getElementById('radial-picker');
       if (!picker) return;
-      const chips = Array.from(picker.querySelectorAll('.ring-chip'));
-      const cx = 180, cy = 180;        // center of 360×360 container
-      const innerChips = chips.slice(0, 7);  // first 7 → inner ring (r=82)
-      const outerChips = chips.slice(7);     // last 8  → outer ring (r=148)
+      const size = picker.offsetWidth;
+      if (!size) return;
 
-      function placeChips(arr, radius) {
+      // All measurements scale proportionally from the 360px base design
+      const scale   = size / 360;
+      const cx = size / 2, cy = size / 2;
+      const innerR  = Math.round(82  * scale);
+      const outerR  = Math.round(148 * scale);
+      const chipSz  = Math.round(54  * scale);
+      const half    = chipSz / 2;
+
+      // Scale the decorative ring tracks and center circle
+      const ot = picker.querySelector('.ring-track-outer');
+      const it = picker.querySelector('.ring-track-inner');
+      const cc = picker.querySelector('.ring-center');
+      const otSz = Math.round(296 * scale), itSz = Math.round(164 * scale), ccSz = Math.round(76 * scale);
+      if (ot) { ot.style.width = otSz + 'px'; ot.style.height = otSz + 'px'; }
+      if (it) { it.style.width = itSz + 'px'; it.style.height = itSz + 'px'; }
+      if (cc) { cc.style.width = ccSz + 'px'; cc.style.height = ccSz + 'px'; }
+
+      const chips = Array.from(picker.querySelectorAll('.ring-chip'));
+      chips.forEach(chip => { chip.style.width = chipSz + 'px'; chip.style.height = chipSz + 'px'; });
+
+      const innerChips = chips.slice(0, 7);
+      const outerChips = chips.slice(7);
+
+      function place(arr, radius) {
         arr.forEach((chip, i) => {
-          const angleDeg = -90 + i * 360 / arr.length;
-          const rad = angleDeg * Math.PI / 180;
-          chip.style.left = Math.round(cx + radius * Math.cos(rad) - 27) + 'px';
-          chip.style.top  = Math.round(cy + radius * Math.sin(rad) - 27) + 'px';
+          const rad = (-90 + i * 360 / arr.length) * Math.PI / 180;
+          chip.style.left = Math.round(cx + radius * Math.cos(rad) - half) + 'px';
+          chip.style.top  = Math.round(cy + radius * Math.sin(rad) - half) + 'px';
         });
       }
 
-      placeChips(innerChips, 82);
-      placeChips(outerChips, 148);
+      place(innerChips, innerR);
+      place(outerChips, outerR);
     }
 
     document.addEventListener('DOMContentLoaded', initRadialPicker);
+
+    // Re-layout on window resize (debounced)
+    let _rpTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(_rpTimer);
+      _rpTimer = setTimeout(initRadialPicker, 120);
+    });
   </script>
 
   <!-- Custom Scripts -->
