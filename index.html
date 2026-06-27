@@ -622,17 +622,55 @@
     .hero-feature-tag {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
+      gap: 7px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--brand-blue);
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid rgba(56, 189, 248, 0.22);
       border-radius: 100px;
-      padding: 4px 12px;
+      padding: 6px 16px;
       margin-bottom: 0.85rem;
+      transition: box-shadow 0.3s;
+    }
+
+    /* 📞 AI Calling — cyan blue */
+    .tag-blue {
+      color: #7dd3fc;
+      background: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(14,165,233,0.08));
+      border: 1px solid rgba(56,189,248,0.5);
+      box-shadow: 0 0 16px rgba(56,189,248,0.22), inset 0 0 10px rgba(56,189,248,0.07);
+    }
+
+    /* 👨‍👩‍👧‍👦 Family Mode — violet purple */
+    .tag-purple {
+      color: #c084fc;
+      background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(139,92,246,0.08));
+      border: 1px solid rgba(168,85,247,0.5);
+      box-shadow: 0 0 16px rgba(168,85,247,0.22), inset 0 0 10px rgba(168,85,247,0.07);
+    }
+
+    /* 🧾 Bill Intelligence — emerald green */
+    .tag-green {
+      color: #6ee7b7;
+      background: linear-gradient(135deg, rgba(52,211,153,0.18), rgba(16,185,129,0.08));
+      border: 1px solid rgba(52,211,153,0.48);
+      box-shadow: 0 0 16px rgba(52,211,153,0.2), inset 0 0 10px rgba(52,211,153,0.06);
+    }
+
+    /* ✨ Daily Digest — amber gold */
+    .tag-amber {
+      color: #fcd34d;
+      background: linear-gradient(135deg, rgba(251,191,36,0.18), rgba(245,158,11,0.08));
+      border: 1px solid rgba(251,191,36,0.48);
+      box-shadow: 0 0 16px rgba(251,191,36,0.2), inset 0 0 10px rgba(251,191,36,0.06);
+    }
+
+    /* 💬 Conversational AI — fuchsia pink */
+    .tag-pink {
+      color: #f0abfc;
+      background: linear-gradient(135deg, rgba(232,121,249,0.18), rgba(168,85,247,0.08));
+      border: 1px solid rgba(232,121,249,0.48);
+      box-shadow: 0 0 16px rgba(232,121,249,0.2), inset 0 0 10px rgba(232,121,249,0.06);
     }
 
     .hero-sub {
@@ -1979,31 +2017,31 @@
           <div class="hero-slides">
 
             <div class="hero-slide active">
-              <p class="hero-feature-tag">📞 AI Calling</p>
+              <p class="hero-feature-tag tag-blue">📞 AI Calling</p>
               <h1>Iddu calls your wellness provider, <span class="gradient-text">so you don't have to.</span></h1>
               <p class="hero-sub">Our AI navigates phone trees, speaks to real receptionists, and confirms your appointment — all while you live your life.</p>
             </div>
 
             <div class="hero-slide">
-              <p class="hero-feature-tag">👨‍👩‍👧‍👦 Family Mode</p>
+              <p class="hero-feature-tag tag-purple">👨‍👩‍👧‍👦 Family Mode</p>
               <h1>One place for your <span class="gradient-text">whole family's wellness.</span></h1>
               <p class="hero-sub">Manage schedules, records, and appointments for everyone — spouse, kids, aging parents, and pets — in a single unified view.</p>
             </div>
 
             <div class="hero-slide">
-              <p class="hero-feature-tag">🧾 Bill Intelligence</p>
+              <p class="hero-feature-tag tag-green">🧾 Bill Intelligence</p>
               <h1>Iddu decodes every bill <span class="gradient-text">in plain English.</span></h1>
               <p class="hero-sub">Scan an EOB or office invoice and Iddu breaks down every charge, code, and cost — so you know exactly what you owe and why.</p>
             </div>
 
             <div class="hero-slide">
-              <p class="hero-feature-tag">✨ Daily Digest</p>
+              <p class="hero-feature-tag tag-amber">✨ Daily Digest</p>
               <h1>Your wellness, <span class="gradient-text">briefed every morning.</span></h1>
               <p class="hero-sub">Iddu digests your upcoming appointments, bills, and reminders into a 1-minute daily brief so nothing slips through the cracks.</p>
             </div>
 
             <div class="hero-slide">
-              <p class="hero-feature-tag">💬 Conversational AI</p>
+              <p class="hero-feature-tag tag-pink">💬 Conversational AI</p>
               <h1>Just ask. Iddu knows your <span class="gradient-text">wellness inside out.</span></h1>
               <p class="hero-sub">Ask anything in plain English — "What did I spend last year?", "When is mom's next appointment?" — and get an instant, accurate answer. No digging, no spreadsheets, no guessing.</p>
             </div>
