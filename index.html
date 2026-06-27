@@ -2146,9 +2146,11 @@
         <div class="scenario-phone-wrap">
           <div class="phone-frame" id="scenario-phone-frame">
             <iframe id="demo-video"
-              src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1"
+              src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app"
               class="demo-iframe" title="Iddu App Demo"
-              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
+              frameborder="0"></iframe>
           </div>
         </div>
 
@@ -2949,7 +2951,8 @@
       frame.style.opacity = '0.4';
       setTimeout(() => {
         iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId
-          + '?autoplay=1&mute=1&loop=1&playlist=' + videoId + '&controls=0&rel=0&playsinline=1';
+          + '?autoplay=1&mute=1&loop=1&playlist=' + videoId
+          + '&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app';
         frame.style.opacity = '1';
       }, 220);
     }
