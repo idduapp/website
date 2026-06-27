@@ -376,12 +376,12 @@
     /* CTA Section */
     .cta-section {
       text-align: center;
-      padding: 6rem 2rem;
+      padding: 4rem 2.5rem;
       margin: 8rem auto 0;
       background: linear-gradient(145deg, rgba(56, 189, 248, 0.05), rgba(168, 85, 247, 0.05));
       border: 1px solid var(--glass-border);
       border-radius: 32px;
-      max-width: 800px;
+      max-width: 1040px;
     }
 
     .cta-section h2 {
@@ -448,6 +448,155 @@
       font-size: 0.8rem;
       color: rgba(255, 255, 255, 0.3);
       margin-top: 1rem;
+    }
+
+    /* ── Two-Column CTA Layout ── */
+    .cta-intro { margin-bottom: 2.5rem; }
+
+    .cta-duo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      text-align: left;
+    }
+
+    .cta-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .cta-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .badge-blue {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--brand-blue);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+    }
+
+    .badge-purple {
+      background: rgba(168, 85, 247, 0.1);
+      color: var(--brand-purple);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+    }
+
+    .cta-card h3 {
+      font-size: 1.45rem;
+      color: #fff;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Override broad .cta-section p inside cards */
+    .cta-card p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 0;
+      line-height: 1.65;
+    }
+
+    .cta-card .privacy-note {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.35);
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+
+    .cta-card .cta-form {
+      max-width: none;
+      margin: 0;
+      gap: 0.7rem;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+    }
+
+    .cta-card .cta-form input,
+    .cta-card .cta-form textarea {
+      width: 100%;
+      padding: 0.85rem 1.1rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 0.92rem;
+      font-family: inherit;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .cta-card .cta-form input:focus,
+    .cta-card .cta-form textarea:focus {
+      outline: none;
+      border-color: rgba(168, 85, 247, 0.55);
+      box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.12);
+    }
+
+    .cta-card .cta-form input::placeholder,
+    .cta-card .cta-form textarea::placeholder { color: rgba(255, 255, 255, 0.32); }
+
+    .cta-card .cta-form textarea {
+      resize: vertical;
+      min-height: 108px;
+      line-height: 1.5;
+    }
+
+    .btn-cta-blue {
+      background: linear-gradient(135deg, #38bdf8, #6d28d9);
+      color: #fff;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-cta-purple {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      color: #fff;
+      border: none;
+      padding: 0.9rem 1.5rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-cta-blue:hover  { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.25); }
+    .btn-cta-purple:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(168,85,247,0.25); }
+
+    /* Vertical divider between the two cards on desktop */
+    .cta-divider {
+      width: 1px;
+      background: var(--glass-border);
+      align-self: stretch;
+      display: none; /* shown via grid gap instead */
+    }
+
+    @media (max-width: 780px) {
+      .cta-duo { grid-template-columns: 1fr; }
     }
 
     /* Footer */
@@ -2136,23 +2285,63 @@
       </div>
     </section>
 
-    <!-- Beta Access CTA Section -->
+    <!-- Beta Access + Partnership Section -->
     <section class="cta-section" id="beta-access">
-      <h2>Request <span class="gradient-text">Private Beta Access</span></h2>
-      <p>Iddu is in private beta on TestFlight. Selected early members get <strong style="color:#7bc67e;">2 months of Premium+ free</strong> and a direct line to shape the product.</p>
 
-      <form class="cta-form" action="https://formsubmit.co/admin@iddu.app" method="POST">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_subject" value="New Beta Access Request!">
-        <div class="input-group">
-          <input type="text" name="name" placeholder="Your Full Name" required>
+      <div class="cta-intro">
+        <h2>Join the <span class="gradient-text">Iddu Mission</span></h2>
+        <p style="color:var(--text-secondary);font-size:1.05rem;max-width:540px;margin:0 auto;">Whether you want to be among the first to experience Iddu, or you want to help build what's next — we'd love to hear from you.</p>
+      </div>
+
+      <div class="cta-duo">
+
+        <!-- LEFT: Beta Access -->
+        <div class="cta-card">
+          <span class="cta-card-badge badge-blue">🚀 Early Access</span>
+          <div>
+            <h3>Request Private Beta</h3>
+            <p class="cta-card-desc">Iddu is in private beta on TestFlight. Selected early members get <strong style="color:#7bc67e;">2 months of Premium+ free</strong> and a direct line to shape the product.</p>
+          </div>
+          <form class="cta-form" action="https://formsubmit.co/admin@iddu.app" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Beta Access Request!">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://iddu.app/#beta-access">
+            <div class="input-row">
+              <input type="text" name="first_name" placeholder="First Name" required>
+              <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <textarea name="message" placeholder="What are you hoping to use Iddu for? Share anything — the more context the better." rows="4"></textarea>
+            <button type="submit" class="btn-cta-blue">Request Beta Access →</button>
+            <p class="privacy-note">🔒 Your info is never shared. Limited spots available.</p>
+          </form>
         </div>
-        <div class="input-group">
-          <input type="email" name="email" placeholder="Your Email Address" required>
+
+        <!-- RIGHT: Partnership -->
+        <div class="cta-card">
+          <span class="cta-card-badge badge-purple">🤝 Collaborate</span>
+          <div>
+            <h3>Partner With Us</h3>
+            <p class="cta-card-desc">Developer, designer, healthcare professional, investor — if you want to help shape the future of AI-powered wellness care, we want to hear from you.</p>
+          </div>
+          <form class="cta-form" action="https://formsubmit.co/admin@iddu.app" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="Partnership Application">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" value="https://iddu.app/#beta-access">
+            <div class="input-row">
+              <input type="text" name="first_name" placeholder="First Name" required>
+              <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+            <input type="email" name="email" placeholder="Email Address" required>
+            <textarea name="message" placeholder="Tell us about your background, skills, and how you'd like to contribute to Iddu's mission." rows="4" required></textarea>
+            <button type="submit" class="btn-cta-purple">Apply to Partner →</button>
+            <p class="privacy-note">🤝 All inquiries are reviewed personally by the founder.</p>
+          </form>
         </div>
-        <button type="submit" class="btn-primary">Request Beta Access →</button>
-        <p class="privacy-note">🔒 Your info is never shared. Limited spots available.</p>
-      </form>
+
+      </div>
     </section>
 
   </main>
