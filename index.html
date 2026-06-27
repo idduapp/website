@@ -970,7 +970,7 @@
       background: rgba(168, 85, 247, 0.1);
       border-color: rgba(168, 85, 247, 0.45);
       box-shadow: 0 0 16px rgba(168, 85, 247, 0.22);
-      transform: scale(1.42);
+      transform: scale(1.5);
       z-index: 6;
     }
 
@@ -1043,7 +1043,7 @@
     .ring-hint {
       margin-top: 4px;
       font-size: 0.6rem;
-      color: rgba(255, 255, 255, 0.28);
+      color: rgba(255, 255, 255, 0.55);
       text-align: center;
       letter-spacing: 0.04em;
     }
@@ -2227,7 +2227,8 @@
       ];
       chips.forEach((chip, i) => { chip._desc = descs[i]; });
 
-      // Tooltip — appears radially outward from the hovered chip
+      // Tooltip — appears in the cardinal direction away from the chip,
+      // never overlapping it (like an iPhone keyboard key popup)
       const tooltip = document.getElementById('ring-tooltip');
       if (tooltip) {
         chips.forEach(chip => {
@@ -2235,13 +2236,30 @@
             const chipCx = parseFloat(chip.style.left) + 27;
             const chipCy = parseFloat(chip.style.top)  + 27;
             const dx = chipCx - cx, dy = chipCy - cy;
-            const d  = Math.sqrt(dx * dx + dy * dy) || 1;
-            const nx = dx / d, ny = dy / d;
-            const offset = 27 + 20; // half-chip + gap
+
             tooltip.querySelector('.rt-title').textContent = chip.querySelector('.chip-label').textContent;
             tooltip.querySelector('.rt-desc').textContent  = chip._desc;
-            tooltip.style.left = Math.round(chipCx + nx * offset - 74) + 'px'; // 74 = half tooltip width
-            tooltip.style.top  = Math.round(chipCy + ny * offset - 24) + 'px'; // 24 ≈ half tooltip height
+
+            // EDGE = visual half-chip at 1.5× scale (27×1.5=40.5) + 10px gap
+            const TW = 148, TH = 50, EDGE = 51;
+            let tleft, ttop;
+
+            if (Math.abs(dx) >= Math.abs(dy)) {
+              // Chip is left/right of center → tooltip appears to that side
+              ttop  = Math.round(chipCy - TH / 2);
+              tleft = dx >= 0
+                ? Math.round(chipCx + EDGE)           // right side of orbit
+                : Math.round(chipCx - EDGE - TW);     // left side of orbit
+            } else {
+              // Chip is above/below center → tooltip appears above or below
+              tleft = Math.round(chipCx - TW / 2);
+              ttop  = dy >= 0
+                ? Math.round(chipCy + EDGE)           // bottom of orbit
+                : Math.round(chipCy - EDGE - TH);     // top of orbit
+            }
+
+            tooltip.style.left = tleft + 'px';
+            tooltip.style.top  = ttop  + 'px';
             tooltip.classList.add('visible');
           });
           chip.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
