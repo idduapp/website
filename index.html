@@ -599,6 +599,73 @@
       .cta-duo { grid-template-columns: 1fr; }
     }
 
+    /* === Hero Rotator === */
+    .hero-slides {
+      display: grid;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-slide {
+      grid-area: 1 / 1;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .hero-slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .hero-feature-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--brand-blue);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-sub {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.65;
+      margin-top: 0.6rem;
+      max-width: 520px;
+    }
+
+    .hero-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 1.5rem;
+    }
+
+    .hero-dot {
+      height: 7px;
+      width: 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.18);
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.35s, width 0.35s;
+    }
+
+    .hero-dot.active {
+      background: var(--brand-blue);
+      width: 22px;
+    }
+
     /* === TestFlight Badge & Waitlist Count === */
     .hero-social-proof {
       display: flex;
@@ -1908,8 +1975,41 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <h1 class="reveal">Iddu calls the office <span class="gradient-text">so you don't have to.</span></h1>
-        <p class="reveal reveal-delay-1">Your personal AI that autonomously books, reschedules, and manages wellness appointments by making real phone calls. No hold music. No callbacks. You get a quiet notification when it's done.</p>
+        <div class="reveal">
+          <div class="hero-slides">
+
+            <div class="hero-slide active">
+              <p class="hero-feature-tag">📞 AI Calling</p>
+              <h1>Iddu calls the office <span class="gradient-text">so you don't have to.</span></h1>
+              <p class="hero-sub">Our AI navigates phone trees, speaks to real receptionists, and confirms your appointment — all while you live your life.</p>
+            </div>
+
+            <div class="hero-slide">
+              <p class="hero-feature-tag">👨‍👩‍👧‍👦 Family Mode</p>
+              <h1>One place for your <span class="gradient-text">whole family's wellness.</span></h1>
+              <p class="hero-sub">Manage schedules, records, and appointments for everyone — spouse, kids, aging parents, and pets — in a single unified view.</p>
+            </div>
+
+            <div class="hero-slide">
+              <p class="hero-feature-tag">🧾 Bill Intelligence</p>
+              <h1>Iddu decodes every bill <span class="gradient-text">in plain English.</span></h1>
+              <p class="hero-sub">Scan an EOB or office invoice and Iddu breaks down every charge, code, and cost — so you know exactly what you owe and why.</p>
+            </div>
+
+            <div class="hero-slide">
+              <p class="hero-feature-tag">✨ Daily Digest</p>
+              <h1>Your wellness, <span class="gradient-text">briefed every morning.</span></h1>
+              <p class="hero-sub">Iddu digests your upcoming appointments, bills, and reminders into a 1-minute daily brief so nothing slips through the cracks.</p>
+            </div>
+
+          </div>
+          <div class="hero-dots">
+            <button class="hero-dot active" onclick="goToHeroSlide(0)"></button>
+            <button class="hero-dot" onclick="goToHeroSlide(1)"></button>
+            <button class="hero-dot" onclick="goToHeroSlide(2)"></button>
+            <button class="hero-dot" onclick="goToHeroSlide(3)"></button>
+          </div>
+        </div>
 
         <a href="#beta-access" class="btn-beta reveal reveal-delay-1">
           Request Private Beta Access
@@ -2888,6 +2988,35 @@
     }
 
     document.addEventListener('DOMContentLoaded', initRadialPicker);
+
+    function initHeroRotator() {
+      const slides = Array.from(document.querySelectorAll('.hero-slide'));
+      const dots   = Array.from(document.querySelectorAll('.hero-dot'));
+      if (!slides.length) return;
+      let current = 0, timer;
+
+      function activate(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = ((n % slides.length) + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+      }
+
+      window.goToHeroSlide = activate;
+
+      function start() { timer = setInterval(() => activate(current + 1), 4500); }
+      function stop()  { clearInterval(timer); }
+
+      const wrap = document.querySelector('.hero-slides');
+      if (wrap) {
+        wrap.addEventListener('mouseenter', stop);
+        wrap.addEventListener('mouseleave', start);
+      }
+      start();
+    }
+
+    document.addEventListener('DOMContentLoaded', initHeroRotator);
 
     function toggleFaq(btn) {
       const answer = btn.nextElementSibling;
