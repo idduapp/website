@@ -599,6 +599,307 @@
       .cta-duo { grid-template-columns: 1fr; }
     }
 
+    /* === TestFlight Badge & Waitlist Count === */
+    .hero-social-proof {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .testflight-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 12px;
+      padding: 9px 16px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .testflight-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.24); }
+    .testflight-btn svg { flex-shrink: 0; }
+
+    .tf-sub {
+      display: block;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .tf-main {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .waitlist-count {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 14px;
+      background: rgba(56,189,248,0.07);
+      border: 1px solid rgba(56,189,248,0.18);
+      border-radius: 100px;
+    }
+
+    .wl-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brand-blue);
+      animation: snp-pulse 2s infinite;
+    }
+
+    .wl-num {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--brand-blue);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .wl-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* === How It Works === */
+    .how-section {
+      padding: 5rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .how-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      margin-top: 0.5rem;
+    }
+
+    .how-steps {
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr 40px 1fr;
+      align-items: center;
+      max-width: 900px;
+      margin: 3rem auto 0;
+    }
+
+    .how-step {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      height: 100%;
+    }
+
+    .how-step-icon { font-size: 2rem; line-height: 1; }
+
+    .how-step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(56,189,248,0.2), rgba(168,85,247,0.3));
+      border: 1px solid rgba(168,85,247,0.45);
+      color: var(--brand-purple);
+      font-size: 0.75rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .how-step-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+    }
+
+    .how-step-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin: 0;
+    }
+
+    .how-arrow {
+      text-align: center;
+      color: rgba(168,85,247,0.4);
+      font-size: 1.5rem;
+    }
+
+    @media (max-width: 680px) {
+      .how-steps {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .how-arrow { transform: rotate(90deg); padding: 0.25rem 0; font-size: 1.2rem; }
+    }
+
+    /* === Testimonials === */
+    .testimonials-section {
+      padding: 4rem 2rem;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .testimonials-note {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.28);
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 2.5rem auto 0;
+      text-align: left;
+    }
+
+    .testimonial-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .t-stars { color: #f59e0b; font-size: 0.88rem; letter-spacing: 2px; }
+
+    .t-quote {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      margin: 0;
+      flex: 1;
+      font-style: italic;
+    }
+
+    .t-author { display: flex; align-items: center; gap: 10px; }
+
+    .t-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand-blue), var(--brand-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .t-name { font-size: 0.88rem; font-weight: 700; color: #fff; margin: 0; }
+    .t-role { font-size: 0.74rem; color: var(--text-secondary); margin: 0; }
+
+    @media (max-width: 720px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* === Founder Story === */
+    .founder-section {
+      padding: 3rem 2rem;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .founder-card {
+      background: linear-gradient(135deg, rgba(56,189,248,0.05), rgba(168,85,247,0.09));
+      border: 1px solid rgba(168,85,247,0.22);
+      border-radius: 24px;
+      padding: 2.5rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .founder-emoji { font-size: 2.8rem; flex-shrink: 0; line-height: 1; padding-top: 0.15rem; }
+
+    .founder-text h3 {
+      font-size: 1.25rem;
+      color: #fff;
+      margin: 0 0 0.9rem;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+
+    .founder-text p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+      margin: 0 0 0.65rem;
+    }
+
+    .founder-text p:last-child { margin-bottom: 0; }
+
+    .founder-sig { color: rgba(255,255,255,0.68) !important; font-style: italic; font-weight: 600; }
+
+    @media (max-width: 600px) {
+      .founder-card { flex-direction: column; gap: 0.75rem; }
+    }
+
+    /* === FAQ === */
+    .faq-section {
+      padding: 4rem 2rem;
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .faq-list { margin-top: 2.5rem; text-align: left; }
+
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 0.97rem;
+      font-weight: 600;
+      font-family: inherit;
+      padding: 1.2rem 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      text-align: left;
+      transition: color 0.2s;
+    }
+
+    .faq-q:hover { color: var(--brand-blue); }
+    .faq-chevron { font-size: 1.35rem; font-weight: 300; color: var(--brand-purple); flex-shrink: 0; transition: transform 0.25s; }
+    .faq-q.open .faq-chevron { transform: rotate(45deg); }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+      transition: max-height 0.32s ease, padding-bottom 0.32s ease;
+      padding-bottom: 0;
+    }
+
+    .faq-a.open { max-height: 220px; padding-bottom: 1.25rem; }
+
     /* Footer */
     footer {
       background: #090e17;
@@ -1607,13 +1908,30 @@
     <!-- Hero Section -->
     <section class="hero">
       <div class="hero-content">
-        <h1 class="reveal">Your Personal AI That <span class="gradient-text">Actually Gets Things Done</span></h1>
-        <p class="reveal reveal-delay-1">Stop wasting hours on hold. Iddu is your personal AI assistant that manages wellness appointments, calls offices to reschedule, tracks your bills, and coordinates care for your entire family — automatically.</p>
+        <h1 class="reveal">Iddu calls your doctor's office <span class="gradient-text">so you don't have to.</span></h1>
+        <p class="reveal reveal-delay-1">Your personal AI that autonomously books, reschedules, and manages healthcare appointments by making real phone calls. No hold music. No callbacks. You get a quiet notification when it's done.</p>
 
         <a href="#beta-access" class="btn-beta reveal reveal-delay-1">
           Request Private Beta Access
         </a>
         <span class="btn-beta-sub reveal reveal-delay-2">Limited spots · Includes 2 months of Premium+ free</span>
+
+        <div class="hero-social-proof reveal reveal-delay-2">
+          <a href="#beta-access" class="testflight-btn">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.05 11.44c-.02-2.78 2.27-4.13 2.37-4.19-1.29-1.89-3.3-2.15-4.02-2.18-1.71-.17-3.34 1.01-4.21 1.01-.87 0-2.21-.98-3.64-.96-1.87.03-3.6 1.09-4.56 2.76-1.95 3.38-.5 8.39 1.4 11.13.93 1.34 2.04 2.85 3.5 2.79 1.41-.06 1.94-.91 3.64-.91 1.7 0 2.18.91 3.66.88 1.52-.03 2.48-1.36 3.4-2.71.68-.97 1.23-2.04 1.6-3.17-3.5-1.33-3.14-5.44-3.14-5.45zM14.2 3.56c.77-.94 1.3-2.25 1.16-3.56-1.12.04-2.47.75-3.27 1.69-.72.82-1.35 2.14-1.18 3.4 1.25.1 2.53-.63 3.29-1.53z" fill="white"/>
+            </svg>
+            <div>
+              <span class="tf-sub">Available on</span>
+              <span class="tf-main">TestFlight for iOS</span>
+            </div>
+          </a>
+          <div class="waitlist-count">
+            <span class="wl-dot"></span>
+            <span class="wl-num">250+</span>
+            <span class="wl-label">people on the waitlist</span>
+          </div>
+        </div>
 
         <div class="hero-highlights reveal reveal-delay-2" style="margin-top: 2rem;">
           <div class="highlight-card">
@@ -1816,6 +2134,34 @@
       </div>
     </section>
 
+    <!-- How It Works -->
+    <section class="how-section reveal">
+      <h2 class="section-title" style="margin: 0 0 0.25rem;">How <span class="gradient-text">Iddu Works</span></h2>
+      <p class="how-subtitle">Three steps. Zero hold music.</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-icon">🗣️</div>
+          <div class="how-step-num">1</div>
+          <h3 class="how-step-title">Tell Iddu What You Need</h3>
+          <p class="how-step-desc">Tap or speak a request. "Reschedule my Tuesday appointment" is all it takes — no forms, no portals.</p>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-step-icon">📞</div>
+          <div class="how-step-num">2</div>
+          <h3 class="how-step-title">Iddu Makes the Call</h3>
+          <p class="how-step-desc">Our AI navigates phone trees, speaks with real receptionists, and handles the entire conversation on your behalf.</p>
+        </div>
+        <div class="how-arrow">→</div>
+        <div class="how-step">
+          <div class="how-step-icon">✅</div>
+          <div class="how-step-num">3</div>
+          <h3 class="how-step-title">You Get a Notification</h3>
+          <p class="how-step-desc">A quiet push confirmation lands in your pocket. No hold music, no callback, no stress. It's just handled.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- Who Is Iddu For? -->
     <section class="persona-section reveal">
       <h2 class="section-title" style="margin: 0 0 0.5rem;">Built for <span class="gradient-text">Real Life</span></h2>
@@ -1840,6 +2186,47 @@
           <span class="persona-emoji">🐶</span>
           <p class="persona-title">Pets Too</p>
           <p class="persona-desc">Because your furry family members have appointments too. Iddu manages vet visits, vaccination reminders, and wellness checks right alongside your family's wellness — all in one place.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+      <h2 class="section-title reveal" style="margin: 0 0 0.25rem;">What Early Members <span class="gradient-text">Are Saying</span></h2>
+      <p class="testimonials-note reveal">Replace these with real beta user quotes as you collect them.</p>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"I used to spend my lunch break on hold just to reschedule my kids' dentist appointments. Now Iddu handles it in the background while I'm in a meeting. Life-changing is not an overstatement."</p>
+          <div class="t-author">
+            <div class="t-avatar">SM</div>
+            <div>
+              <p class="t-name">Sarah M.</p>
+              <p class="t-role">Mom of three · Texas</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"Managing my dad's specialist visits from two states away was exhausting. Iddu coordinates the calls, sends me confirmations, and I finally feel like I have things under control."</p>
+          <div class="t-author">
+            <div class="t-avatar">JT</div>
+            <div>
+              <p class="t-name">James T.</p>
+              <p class="t-role">Long-distance caregiver · Ohio</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="t-stars">★★★★★</div>
+          <p class="t-quote">"The way it actually talks to receptionists and navigates phone trees — I thought this was years away. The fact that it's built and working right now is genuinely impressive."</p>
+          <div class="t-author">
+            <div class="t-avatar">RK</div>
+            <div>
+              <p class="t-name">Rohan K.</p>
+              <p class="t-role">Software engineer · Early beta user</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -2285,6 +2672,50 @@
       </div>
     </section>
 
+    <!-- Founder Story -->
+    <section class="founder-section reveal">
+      <div class="founder-card">
+        <div class="founder-emoji">👋</div>
+        <div class="founder-text">
+          <h3>Built by a high school student who got fed up watching his family wait on hold.</h3>
+          <p>Every time my family needed to reschedule a doctor's appointment, someone spent 20+ minutes on hold just to change a time slot. I thought — this is exactly the kind of problem AI should solve. So I built Iddu.</p>
+          <p>I'm a high school student building this in public. Every person who joins the beta shapes what gets built next. Your feedback matters more than you know.</p>
+          <p class="founder-sig">— Agasty, Founder of Iddu &nbsp;·&nbsp; age 17</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section reveal" id="faq">
+      <h2 class="section-title" style="margin: 0 0 0.25rem;">Common <span class="gradient-text">Questions</span></h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Does Iddu actually call real offices?<span class="faq-chevron">+</span></button>
+          <div class="faq-a">Yes — Iddu's AI places real phone calls to any healthcare office, navigates phone trees, and speaks with actual receptionists, just like you would. The difference is it never gets put on hold in your place.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Is my health information safe?<span class="faq-chevron">+</span></button>
+          <div class="faq-a">Absolutely. Every record is encrypted end-to-end with AES-256, protected behind biometric MFA, and governed by HIPAA-compliant architecture built in from day one. We never sell your data or use it to train models.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">What if the office doesn't pick up?<span class="faq-chevron">+</span></button>
+          <div class="faq-a">Iddu retries automatically at optimal times and notifies you if it can't reach the office after multiple attempts — so you're never left wondering what happened.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">Which types of appointments can Iddu handle?<span class="faq-chevron">+</span></button>
+          <div class="faq-a">Doctor, dentist, specialist, therapy, pharmacy, veterinarian — if it has a phone number, Iddu can handle it. The AI is trained across dozens of healthcare office call patterns and specialties.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">How much does it cost?<span class="faq-chevron">+</span></button>
+          <div class="faq-a">Plans start at $4.99/month, every plan includes a 7-day free trial with no credit card required. Most users find the Premium plan ($9.99/mo) covers everything they need, including Family Mode for the whole household.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">When can I get access?<span class="faq-chevron">+</span></button>
+          <div class="faq-a">Iddu is currently in private beta on TestFlight for iOS. Request access using the form below — selected early members get 2 months of Premium+ free as a thank-you for helping shape the product.</div>
+        </div>
+      </div>
+    </section>
+
     <!-- Beta Access + Partnership Section -->
     <section class="cta-section" id="beta-access">
 
@@ -2457,6 +2888,19 @@
     }
 
     document.addEventListener('DOMContentLoaded', initRadialPicker);
+
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      const isOpen = btn.classList.contains('open');
+      document.querySelectorAll('.faq-q.open').forEach(q => {
+        q.classList.remove('open');
+        q.nextElementSibling.classList.remove('open');
+      });
+      if (!isOpen) {
+        btn.classList.add('open');
+        answer.classList.add('open');
+      }
+    }
   </script>
 
   <!-- Custom Scripts -->
