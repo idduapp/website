@@ -970,7 +970,7 @@
       background: rgba(168, 85, 247, 0.1);
       border-color: rgba(168, 85, 247, 0.45);
       box-shadow: 0 0 16px rgba(168, 85, 247, 0.22);
-      transform: scale(1.14);
+      transform: scale(1.42);
       z-index: 6;
     }
 
@@ -1000,6 +1000,55 @@
     .ring-chip.active .chip-label {
       color: rgba(255, 255, 255, 0.92);
     }
+
+    /* Hover tooltip (iPhone key-style popup) */
+    .ring-tooltip {
+      position: absolute;
+      width: 148px;
+      background: rgba(8, 8, 20, 0.94);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 11px;
+      padding: 7px 10px;
+      pointer-events: none;
+      z-index: 20;
+      opacity: 0;
+      transform: scale(0.88);
+      transition: opacity 0.13s ease, transform 0.13s ease;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.5);
+    }
+
+    .ring-tooltip.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .rt-title {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+      white-space: nowrap;
+    }
+
+    .rt-desc {
+      display: block;
+      font-size: 0.57rem;
+      color: rgba(255, 255, 255, 0.58);
+      line-height: 1.35;
+    }
+
+    /* Bottom hint */
+    .ring-hint {
+      margin-top: 4px;
+      font-size: 0.6rem;
+      color: rgba(255, 255, 255, 0.28);
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .ring-hint-accent { color: var(--brand-purple); opacity: 0.65; }
 
     @media (max-width: 640px) {
       .radial-picker { transform: scale(0.82); transform-origin: top center; margin-bottom: -65px; }
@@ -1549,7 +1598,16 @@
             <span class="chip-icon">📊</span><span class="chip-label">Stats</span>
           </div>
 
+          <!-- Hover tooltip -->
+          <div class="ring-tooltip" id="ring-tooltip">
+            <span class="rt-title"></span>
+            <span class="rt-desc"></span>
+          </div>
+
         </div>
+
+        <!-- Bottom hint -->
+        <p class="ring-hint"><span class="ring-hint-accent">✦</span> Tap a tile to watch that feature in action above</p>
 
       </div>
     </section>
@@ -2133,9 +2191,9 @@
       const picker = document.getElementById('radial-picker');
       if (!picker) return;
       const chips = Array.from(picker.querySelectorAll('.ring-chip'));
-      const cx = 180, cy = 180;        // center of 360×360 container
-      const innerChips = chips.slice(0, 7);  // first 7 → inner ring (r=82)
-      const outerChips = chips.slice(7);     // last 8  → outer ring (r=148)
+      const cx = 180, cy = 180;
+      const innerChips = chips.slice(0, 7);
+      const outerChips = chips.slice(7);
 
       function placeChips(arr, radius) {
         arr.forEach((chip, i) => {
@@ -2148,6 +2206,47 @@
 
       placeChips(innerChips, 82);
       placeChips(outerChips, 148);
+
+      // Placeholder descriptions — replace with real copy later
+      const descs = [
+        'Iddu calls the office to reschedule for you',
+        'Cancel your visit without waiting on hold',
+        'Running late? Iddu notifies the office ahead',
+        'Book new appointments completely hands-free',
+        'AI calls your pharmacy to refill prescriptions',
+        'Get plain-English summaries of lab results',
+        'Manage care for your whole family in one place',
+        'Schedule and manage pet appointments too',
+        'Verify your insurance coverage before a visit',
+        'Snap a bill — Iddu decodes every charge',
+        'Understand exactly what you owe and why',
+        'Get specialist referrals handled automatically',
+        'Daily AI briefing on your upcoming health tasks',
+        'Find emergency appointment slots instantly',
+        'Track your wellness spending and trends over time'
+      ];
+      chips.forEach((chip, i) => { chip._desc = descs[i]; });
+
+      // Tooltip — appears radially outward from the hovered chip
+      const tooltip = document.getElementById('ring-tooltip');
+      if (tooltip) {
+        chips.forEach(chip => {
+          chip.addEventListener('mouseenter', () => {
+            const chipCx = parseFloat(chip.style.left) + 27;
+            const chipCy = parseFloat(chip.style.top)  + 27;
+            const dx = chipCx - cx, dy = chipCy - cy;
+            const d  = Math.sqrt(dx * dx + dy * dy) || 1;
+            const nx = dx / d, ny = dy / d;
+            const offset = 27 + 20; // half-chip + gap
+            tooltip.querySelector('.rt-title').textContent = chip.querySelector('.chip-label').textContent;
+            tooltip.querySelector('.rt-desc').textContent  = chip._desc;
+            tooltip.style.left = Math.round(chipCx + nx * offset - 74) + 'px'; // 74 = half tooltip width
+            tooltip.style.top  = Math.round(chipCy + ny * offset - 24) + 'px'; // 24 ≈ half tooltip height
+            tooltip.classList.add('visible');
+          });
+          chip.addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
+        });
+      }
     }
 
     document.addEventListener('DOMContentLoaded', initRadialPicker);
