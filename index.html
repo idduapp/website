@@ -1137,30 +1137,40 @@
       margin: 3rem auto 0;
     }
 
+    @keyframes pain-pulse {
+      0%, 100% { border-left-color: rgba(248,113,113,0.7); box-shadow: -3px 0 10px rgba(239,68,68,0.1), 0 2px 12px rgba(239,68,68,0.05); }
+      50%       { border-left-color: #ef4444;               box-shadow: -4px 0 22px rgba(239,68,68,0.32), 0 2px 16px rgba(239,68,68,0.1); }
+    }
+
     .pain-card {
       display: flex;
       align-items: flex-start;
       gap: 1.25rem;
       background: rgba(239,68,68,0.04);
-      border: 1px solid rgba(239,68,68,0.12);
+      border: 1px solid rgba(239,68,68,0.13);
       border-left: 3px solid #f87171;
       border-radius: 16px;
       padding: 1.4rem 1.75rem;
       transition: transform 0.3s ease, background 0.3s;
+      animation: pain-pulse 3.5s ease-in-out infinite;
     }
+
+    .pain-card:nth-child(1) { animation-delay: 0s; }
+    .pain-card:nth-child(2) { animation-delay: 0.7s; }
+    .pain-card:nth-child(3) { animation-delay: 1.4s; }
+    .pain-card:nth-child(4) { animation-delay: 2.1s; }
+    .pain-card:nth-child(5) { animation-delay: 2.8s; }
 
     .pain-card:hover {
       transform: translateX(6px);
       background: rgba(239,68,68,0.09);
     }
 
-    .pain-x-mark {
-      font-size: 1.5rem;
-      font-weight: 900;
-      color: #f87171;
+    .pain-emoji {
+      font-size: 2rem;
       flex-shrink: 0;
-      line-height: 1.3;
-      font-family: 'Outfit', sans-serif;
+      line-height: 1.2;
+      filter: drop-shadow(0 0 6px rgba(239,68,68,0.3));
     }
 
     .pain-card-body {
@@ -1180,7 +1190,21 @@
       font-size: 0.875rem;
       color: rgba(255,255,255,0.45);
       line-height: 1.55;
-      margin: 0;
+      margin: 0 0 0.55rem;
+    }
+
+    .pain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fca5a5;
+      background: rgba(239,68,68,0.13);
+      border: 1px solid rgba(239,68,68,0.28);
+      border-radius: 100px;
+      padding: 3px 10px;
+      letter-spacing: 0.02em;
     }
 
     /* Resolution callout */
@@ -2305,42 +2329,47 @@
       <div class="pain-grid">
 
         <div class="pain-card reveal">
-          <span class="pain-x-mark">✗</span>
+          <span class="pain-emoji">😤</span>
           <div class="pain-card-body">
             <p class="pain-card-title">Stuck on hold for 25 minutes just to reschedule a single appointment</p>
             <p class="pain-card-desc">An appointment that should take 10 seconds online somehow requires half your lunch break on hold.</p>
+            <span class="pain-badge">⏱ 25 min wasted</span>
           </div>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-x-mark">✗</span>
+          <span class="pain-emoji">🤯</span>
           <div class="pain-card-body">
             <p class="pain-card-title">Another EOB buried in your inbox with no idea what you actually owe</p>
             <p class="pain-card-desc">Insurance-speak and procedure codes that mean nothing — just a number you're apparently supposed to pay.</p>
+            <span class="pain-badge">📄 Zero clarity</span>
           </div>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-x-mark">✗</span>
+          <span class="pain-emoji">😬</span>
           <div class="pain-card-body">
             <p class="pain-card-title">Forgetting to call the office when you're running late</p>
             <p class="pain-card-desc">You're stuck in traffic, can't call while driving, arrive 8 minutes late, and lose your slot anyway.</p>
+            <span class="pain-badge">❌ Lost your slot</span>
           </div>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-x-mark">✗</span>
+          <span class="pain-emoji">😕</span>
           <div class="pain-card-body">
             <p class="pain-card-title">No idea if your deductible's been met or what insurance covered</p>
             <p class="pain-card-desc">Every year the same guessing game — how much have I actually spent? What's left on the deductible?</p>
+            <span class="pain-badge">💸 Guessing every year</span>
           </div>
         </div>
 
         <div class="pain-card reveal">
-          <span class="pain-x-mark">✗</span>
+          <span class="pain-emoji">😩</span>
           <div class="pain-card-body">
             <p class="pain-card-title">Managing your spouse, kids, and parents across 4 different portals</p>
             <p class="pain-card-desc">Four logins, four apps, zero unified view. Wellness admin wasn't designed for families.</p>
+            <span class="pain-badge">📱 4 logins, 0 answers</span>
           </div>
         </div>
 
