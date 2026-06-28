@@ -676,6 +676,62 @@
       box-shadow: 0 0 16px rgba(232,121,249,0.2), inset 0 0 10px rgba(232,121,249,0.06);
     }
 
+    /* 👋 Meet Iddu — warm rose */
+    .tag-rose {
+      color: #fda4af;
+      background: linear-gradient(135deg, rgba(251,113,133,0.18), rgba(244,63,94,0.08));
+      border: 1px solid rgba(251,113,133,0.48);
+      box-shadow: 0 0 16px rgba(251,113,133,0.2), inset 0 0 10px rgba(251,113,133,0.06);
+    }
+
+    /* === Pronunciation Slide === */
+    .pronunciation-block {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin-bottom: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .pronun-word {
+      font-size: clamp(2.6rem, 6vw, 3.8rem);
+      font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+    }
+
+    .pronun-arrow {
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.28);
+      line-height: 1;
+    }
+
+    .pronun-sounds {
+      font-size: clamp(2.6rem, 6vw, 3.8rem);
+      font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      color: #fff;
+      line-height: 1.1;
+    }
+
+    .pronun-tagline {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      margin: 0 0 0.5rem;
+      font-style: italic;
+      letter-spacing: 0.01em;
+    }
+
+    .pronun-tagline strong {
+      color: rgba(255,255,255,0.9);
+      font-style: normal;
+      font-weight: 700;
+    }
+
     .hero-sub {
       color: var(--text-secondary);
       font-size: 1.05rem;
@@ -2020,6 +2076,17 @@
           <div class="hero-slides">
 
             <div class="hero-slide active">
+              <p class="hero-feature-tag tag-rose">👋 Meet Iddu</p>
+              <div class="pronunciation-block">
+                <span class="pronun-word">Iddu</span>
+                <span class="pronun-arrow">→</span>
+                <span class="pronun-sounds">"I do"</span>
+              </div>
+              <p class="pronun-tagline">Short for <strong>"I do it for you."</strong></p>
+              <p class="hero-sub">That's not just how you say it — that's what it means. Iddu is your personal AI that makes the calls, tracks the appointments, and handles your wellness so you never have to lift a finger.</p>
+            </div>
+
+            <div class="hero-slide">
               <p class="hero-feature-tag tag-blue">📞 AI Calling</p>
               <h1>Iddu calls your wellness provider, <span class="gradient-text">so you don't have to.</span></h1>
               <p class="hero-sub">Our AI navigates phone trees, speaks to real receptionists, and confirms your appointment — all while you live your life.</p>
@@ -2056,6 +2123,7 @@
             <button class="hero-dot" onclick="goToHeroSlide(2)"></button>
             <button class="hero-dot" onclick="goToHeroSlide(3)"></button>
             <button class="hero-dot" onclick="goToHeroSlide(4)"></button>
+            <button class="hero-dot" onclick="goToHeroSlide(5)"></button>
           </div>
         </div>
 
