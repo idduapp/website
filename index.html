@@ -684,52 +684,39 @@
       box-shadow: 0 0 16px rgba(251,113,133,0.2), inset 0 0 10px rgba(251,113,133,0.06);
     }
 
-    /* === Pronunciation Slide === */
-    .pronunciation-block {
-      display: flex;
-      align-items: center;
-      gap: 0.9rem;
-      margin-bottom: 0.65rem;
-      flex-wrap: wrap;
+    /* === Pronunciation Slide — dictionary entry style === */
+    .dict-entry {
+      margin-bottom: 0.9rem;
     }
 
-    .pronun-word {
-      font-size: clamp(2.6rem, 6vw, 3.8rem);
+    .dict-word {
+      display: block;
+      font-size: clamp(3rem, 7vw, 4.4rem);
       font-weight: 900;
       font-family: 'Outfit', sans-serif;
       background: linear-gradient(135deg, #38bdf8, #a855f7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      line-height: 1.1;
-    }
-
-    .pronun-arrow {
-      font-size: 1.6rem;
-      color: rgba(255,255,255,0.28);
       line-height: 1;
+      margin-bottom: 0.4rem;
+      letter-spacing: -0.02em;
     }
 
-    .pronun-sounds {
-      font-size: clamp(2.6rem, 6vw, 3.8rem);
-      font-weight: 900;
-      font-family: 'Outfit', sans-serif;
-      color: #fff;
-      line-height: 1.1;
-    }
-
-    .pronun-tagline {
+    .dict-phonetic {
       font-size: 1.05rem;
-      color: rgba(255,255,255,0.6);
-      margin: 0 0 0.5rem;
+      color: rgba(255, 255, 255, 0.38);
       font-style: italic;
-      letter-spacing: 0.01em;
+      margin: 0 0 0.3rem;
+      letter-spacing: 0.06em;
     }
 
-    .pronun-tagline strong {
-      color: rgba(255,255,255,0.9);
-      font-style: normal;
-      font-weight: 700;
+    .dict-meaning {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.68);
+      font-style: italic;
+      margin: 0;
+      letter-spacing: 0.01em;
     }
 
     .hero-sub {
@@ -2141,12 +2128,11 @@
 
             <div class="hero-slide active">
               <p class="hero-feature-tag tag-rose">👋 Meet Iddu</p>
-              <div class="pronunciation-block">
-                <span class="pronun-word">Iddu</span>
-                <span class="pronun-arrow">→</span>
-                <span class="pronun-sounds">"I do"</span>
+              <div class="dict-entry">
+                <span class="dict-word">iddu</span>
+                <p class="dict-phonetic">/aɪ duː/</p>
+                <p class="dict-meaning">"I do it for you."</p>
               </div>
-              <p class="pronun-tagline">Short for <strong>"I do it for you."</strong></p>
               <p class="hero-sub">That's not just how you say it — that's what it means. Iddu is your personal AI that makes the calls, tracks the appointments, and handles your wellness so you never have to lift a finger.</p>
             </div>
 
