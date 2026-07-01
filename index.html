@@ -1708,6 +1708,25 @@
 
     .ring-hint-accent { color: var(--brand-purple); opacity: 0.65; }
 
+    .galaxy-label {
+      text-align: center;
+      margin-bottom: -6px;
+    }
+    .galaxy-label-title {
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 4px;
+      letter-spacing: -0.01em;
+    }
+    .galaxy-label-sub {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.45);
+      margin: 0;
+      letter-spacing: 0.02em;
+    }
+
     @media (max-width: 640px) {
       .scenario-demo { overflow: hidden; width: 100%; }
       .radial-picker { transform: scale(0.72); transform-origin: top center; margin-bottom: -140px; }
@@ -2267,6 +2286,12 @@
           </div>
         </div>
 
+        <!-- Galaxy label -->
+        <div class="galaxy-label">
+          <p class="galaxy-label-title">Explore the Feature Galaxy</p>
+          <p class="galaxy-label-sub">Tap any tile to watch that scenario play live above</p>
+        </div>
+
         <!-- Radial Orbit Picker -->
         <div class="radial-picker" id="radial-picker">
 
@@ -2369,8 +2394,6 @@
 
         </div>
 
-        <!-- Bottom hint -->
-        <p class="ring-hint"><span class="ring-hint-accent">✦</span> Tap a tile to watch that feature in action above</p>
 
       </div>
     </section>
