@@ -1439,9 +1439,52 @@
       .persona-grid { grid-template-columns: 1fr; }
       .persona-card { padding: 1.5rem; }
 
-      /* Pipeline */
-      .pipeline-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-      .pipeline-step { padding: 1.25rem; }
+      /* Pipeline: single column with horizontal card layout */
+      .pipeline-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        max-width: 440px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .pipeline-grid::after { display: none; }
+      .pipeline-step {
+        display: grid;
+        grid-template-columns: 26px 2.5rem 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 0.75rem;
+        row-gap: 0.1rem;
+        align-items: center;
+        text-align: left;
+        padding: 0.9rem 1.25rem;
+      }
+      .pipeline-step .step-num {
+        position: relative;
+        top: auto; left: auto; transform: none;
+        grid-column: 1; grid-row: 1 / 3;
+        align-self: center;
+        width: 26px; height: 26px;
+        font-size: 0.7rem;
+      }
+      .pipeline-step .fb-icon {
+        grid-column: 2; grid-row: 1 / 3;
+        font-size: 1.85rem !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+      }
+      .pipeline-step .fb-title {
+        grid-column: 3; grid-row: 1;
+        font-size: 0.95rem;
+        margin-bottom: 0.15rem;
+      }
+      .pipeline-step .fb-desc {
+        grid-column: 3; grid-row: 2;
+        font-size: 0.78rem;
+        line-height: 1.4;
+        margin: 0;
+      }
 
       /* Features grid */
       .features-grid { grid-template-columns: 1fr; }
@@ -1695,6 +1738,7 @@
     .ring-hint-accent { color: var(--brand-purple); opacity: 0.65; }
 
     @media (max-width: 640px) {
+      .scenario-demo { overflow: hidden; width: 100%; }
       .radial-picker { transform: scale(0.72); transform-origin: top center; margin-bottom: -140px; }
       .snp-badge { max-width: 295px; }
     }
