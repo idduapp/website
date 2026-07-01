@@ -1542,8 +1542,8 @@
     /* ── Radial Orbit Picker ─────────────────── */
     .radial-picker {
       position: relative;
-      width: 360px;
-      height: 360px;
+      width: 500px;
+      height: 500px;
       flex-shrink: 0;
     }
 
@@ -1553,6 +1553,12 @@
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       pointer-events: none;
+    }
+
+    .ring-track-outermost {
+      width: 420px; height: 420px;
+      border: 1px solid rgba(245, 158, 11, 0.24);
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.08), inset 0 0 10px rgba(245, 158, 11, 0.03);
     }
 
     .ring-track-outer {
@@ -1689,11 +1695,11 @@
     .ring-hint-accent { color: var(--brand-purple); opacity: 0.65; }
 
     @media (max-width: 640px) {
-      .radial-picker { transform: scale(0.82); transform-origin: top center; margin-bottom: -65px; }
+      .radial-picker { transform: scale(0.72); transform-origin: top center; margin-bottom: -140px; }
       .snp-badge { max-width: 295px; }
     }
     @media (max-width: 380px) {
-      .radial-picker { transform: scale(0.67); transform-origin: top center; margin-bottom: -119px; }
+      .radial-picker { transform: scale(0.57); transform-origin: top center; margin-bottom: -215px; }
       .snp-badge { max-width: 241px; }
     }
     /* AI Agent in Action Gallery */
@@ -2250,6 +2256,7 @@
         <div class="radial-picker" id="radial-picker">
 
           <!-- Orbital track rings (decorative) -->
+          <div class="ring-track ring-track-outermost"></div>
           <div class="ring-track ring-track-outer"></div>
           <div class="ring-track ring-track-inner"></div>
 
@@ -2305,6 +2312,38 @@
           </div>
           <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Wellness Spending Insights" onclick="playScenario(this)">
             <span class="chip-icon">📊</span><span class="chip-label">Stats</span>
+          </div>
+
+          <!-- Outermost ring: 10 chips positioned at radius 210px by JS -->
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Scheduling a Dental Visit" onclick="playScenario(this)">
+            <span class="chip-icon">🦷</span><span class="chip-label">Dental</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Booking an Eye Exam" onclick="playScenario(this)">
+            <span class="chip-icon">👁️</span><span class="chip-label">Vision</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Therapy Session Scheduling" onclick="playScenario(this)">
+            <span class="chip-icon">🧠</span><span class="chip-label">Mind</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Vaccination Tracking & Booking" onclick="playScenario(this)">
+            <span class="chip-icon">💉</span><span class="chip-label">Vacc</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Physical Therapy Coordination" onclick="playScenario(this)">
+            <span class="chip-icon">🏋️</span><span class="chip-label">Physio</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Wellness Records Management" onclick="playScenario(this)">
+            <span class="chip-icon">📋</span><span class="chip-label">Files</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Symptom Check-In Before Visit" onclick="playScenario(this)">
+            <span class="chip-icon">🌡️</span><span class="chip-label">Check</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Recovery & Wellness Sessions" onclick="playScenario(this)">
+            <span class="chip-icon">🧘</span><span class="chip-label">Calm</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="In-Home Care Coordination" onclick="playScenario(this)">
+            <span class="chip-icon">🏠</span><span class="chip-label">Home</span>
+          </div>
+          <div class="ring-chip" data-video="Iici9o2NJt8" data-title="Annual Checkup Reminders" onclick="playScenario(this)">
+            <span class="chip-icon">🔔</span><span class="chip-label">Remind</span>
           </div>
 
           <!-- Hover tooltip -->
@@ -3060,9 +3099,10 @@
       const picker = document.getElementById('radial-picker');
       if (!picker) return;
       const chips = Array.from(picker.querySelectorAll('.ring-chip'));
-      const cx = 180, cy = 180;
-      const innerChips = chips.slice(0, 7);
-      const outerChips = chips.slice(7);
+      const cx = 250, cy = 250;
+      const innerChips    = chips.slice(0, 7);
+      const midChips      = chips.slice(7, 15);
+      const outermostChips = chips.slice(15);
 
       function placeChips(arr, radius) {
         arr.forEach((chip, i) => {
@@ -3074,7 +3114,8 @@
       }
 
       placeChips(innerChips, 82);
-      placeChips(outerChips, 148);
+      placeChips(midChips, 148);
+      placeChips(outermostChips, 210);
 
       // Placeholder descriptions — replace with real copy later
       const descs = [
@@ -3092,7 +3133,17 @@
         'Get specialist referrals handled automatically',
         'Daily AI briefing on your upcoming wellness tasks',
         'Find emergency appointment slots instantly',
-        'Track your wellness spending and trends over time'
+        'Track your wellness spending and trends over time',
+        'Schedule and manage dental cleanings and checkups',
+        'Book eye exams and manage vision prescriptions',
+        'Schedule therapy and mental wellness check-ins',
+        'Track vaccinations and book boosters on schedule',
+        'Coordinate physical therapy and rehab sessions',
+        'Organize and retrieve your wellness records anytime',
+        'Log symptoms — Iddu helps prepare your visit notes',
+        'Schedule recovery, massage, and mindfulness sessions',
+        'Arrange in-home nurse or caregiver visits',
+        'Smart reminders for annual checkups and screenings'
       ];
       chips.forEach((chip, i) => { chip._desc = descs[i]; });
 
