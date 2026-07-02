@@ -202,14 +202,12 @@
       padding: 0 2rem;
     }
 
-    /* Hero Section */
+    /* Hero Section — single column, focused pitch */
     .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      min-height: 100vh;
+      display: block;
+      min-height: auto;
       padding-top: 8rem;
-      align-items: center;
+      padding-bottom: 3rem;
     }
 
     .hero-content h1 {
@@ -224,6 +222,51 @@
       color: var(--text-secondary);
       margin-bottom: 2.5rem;
       max-width: 500px;
+    }
+
+    /* ── Features + Trust 2-col section ── */
+    .features-trust-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 3.5rem 0 4rem;
+      border-top: 1px solid var(--glass-border);
+      align-items: start;
+    }
+
+    .ft-right .ticker-container {
+      flex-direction: column;
+      gap: 2rem;
+      justify-content: flex-start;
+    }
+
+    .ft-right .ticker-item {
+      text-align: left;
+    }
+
+    /* ── Demo Split 2-col section ── */
+    .demo-split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      padding: 3.5rem 0 4rem;
+      border-top: 1px solid var(--glass-border);
+      align-items: center;
+    }
+
+    .ds-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      overflow: hidden; /* prevent galaxy from causing horizontal scroll */
+    }
+
+    .ds-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
     }
 
     /* Hero Mini Features */
@@ -1351,14 +1394,14 @@
 
     /* ── Responsive: Tablet (≤968px) ──────────────────── */
     @media (max-width: 968px) {
-      .hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 6rem;
-      }
-      .hero-content p { margin: 0 auto 2.5rem; }
-      .highlight-card { text-align: left; }
+      .hero { padding-top: 6rem; }
       .hero-content h1 { font-size: 3rem; }
+
+      .features-trust-section { grid-template-columns: 1fr; gap: 2.5rem; }
+      .ft-right .ticker-container { flex-direction: row; flex-wrap: wrap; gap: 2rem; }
+      .ft-right .ticker-item { text-align: left; }
+
+      .demo-split-section { grid-template-columns: 1fr; }
 
       .pipeline-grid { grid-template-columns: repeat(2, 1fr); }
 
@@ -1715,7 +1758,8 @@
     }
 
     @media (max-width: 640px) {
-      .scenario-demo { overflow: hidden; width: 100%; }
+      .ds-left { overflow: hidden; width: 100%; }
+      .demo-split-section { padding: 2rem 0 3rem; gap: 2rem; }
       .radial-picker { transform: scale(0.72); transform-origin: top center; margin-bottom: -140px; }
       .snp-badge { max-width: 295px; }
     }
@@ -2199,7 +2243,13 @@
           </div>
         </div>
 
-        <div class="hero-highlights reveal reveal-delay-2" style="margin-top: 2rem;">
+      </div>
+    </section>
+
+    <!-- Features + Trust 2-col section -->
+    <section class="features-trust-section">
+      <div class="ft-left">
+        <div class="hero-highlights reveal">
           <div class="highlight-card">
             <span class="icon">✨</span>
             <div>
@@ -2225,9 +2275,9 @@
             </div>
           </div>
         </div>
-
-        <!-- Capability & Trust Tickers -->
-        <div class="ticker-container reveal reveal-delay-3">
+      </div>
+      <div class="ft-right">
+        <div class="ticker-container reveal">
           <div class="ticker-item">
             <div style="display: flex; align-items: baseline; gap: 2px;">
               <span class="ticker-value" data-target="256">0</span>
@@ -2250,32 +2300,15 @@
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="scenario-demo reveal">
-
-        <!-- Now Playing badge -->
-        <div class="snp-badge">
-          <span class="snp-dot"></span>
-          <span class="snp-playing-label">Now Playing</span>
-          <span class="snp-title" id="snp-title">Rescheduling an Appointment</span>
-        </div>
-
-        <!-- Phone Frame -->
-        <div class="scenario-phone-wrap">
-          <div class="phone-frame" id="scenario-phone-frame">
-            <iframe id="demo-video"
-              src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app"
-              class="demo-iframe" title="Iddu App Demo"
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
-              frameborder="0"></iframe>
-          </div>
-        </div>
-
+    <!-- Demo 2-col section: Galaxy left, Video right -->
+    <section class="demo-split-section">
+      <div class="ds-left reveal">
         <!-- Galaxy label -->
         <div class="galaxy-label">
           <p class="galaxy-label-title">Explore the Feature Galaxy</p>
-          <p class="galaxy-label-sub">Tap any tile to watch that scenario play live above</p>
+          <p class="galaxy-label-sub">Tap any tile to see it live on the right</p>
         </div>
 
         <!-- Radial Orbit Picker -->
@@ -2380,9 +2413,28 @@
 
         </div>
 
+      </div><!-- /ds-left -->
 
-      </div>
-    </section>
+      <!-- Video right column -->
+      <div class="ds-right reveal">
+        <div class="snp-badge">
+          <span class="snp-dot"></span>
+          <span class="snp-playing-label">Now Playing</span>
+          <span class="snp-title" id="snp-title">Rescheduling an Appointment</span>
+        </div>
+        <div class="scenario-phone-wrap">
+          <div class="phone-frame" id="scenario-phone-frame">
+            <iframe id="demo-video"
+              src="https://www.youtube-nocookie.com/embed/Iici9o2NJt8?autoplay=1&mute=1&loop=1&playlist=Iici9o2NJt8&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app"
+              class="demo-iframe" title="Iddu App Demo"
+              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+              sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
+              frameborder="0"></iframe>
+          </div>
+        </div>
+      </div><!-- /ds-right -->
+
+    </section><!-- /demo-split-section -->
 
     <!-- Pain Points Hook Section -->
     <section class="pain-section">
