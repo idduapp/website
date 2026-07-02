@@ -202,13 +202,34 @@
       padding: 0 2rem;
     }
 
-    /* Hero Section — single column, focused pitch */
+    /* Hero Section — text left, features right */
     .hero {
-      display: block;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
       min-height: auto;
       padding-top: 8rem;
       padding-bottom: 3rem;
+      align-items: start;
     }
+
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding-top: 3rem;
+    }
+
+    .hero-right .ticker-container {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid var(--glass-border);
+      padding-top: 2rem;
+      margin-top: 0;
+    }
+
+    .hero-right .ticker-item { text-align: left; flex: 1; }
 
     .hero-content h1 {
       font-size: 4rem;
@@ -1440,7 +1461,16 @@
       }
 
       /* Hero */
-      .hero { padding-top: 5rem; gap: 2rem; }
+      .hero { padding-top: 5rem; gap: 2rem; grid-template-columns: 1fr; }
+      .hero-right .ticker-container { flex-direction: row; flex-wrap: nowrap; justify-content: space-between; gap: 0.5rem; border-top: 1px solid var(--glass-border); padding-top: 1.5rem; }
+      .hero-right .ticker-item { flex: 1; min-width: 0; }
+      .hero-right .ticker-item > div { white-space: nowrap; }
+      .hero-right .ticker-value { font-size: 1.4rem !important; }
+      .hero-right .ticker-item > div > span:not(.ticker-value) { font-size: 0.9rem !important; }
+      /* Conversational section: text first, phone below on mobile */
+      .conv-section { display: flex !important; flex-direction: column; }
+      .conv-section .hero-content { order: 1; }
+      .conv-section .phone-wrapper { order: 2; align-self: center; }
       .hero-content h1 { font-size: 2.2rem; letter-spacing: -0.02em; }
       .hero-content p { font-size: 1rem; }
       .btn-beta { font-size: 0.95rem; padding: 0.85rem 1.5rem; }
@@ -2244,11 +2274,9 @@
         </div>
 
       </div>
-    </section>
 
-    <!-- Features + Trust 2-col section -->
-    <section class="features-trust-section">
-      <div class="ft-left">
+      <!-- Right column: feature cards + trust tickers -->
+      <div class="hero-right">
         <div class="hero-highlights reveal">
           <div class="highlight-card">
             <span class="icon">✨</span>
@@ -2275,8 +2303,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="ft-right">
         <div class="ticker-container reveal">
           <div class="ticker-item">
             <div style="display: flex; align-items: baseline; gap: 2px;">
@@ -2942,7 +2968,7 @@
     </section>
 
     <!-- AI Chat Demo Section -->
-    <section class="hero" style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid var(--glass-border);">
+    <section class="hero conv-section" style="padding-top: 4rem; margin-top: 4rem; border-top: 1px solid var(--glass-border);">
       <div class="phone-wrapper reveal-left">
         <div class="phone-frame">
           <iframe src="demo/ai-chat-demo.html?v=20260412v5" class="demo-iframe" title="Iddu AI Chat Demo"></iframe>
