@@ -351,6 +351,13 @@
       border-radius: 36px;
       background: #0a0a0f;
       display: block;
+      overflow: hidden;
+    }
+    .demo-iframe iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
     }
 
     /* Features Grid */
@@ -2518,12 +2525,7 @@
         </div>
         <div class="scenario-phone-wrap">
           <div class="phone-frame" id="scenario-phone-frame">
-            <iframe id="demo-video"
-              src="https://www.youtube-nocookie.com/embed/2QNdwJzCf-Y?autoplay=1&mute=1&loop=1&playlist=2QNdwJzCf-Y&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app"
-              class="demo-iframe" title="Iddu App Demo"
-              allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-              sandbox="allow-scripts allow-same-origin allow-popups allow-presentation"
-              frameborder="0"></iframe>
+            <div id="demo-video" class="demo-iframe"></div>
           </div>
         </div>
         <!-- Scrubber -->
@@ -3263,6 +3265,12 @@
 
     function onYouTubeIframeAPIReady() {
       ytPlayer = new YT.Player('demo-video', {
+        videoId: '2QNdwJzCf-Y',
+        host: 'https://www.youtube-nocookie.com',
+        playerVars: {
+          autoplay: 1, mute: 1, controls: 0,
+          rel: 0, playsinline: 1, modestbranding: 1
+        },
         events: {
           onReady: function(e) { e.target.mute(); e.target.playVideo(); startScrubSync(); },
           onStateChange: function(e) {
