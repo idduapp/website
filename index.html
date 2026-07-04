@@ -1609,6 +1609,70 @@
       transition: opacity 0.22s ease;
     }
 
+    /* ── Video Scrubber ─────────────────── */
+    .video-scrubber-wrap {
+      width: 100%;
+      max-width: 290px;
+      padding: 14px 18px 12px;
+      background: rgba(10, 10, 30, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .video-scrubber {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.12);
+      transition: height 0.15s;
+    }
+    .video-scrubber:hover { height: 5px; }
+
+    .video-scrubber::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.4), 0 0 14px rgba(34, 211, 238, 0.55);
+      cursor: grab;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .video-scrubber:active::-webkit-slider-thumb {
+      cursor: grabbing;
+      transform: scale(1.3);
+      box-shadow: 0 0 0 5px rgba(34, 211, 238, 0.5), 0 0 22px rgba(34, 211, 238, 0.7);
+    }
+    .video-scrubber::-moz-range-thumb {
+      width: 15px; height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      border: none;
+      box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.4), 0 0 14px rgba(34, 211, 238, 0.55);
+      cursor: grab;
+    }
+
+    .scrubber-times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.38);
+    }
+
     /* ── Radial Orbit Picker ─────────────────── */
     .radial-picker {
       position: relative;
@@ -2462,6 +2526,14 @@
               frameborder="0"></iframe>
           </div>
         </div>
+        <!-- Scrubber -->
+        <div class="video-scrubber-wrap">
+          <input type="range" class="video-scrubber" id="video-scrubber" min="0" max="100" value="0" step="0.1" />
+          <div class="scrubber-times">
+            <span id="scrubber-current">0:00</span>
+            <span id="scrubber-duration">0:00</span>
+          </div>
+        </div>
       </div><!-- /ds-right -->
 
     </section><!-- /demo-split-section -->
@@ -3184,6 +3256,73 @@
 
   <!-- Scenario Switcher + Radial Orbit Init -->
   <script>
+    /* ── YouTube IFrame API ── */
+    let ytPlayer = null;
+    let scrubInterval = null;
+    let isScrubbing = false;
+
+    function onYouTubeIframeAPIReady() {
+      ytPlayer = new YT.Player('demo-video', {
+        events: {
+          onReady: function(e) { e.target.mute(); e.target.playVideo(); startScrubSync(); },
+          onStateChange: function(e) {
+            if (e.data === YT.PlayerState.ENDED) { ytPlayer.seekTo(0); ytPlayer.playVideo(); }
+          }
+        }
+      });
+    }
+
+    function startScrubSync() {
+      clearInterval(scrubInterval);
+      scrubInterval = setInterval(() => {
+        if (!ytPlayer || typeof ytPlayer.getDuration !== 'function' || isScrubbing) return;
+        const dur = ytPlayer.getDuration() || 0;
+        const cur = ytPlayer.getCurrentTime() || 0;
+        const pct = dur > 0 ? (cur / dur) * 100 : 0;
+        const scrubber = document.getElementById('video-scrubber');
+        if (scrubber) { scrubber.value = pct; updateScrubFill(pct); }
+        const ce = document.getElementById('scrubber-current');
+        const de = document.getElementById('scrubber-duration');
+        if (ce) ce.textContent = fmtTime(cur);
+        if (de) de.textContent = fmtTime(dur);
+      }, 333);
+    }
+
+    function updateScrubFill(pct) {
+      const s = document.getElementById('video-scrubber');
+      if (!s) return;
+      const mid = pct * 0.55;
+      s.style.background = `linear-gradient(to right,#22d3ee 0%,#a855f7 ${mid}%,#f472b6 ${pct}%,rgba(255,255,255,0.12) ${pct}%)`;
+    }
+
+    function fmtTime(sec) {
+      const m = Math.floor(sec / 60), s = Math.floor(sec % 60);
+      return m + ':' + String(s).padStart(2, '0');
+    }
+
+    (function initScrubberEvents() {
+      const scrubber = document.getElementById('video-scrubber');
+      if (!scrubber) return;
+      scrubber.addEventListener('mousedown', () => { isScrubbing = true; });
+      scrubber.addEventListener('touchstart', () => { isScrubbing = true; }, { passive: true });
+      scrubber.addEventListener('input', () => {
+        const pct = parseFloat(scrubber.value);
+        updateScrubFill(pct);
+        if (ytPlayer && typeof ytPlayer.getDuration === 'function') {
+          const ce = document.getElementById('scrubber-current');
+          if (ce) ce.textContent = fmtTime((pct / 100) * (ytPlayer.getDuration() || 0));
+        }
+      });
+      const doSeek = () => {
+        isScrubbing = false;
+        if (ytPlayer && typeof ytPlayer.seekTo === 'function') {
+          ytPlayer.seekTo((parseFloat(scrubber.value) / 100) * (ytPlayer.getDuration() || 0), true);
+        }
+      };
+      scrubber.addEventListener('change', doSeek);
+      document.addEventListener('mouseup', () => { if (isScrubbing) doSeek(); });
+    })();
+
     function playScenario(el) {
       if (el.classList.contains('active')) return;
       document.querySelectorAll('.ring-chip, .ring-center').forEach(c => c.classList.remove('active'));
@@ -3191,12 +3330,17 @@
       document.getElementById('snp-title').textContent = el.dataset.title;
       const videoId = el.dataset.video;
       const frame = document.getElementById('scenario-phone-frame');
-      const iframe = document.getElementById('demo-video');
       frame.style.opacity = '0.4';
       setTimeout(() => {
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId
-          + '?autoplay=1&mute=1&loop=1&playlist=' + videoId
-          + '&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app';
+        if (ytPlayer && typeof ytPlayer.loadVideoById === 'function') {
+          ytPlayer.loadVideoById(videoId);
+          ytPlayer.mute();
+        } else {
+          const iframe = document.getElementById('demo-video');
+          iframe.src = 'https://www.youtube-nocookie.com/embed/' + videoId
+            + '?autoplay=1&mute=1&loop=1&playlist=' + videoId
+            + '&controls=0&rel=0&playsinline=1&enablejsapi=1&origin=https://iddu.app';
+        }
         frame.style.opacity = '1';
       }, 220);
     }
@@ -3338,6 +3482,8 @@
     }
   </script>
 
+  <!-- YouTube IFrame API (loads onYouTubeIframeAPIReady automatically) -->
+  <script src="https://www.youtube.com/iframe_api"></script>
   <!-- Custom Scripts -->
   <script src="assets/js/animations.js?v=20260412v5"></script>
   <script src="assets/js/ai-simulator.js?v=20260412v5"></script>
