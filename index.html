@@ -672,14 +672,11 @@
 
     /* === Hero Rotator === */
     .hero-slides {
-      position: relative;
+      display: grid;
     }
 
     .hero-slide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
+      grid-area: 1 / 1;
       opacity: 0;
       transform: translateY(10px);
       transition: opacity 0.55s ease, transform 0.55s ease;
@@ -687,7 +684,6 @@
     }
 
     .hero-slide.active {
-      position: relative;
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
