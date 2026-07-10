@@ -1063,6 +1063,26 @@
     .founder-text p:last-child { margin-bottom: 0; }
 
     .founder-sig { color: rgba(255,255,255,0.68) !important; font-style: italic; font-weight: 600; }
+    .founder-sig a {
+      color: inherit;
+      text-decoration: none;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: normal;
+      font-weight: 700;
+      transition: opacity 0.2s;
+    }
+    .founder-sig a:hover { opacity: 0.8; }
+    .founder-sig a::after {
+      content: ' ↗';
+      font-size: 0.75em;
+      -webkit-text-fill-color: transparent;
+      background: linear-gradient(90deg, #38bdf8, #a855f7);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
 
     @media (max-width: 600px) {
       .founder-card { flex-direction: column; gap: 0.75rem; }
@@ -3145,7 +3165,7 @@
           <p>My mom never complains. She just absorbs. That's what makes it hard to watch. She was on hold 15 minutes just to reschedule a dentist appointment — standing at the counter, mouthing "sorry" to me every time I passed, like she was inconveniencing me by taking care of us.</p>
           <p>When she got a $50 no-show fee a few weeks later — for an appointment that slipped while she was managing everyone else's lives — she just paid it. Didn't call back. Didn't fight it. Quietly absorbed it and moved on.</p>
           <p>That quiet is what got me. I'm a teenager. I can't fix the system. But if AI can write code and generate images, it can make a phone call. I built Iddu for every parent carrying this weight without ever asking for help.</p>
-          <p class="founder-sig">— Agasty Munnangi, Co-Founder &amp; Builder of Iddu</p>
+          <p class="founder-sig">— <a href="https://agastya191.github.io/" target="_blank" rel="noopener noreferrer">Agasty Munnangi</a>, Co-Founder &amp; Builder of Iddu</p>
         </div>
       </div>
     </section>
